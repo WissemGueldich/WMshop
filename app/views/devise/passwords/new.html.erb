@@ -1,4 +1,55 @@
-<h2>Forgot your password?</h2>
+<body class="font-mono bg-gray-400">
+  <!-- Container -->
+  <div class="container mx-auto">
+    <div class="flex justify-center px-6 my-12">
+      <!-- Row -->
+      <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+        <!-- Col -->
+        <div
+          class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+          style="background-image: url('https://source.unsplash.com/oWTW-jNGl9I/600x800')"
+        ></div>
+        <!-- Col -->
+        <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+          <div class="px-8 mb-4 text-center">
+            <h3 class="pt-4 mb-2 text-2xl">Forgot Your Password?</h3>
+            <p class="mb-4 text-sm text-gray-700">
+              We get it, stuff happens. Just enter your email address below and we'll send you a
+              link to reset your password!
+            </p>
+          </div>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+          
+            <div class="mb-4">
+              <%= f.label :email, class: "block mb-2 text-sm font-bold text-gray-700" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline", placeholder: "Name@Example.com" %>
+            </div>
+            <div class="mb-6 text-center">
+              <%= f.submit "Send me reset password instructions", class: "w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline" %>
+            </div>
+            <hr class="mb-6 border-t" />
+            <div class="text-center">
+              <%= render "devise/shared/links" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+<!--<h2>Forgot your password?</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -13,4 +64,3 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
