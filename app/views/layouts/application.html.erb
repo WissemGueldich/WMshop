@@ -14,9 +14,13 @@
 
   <body>
     <%= render partial: "shared/navbar" %>
-    <div class="container ">
-      <%= render partial: "shared/flash" %>
-      <%= yield%>
+    <div class=" place-items-center h-screen">
+      <div class="col-start-2 row-start-2 ">
+        <div class="content-center ">
+          <%= render partial: "shared/flash" %>
+          <%= yield%>
+        </div>
+      </div>
     </div>
   </body>
 </html>
