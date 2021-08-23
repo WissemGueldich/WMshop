@@ -12,3 +12,10 @@ import "stylesheets/application"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+require("jquery")
+
+
+$(document).on('turbolinks:load', function (){
+    //code here
+})

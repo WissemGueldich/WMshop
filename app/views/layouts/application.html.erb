@@ -18,7 +18,10 @@
       <div class="col-start-2 row-start-2 ">
         <div class="content-center ">
           <%= render partial: "shared/flash" %>
-          <%= yield%>
+          <%= yield%>          
+          <% if user_signed_in? %>
+          <%= render "shared/chat" %>
+          <% end %>
         </div>
       </div>
     </div>

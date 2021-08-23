@@ -1,7 +1,6 @@
 
 <% if user_signed_in? %>
     <h1 class="text-center"> Hi you're logged in</h1>
-    <%= render "shared/chat" %>
     <% else %>
     <h1>Hi you're NOT logged in</h1>
     <%= link_to "login",new_user_session_path %>
