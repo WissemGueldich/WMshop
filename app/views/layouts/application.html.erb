@@ -14,6 +14,8 @@
 
   <body>
     <%= render partial: "shared/navbar" %>
+          <%= link_to "Home", root_path %> |
+      <%= link_to pluralize(current_cart.items_count, 'item'), cart_path %>
     <div class="container ">
       <%= render partial: "shared/flash" %>
       <%= yield%>

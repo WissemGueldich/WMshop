@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_101917) do
+ActiveRecord::Schema.define(version: 2021_08_23_215116) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
@@ -19,19 +19,23 @@ ActiveRecord::Schema.define(version: 2021_08_23_101917) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "quantity", default: 0, null: false
+    t.integer "product_id", null: false
+    t.integer "quantity", null: false
     t.decimal "price", precision: 15, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.string "first_name"
-    t.string "last_name", null: false
+    t.string "last_name"
     t.decimal "sub_total", precision: 15, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "order_id", null: false
+    t.integer "order_id"
     t.string "token"
     t.index ["order_id"], name: "index_orders_on_order_id"
   end
@@ -55,11 +59,12 @@ ActiveRecord::Schema.define(version: 2021_08_23_101917) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", limit: 150, null: false
+    t.decimal "price", precision: 15, scale: 2, default: "0.0", null: false
     t.text "description"
-    t.decimal "price", precision: 15, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_products_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,6 +80,8 @@ ActiveRecord::Schema.define(version: 2021_08_23_101917) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "orders"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
