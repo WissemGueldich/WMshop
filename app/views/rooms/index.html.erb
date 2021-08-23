@@ -1,0 +1,29 @@
+<h1>Rooms</h1>
+<%if current_user %>
+  <p>Hello! <%= current_user.name %></p>
+  <%= render 'form', room: Room.new %>
+  <hr>
+  <table>
+    <tr>
+      <th>
+        <ul>
+          <% @rooms.each do |room| %>
+            <li>
+              <%= link_to room do %>
+                <%= room.name %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </th>
+      <td>
+        <% if @room.present? %>
+          <div>
+            <%= @room.name %>
+            
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+<% end %>
