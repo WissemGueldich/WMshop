@@ -1,0 +1,24 @@
+<h2> 
+    <%= link_to "categories", root_path %> /
+    <%= @category.title %> /
+    Products
+</h2>
+
+<ol>
+    <% @products.each do |product| %>
+        <li> 
+            <%= product.title %> <strong> <%= number_to_currency product.price %></strong>
+            
+            <%= form_tag order_items_path do %>
+                <%= hidden_field_tag :product_id, product.id %>
+                <%= number_field_tag :quantity, 1%>
+                <%= submit_tag 'add to cart' %>
+            <% end %>
+            <!--<ul>
+             <% ProductVariant.find_by(product_id: product.id) do |variant| %>
+                    <li><%= variant.title %> <strong><%=  variant.price %></strong></li>
+                <% end %>   
+            </ul>--> 
+        </li>
+    <% end %>
+</ol>
