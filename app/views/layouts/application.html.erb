@@ -13,12 +13,7 @@
   </head>
 
   <body>
-    <%= render partial: "shared/navbar" %>
-          <%= link_to "Home", root_path %> |
-      <%= link_to pluralize(current_cart.items_count, 'item'), cart_path %>
-    <div class="container ">
-      <%= render partial: "shared/flash" %>
-      <%= yield%>
+    <%= render partial: "shared/navbar" %>          
     <div class=" place-items-center h-full">
       <div class="col-start-2 row-start-2 ">
         <div class="content-center ">
