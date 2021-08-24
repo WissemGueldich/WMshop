@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
   <head>
     <title>WMshop</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,7 +17,7 @@
   <body>
     <%= render partial: "shared/navbar" %>
           <%= link_to "Home", root_path %> |
-      <%= link_to pluralize(current_cart.items_count, 'item'), cart_path %>
+      <%= link_to pluralize(current_cart.items_count, 'item'), cart_path %> <i class="fas fa-shopping-cart"></i>
     <div class="container ">
       <%= render partial: "shared/flash" %>
       <%= yield%>

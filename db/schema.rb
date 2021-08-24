@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_215116) do
+ActiveRecord::Schema.define(version: 2021_08_24_072409) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_215116) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "order_id"
     t.string "token"
+    t.string "status", default: "cart"
     t.index ["order_id"], name: "index_orders_on_order_id"
   end
 
