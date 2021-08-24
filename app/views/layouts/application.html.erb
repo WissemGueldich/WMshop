@@ -14,12 +14,12 @@
 
   <body>
     <%= render partial: "shared/navbar" %>
-    <div class=" place-items-center h-screen">
+    <div class=" place-items-center h-full">
       <div class="col-start-2 row-start-2 ">
         <div class="content-center ">
           <%= render partial: "shared/flash" %>
           <%= yield%>
-          <% if user_signed_in? %>
+          <% if user_signed_in? && !current_user.admin %>
             <%= render 'messages/chat', message: Message.new, room: @room %>
           <% end %>
         </div>

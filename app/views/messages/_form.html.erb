@@ -1,32 +1,32 @@
-<%= form_with(model: message) do |form| %>
-  <% if message.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
-
-      <ul>
-        <% message.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with model: message do |form| %>
+  <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4" b>
+    <div class="flex-grow ml-4">
+      <div class="relative w-full">
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :room_id,value: room.id %>
+          <%= form.text_field :content,:autocomplete => :off, class: "flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10", placeholder:"Message here ...." %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :room_id %>
-    <%= form.text_field :room_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+    <div class="ml-4">
+      <%= form.submit "Send", class: "cursor-pointer	flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0" do %>
+        <span>Send</span>
+          <span class="ml-2">
+            <svg
+              class="w-4 h-4 transform rotate-45 -mt-px"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
+            </svg>
+          </span>
+      <% end %>
+    </div>
   </div>
 <% end %>

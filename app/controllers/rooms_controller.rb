@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  before_action :require_admin_logged_in!
   
   # GET /rooms or /rooms.json
   def index
@@ -65,6 +66,9 @@ class RoomsController < ApplicationController
       else
         @room = current_user.room
       end
+      rescue ActiveRecord::RecordNotFound
+        @room = current_user.room
+        redirect_to rooms_path
     end
 
     # Only allow a list of trusted parameters through.
