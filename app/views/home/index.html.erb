@@ -1,8 +1,7 @@
 
 <% if user_signed_in? %>
-    <h1> Hi you're logged in</h1>
-    <%= link_to "Logout",destroy_user_session_path, method: :delete, class: "btn btn-outline-light mx-2" %>
-<% else %>
+    <h1 class="text-center"> Hi you're logged in</h1>
+    <% else %>
     <h1>Hi you're NOT logged in</h1>
     <%= link_to "login",new_user_session_path %>
 <% end %>

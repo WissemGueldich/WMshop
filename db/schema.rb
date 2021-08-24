@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2021_08_23_215116) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "product_id", null: false
     t.index ["product_id"], name: "index_product_variants_on_product_id"
+ActiveRecord::Schema.define(version: 2021_08_23_213913) do
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -67,6 +77,14 @@ ActiveRecord::Schema.define(version: 2021_08_23_215116) do
     t.index ["title"], name: "index_products_on_title", unique: true
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -76,14 +94,21 @@ ActiveRecord::Schema.define(version: 2021_08_23_215116) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+<<<<<<< HEAD
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "orders"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_variants", "products"
+=======
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
+  add_foreign_key "rooms", "users"
+>>>>>>> 9f4c56bfff18e82449e80396165c49b006e6ab74
 end
