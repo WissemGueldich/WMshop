@@ -1,0 +1,102 @@
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Add new product</h3>
+            </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+        <%= form_with(model: @product)  do |f|%>
+            <form action="#" method="POST">
+                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="title" class="block text-sm font-medium text-gray-700"> Title </label>
+                                <%= f.text_field :title , class:"mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none " %>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="about" class="block text-sm font-medium text-gray-700">
+                                Description
+                            </label>
+                            <div class="mt-1">
+                            <%= f.text_area :description , class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none"%>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="about" class="block text-sm font-medium text-gray-700">
+                              Image
+                            </label>
+                            <%= f.file_field :image %>
+                        </div>
+
+                        <div>
+                          <label for="about" class="block text-sm font-medium text-gray-700">
+                            Price
+                          </label>
+                            <%= f.text_field :price, class:'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none' %>
+                        </div>
+
+                        <div>
+                          <label for="about" class="block text-sm font-medium text-gray-700">
+                            Category
+                          </label>
+                            <%= collection_select(:product_categories, :category_id, Category.all, :id, :title, { :multiple=>false}, class:'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm')%>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                      <%= f.submit "Add", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"%>
+                    </div>
+                </div>
+            <%end%>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--<div class="min-h-screen min-w-screen flex items-center justify-center bg-gray-100">
+  <div class="flex flex-col shadow-xl">
+    <div class="py-6 px-14 rounded-tl-2xl rounded-tr-2xl text-center space-y-8">
+      <h2 class=" title-new text-black text-xs uppercase"> Add Product </h2>
+
+    </div>
+    <div class="flex flex-col py-6 px-8 space-y-5 bg-white">
+   <%= form_with(model: @product)  do |f|%>
+
+    <p>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </p>
+ 
+    <p>
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+    </p>
+
+    <p >
+    <%=f.label :description %><br>
+    <p class="editor mx-auto w-10/12 flex flex-col text-gray-800 max-w-2xl w-full">
+    <%=f.text_area :description, class:"description bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none",  placeholder:"Describe everything about this product here"  %>
+    </p>
+    </p>
+
+    <p>
+      <%= f.label :category %><br>
+      <%= collection_select(:product_categories, :category_id, Category.all, :id, :title, {}, { :multiple => false})%>
+    </p>
+    
+    <div class="buttons flex">
+    <%= f.submit "Add", class:"btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"%><br>
+    <%= link_to "Back", :back, class:"btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto" %>
+    </div>
+    <% end %>
+   </div> 
+  </div>
+</div>
+-->

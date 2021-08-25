@@ -1,4 +1,6 @@
-<h2> Categories (<%= @categories.length %>)</h2>
+<div class="w-full text-gray-700 md:text-center text-2xl font-semibold">
+    Categories (<%= @categories.length %>)</h2>
+</div> 
 
 <ol>
     <% @categories.each do |category| %>
@@ -10,3 +12,4 @@
         </li>
     <% end %>
 </ol>
+
