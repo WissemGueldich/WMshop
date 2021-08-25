@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
     get '/cart', to: 'order_items#index'
     resources :order_items, path: '/cart/items'
-  get 'rooms/:id',to: 'application#show'
+    get 'rooms/:id',to: 'application#show'
+    #mount ActionCable.server => '/cable'
 end

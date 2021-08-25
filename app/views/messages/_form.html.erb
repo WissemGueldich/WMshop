@@ -1,4 +1,4 @@
-<%= form_with model: message do |form| %>
+<%= form_for message, remote: true do |form| %>
   <div class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4" b>
     <div class="flex-grow ml-4">
       <div class="relative w-full">
@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="ml-4">
-      <%= form.submit "Send", class: "cursor-pointer	flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0" do %>
+      <%= form.submit "Send", class: "cursor-pointer	flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0", id:"chat-btn" do %>
         <span>Send</span>
           <span class="ml-2">
             <svg
