@@ -9,6 +9,7 @@ class CreateOrderItems < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-
+    add_foreign_key :order_items, :orders, name: 'fk_order_items_to_order'
+    add_foreign_key :order_items, :products, name: 'fk_order_items_to_product'
   end
 end
