@@ -12,13 +12,11 @@
             <%= product.description %>
             <strong> <%= number_to_currency product.price %></strong>
 
-            
             <%= form_tag order_items_path do %>
                 <%= hidden_field_tag :product_id, product.id %>
                 <%= number_field_tag :quantity, 1%>
                 <%= submit_tag 'add to cart' %>
             <% end %>
-            <%= button_to "Buy Now!", checkout_create_path, params:{ id: product.id}, remote: true %>
             
         </li>
     <% end %>

@@ -1,15 +1,13 @@
 class CheckoutController < ApplicationController
 
     def create
-        product=Product.find(params[:id])
+        @cart=[]
+        current_cart.order.items.each do |item|
+            @cart.push(item.product)
+        end
         @session = Stripe::Checkout::Session.create({
             payment_method_types: ['card'],
-            line_items: [{
-                name:product.title,
-                amount:product.price.to_i,
-                currency:"usd",
-                quantity: 1
-            }],
+            line_items: @cart.collect { |item| item.to_builder.attributes! },
             mode: 'payment',
             success_url: root_url ,
             cancel_url: root_url ,
