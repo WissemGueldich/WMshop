@@ -5,7 +5,7 @@
 <% end %>
 
 <%if current_user.admin %>
-  <div class=" h-screen antialiased text-gray-800">
+  <div class="h-screen antialiased text-gray-800">
     <div class="flex flex-row h-full w-full overflow-x-hidden ">
       <div class="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0 ">
         <div class="flex flex-row items-center justify-center h-12 w-full">
@@ -112,39 +112,12 @@
       </div>
     </div>
   </div>
+  <script>
+    
+    var msgs = document.getElementById('msgs');
+    function scrollToBottom() {
+      msgs.scrollTop = msgs.scrollHeight;
+    };
+    scrollToBottom();
+  </script>
 <% end %>
-
-
-
-
-
-
-
-
-<!--<h1>Rooms</h1>
-<%if current_user.admin %>
-  <p>Hello! <%= current_user.name %></p>
-  <hr>
-  <table>
-    <tr>
-      <th>
-        <ul>
-          <% @rooms.each do |room| %>
-            <li>
-              <%= link_to room do %>
-                <%= room.name %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </th>
-      <td>
-        <% if @room.present? %>
-          <div>
-            <%= @room.name %>
-          </div>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-<% end %>->>

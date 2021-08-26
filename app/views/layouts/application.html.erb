@@ -17,8 +17,9 @@
       <div id="room-id-user" data-room-id-user = "<%= current_user.room.id %>" ></div>
       <div id="user-id" data-user-id = "<%= current_user.id %>" ></div>
     <% end %>
-    <%= render partial: "shared/navbar" %>          
-    <div class=" place-items-center h-full">
+    <!--<div class="fixed left-0 top-0 right-0 z-40">-->
+      <%= render partial: "shared/navbar" %>          
+    <div class=" place-items-center h-full ">
       <div class="col-start-2 row-start-2 ">
         <div class="content-center ">
           <%= render partial: "shared/flash" %>

@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
     @message.user=current_user
     @message.save
     
-    SendMessageJob.perform_later(@message,current_user)
+    SendMessageJob.perform_later(@message,current_user,User.find(@message.room.user_id).admin)
 
   end
 

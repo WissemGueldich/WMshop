@@ -7,11 +7,8 @@ import consumer from "./consumer"
 
 document.addEventListener('turbolinks:load', () => {
 
-
   const room_element_user = document.getElementById('room-id-user');
   const room_element_admin = document.getElementById('room-id');
-  console.log(typeof room_element_admin)
-  console.log(typeof room_element_user)
   if(typeof room_element_admin !== null && room_element_admin !== null ){
     var room_id = Number(room_element_admin.getAttribute('data-room-id'));  
   }
@@ -58,7 +55,7 @@ document.addEventListener('turbolinks:load', () => {
           if(user_id===data.message.user_id){
             html = data.mine;
           } else {
-          html = data.theirs;
+            html = data.theirs;
           }
           const messageContainer = document.getElementById('messages');
           messageContainer.innerHTML = messageContainer.innerHTML + html;
