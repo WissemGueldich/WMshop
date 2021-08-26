@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'rooms/:id',to: 'application#show'
   get 'categories/products/new', to: 'products#new'
   post 'checkout/create', to: "checkout#create"
+  get 'success', to: "checkout#success"
+  get 'cancel', to: "checkout#cancel"
 
   
 
