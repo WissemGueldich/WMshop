@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     get '/cart', to: 'order_items#index'
     resources :order_items, path: '/cart/items'
     get 'rooms/:id',to: 'application#show'
+<<<<<<< HEAD
   resources :products 
     get 'categories/products/new', to: 'products#new'
 
+=======
+    #mount ActionCable.server => '/cable'
+>>>>>>> 668343187f41ef12dc4a6c5c7fe821e6de0f9756
 end
