@@ -19,10 +19,13 @@ class ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
         if @product.save
+            
+            
             redirect_to root_path, notice: 'Product was successfully created'
         else
             redirect_to new_product_path
         end
+    
     end
 
     def destroy
@@ -37,7 +40,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-        params.require(:product).permit(:title, :image, :description, :price)
+        params.require(:product).permit(:title, :image, :description, :price, :category_id)
     end
 
     def find_product

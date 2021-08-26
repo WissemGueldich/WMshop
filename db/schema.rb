@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_133439) do
+ActiveRecord::Schema.define(version: 2021_08_25_155011) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,15 +76,6 @@ ActiveRecord::Schema.define(version: 2021_08_24_133439) do
     t.string "token"
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_product_categories_on_category_id"
-    t.index ["product_id"], name: "index_product_categories_on_product_id"
-  end
-
   create_table "product_variants", force: :cascade do |t|
     t.string "title", null: false
     t.decimal "price", precision: 15, scale: 2, null: false
@@ -101,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_133439) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
+    t.bigint "category_id"
     t.index ["title"], name: "index_products_on_title", unique: true
   end
 
@@ -130,8 +122,6 @@ ActiveRecord::Schema.define(version: 2021_08_24_133439) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
-  add_foreign_key "product_categories", "categories"
-  add_foreign_key "product_categories", "products"
   add_foreign_key "product_variants", "products"
   add_foreign_key "rooms", "users"
 end
