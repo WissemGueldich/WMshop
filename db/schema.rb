@@ -56,16 +56,6 @@ ActiveRecord::Schema.define(version: 2021_08_25_155011) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.text "content"
-    t.integer "user_id", null: false
-    t.integer "room_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["room_id"], name: "index_messages_on_room_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id"
     t.integer "product_id", null: false
@@ -84,18 +74,6 @@ ActiveRecord::Schema.define(version: 2021_08_25_155011) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
-<<<<<<< HEAD
-=======
-  end
-
-  create_table "product_categories", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_product_categories_on_category_id"
-    t.index ["product_id"], name: "index_product_categories_on_product_id"
->>>>>>> 668343187f41ef12dc4a6c5c7fe821e6de0f9756
   end
 
   create_table "product_variants", force: :cascade do |t|
@@ -140,19 +118,12 @@ ActiveRecord::Schema.define(version: 2021_08_25_155011) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-<<<<<<< HEAD
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
-=======
-  add_foreign_key "messages", "rooms"
-  add_foreign_key "messages", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
-  add_foreign_key "product_categories", "categories"
-  add_foreign_key "product_categories", "products"
->>>>>>> 668343187f41ef12dc4a6c5c7fe821e6de0f9756
   add_foreign_key "product_variants", "products"
   add_foreign_key "rooms", "users"
 end

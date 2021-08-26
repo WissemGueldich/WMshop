@@ -8,7 +8,7 @@
     <% @products.each do |product| %>
         <li> 
             <%= product.title %>
-            <%=  image_tag(@category.products) %>
+            <%=  image_tag product %>
             <%= product.description %>
             <strong> <%= number_to_currency product.price %></strong>
 

@@ -27,6 +27,9 @@ gem 'devise', '~> 4.8'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+# Stripe for payment
+gem 'stripe'
+
 
 
 
