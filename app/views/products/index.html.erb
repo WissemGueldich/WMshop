@@ -18,6 +18,7 @@
                 <%= number_field_tag :quantity, 1%>
                 <%= submit_tag 'add to cart' %>
             <% end %>
+            <%= button_to "Buy Now!", checkout_create_path, params:{ id: product.id}, remote: true %>
             
         </li>
     <% end %>

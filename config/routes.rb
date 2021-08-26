@@ -1,18 +1,25 @@
 Rails.application.routes.draw do
+  root to: 'categories#index'
+  
+  devise_for :users
+  
+  
   resources :messages
   resources :rooms
-  devise_for :users
-  root to: 'categories#index'
+  resources :products 
 
   resources :categories, only: [:index] do
     resources :products, only: [:index]
   end
+  resources :order_items, path: '/cart/items'
 
-    get '/cart', to: 'order_items#index'
-    resources :order_items, path: '/cart/items'
-    get 'rooms/:id',to: 'application#show'
-  resources :products 
-    get 'categories/products/new', to: 'products#new'
+
+  get '/cart', to: 'order_items#index'
+  get 'rooms/:id',to: 'application#show'
+  get 'categories/products/new', to: 'products#new'
+  post 'checkout/create', to: "checkout#create"
+
+  
 
     #mount ActionCable.server => '/cable'
 end
