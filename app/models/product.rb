@@ -10,4 +10,26 @@ class Product < ApplicationRecord
         return self.image.variant(resize: '350x350!').processed
     end
 
+    has_many_attached :images
+
+    def to_s
+        title
+    end
+    
+    def to_builder
+        Jbuilder.new do |product|
+            product.price stripe_price_id
+            product.quantity OrderItem.find_by(product_id: self.id).quantity
+        end
+    end
+
+    after_create do 
+        product = Stripe::Product.create(name: title)
+        price = Stripe::Price.create(product: product, unit_amount: self.price.to_i*100, currency: "usd")
+
+
+        update(stripe_product_id: product.id, stripe_price_id: price.id)
+    end
+
+    
 end

@@ -17,9 +17,12 @@
                 <td>    
                     <%= form_for item, method: :delete do |f| %>
                         <%= f.submit "Remove" %>
-                <% end %>
+                    <% end %>
                 </td>
             </tr>
         <% end %>
     </tbody>
 </table>
+<% if @items.present? %>
+    <%= button_to "Checkout", checkout_create_path, remote: true, data: {disable_with: "Validating ..."} %>
+<% end %> 

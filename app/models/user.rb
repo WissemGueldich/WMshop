@@ -6,4 +6,14 @@ class User < ApplicationRecord
   validates :name, presence: true
   has_one :room
 
+  def to_s
+    email
+  end
+
+  after_create do 
+    customer = Stripe::Customer.create(email: email)
+    update(stripe_customer_id: customer.id)
+  end
+
+
 end

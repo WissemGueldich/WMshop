@@ -2,6 +2,10 @@ class OrderItemsController < ApplicationController
 
     def index
         @items = current_cart.order.items
+        @cart=[]
+        current_cart.order.items.each do |item|
+            @cart.push(item.product)
+        end
     end
     
     def create
