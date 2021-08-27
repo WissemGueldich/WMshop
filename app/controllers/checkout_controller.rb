@@ -18,12 +18,12 @@ class CheckoutController < ApplicationController
         end
     end
 
-    def success
 
+    def success
     end
 
-    def cancel
 
+    def cancel
     end
 
 end
