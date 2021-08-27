@@ -31,4 +31,8 @@ class ShoppingCart
         order.items.destroy(id)
       end
 
+      def remove_items
+        order.items.destroy_all
+      end
+
 end

@@ -1,4 +1,5 @@
 class CheckoutController < ApplicationController
+    before_action :require_user_logged_in!
 
     def create
         @cart=[]
@@ -20,6 +21,7 @@ class CheckoutController < ApplicationController
 
 
     def success
+        current_cart.remove_items
     end
 
 
