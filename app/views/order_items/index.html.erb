@@ -24,6 +24,5 @@
     </tbody>
 </table>
 <% if @items.present? %>
-    <%= @cart %>
     <%= button_to "Checkout", checkout_create_path, remote: true, data: {disable_with: "Validating ..."} %>
 <% end %> 

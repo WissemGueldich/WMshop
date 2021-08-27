@@ -12,8 +12,8 @@ class Product < ApplicationRecord
     
     def to_builder
         Jbuilder.new do |product|
-            product.price price.to_i
-            product.quantity 6
+            product.price stripe_price_id
+            product.quantity OrderItem.find_by(product_id: self.id).quantity
         end
     end
 
