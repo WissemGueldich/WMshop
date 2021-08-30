@@ -24,8 +24,14 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.user=current_user
     @message.save
-    
-    SendMessageJob.perform_later(@message,current_user,User.find(@message.room.user_id).admin)
+    @unread_count = 0
+    @room=Room.find(@message.room_id)
+    @room.messages.each do |message| 
+      if !current_user.admin 
+        @unread_count=@unread_count+1
+      end 
+    end 
+    SendMessageJob.perform_later(@message,current_user,User.find(@message.room.user_id).admin,@unread_count.to_i)
 
   end
 

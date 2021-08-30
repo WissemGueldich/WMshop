@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   has_one :room, dependent: :destroy
   has_many :messages, dependent: :destroy
+  acts_as_reader
 
   def to_s
     email

@@ -30,6 +30,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'mini_magick'
 # Stripe for payment
 gem 'stripe'
+# Unread for unread messages
+gem 'unread'
+
 
 
 

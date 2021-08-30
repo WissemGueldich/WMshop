@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
 
     def show
         @rooms = Room.all
+        @items = current_cart.order.items
     end
     private
     def set_room
