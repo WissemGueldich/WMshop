@@ -36,10 +36,19 @@ document.addEventListener('turbolinks:load', () => {
     received(data) {
       const admin_element = document.getElementById('admin-id');
       const user_element = document.getElementById('user-id');
+      const unread_messages_count=document.getElementById('unread-messages-count');
+      if(typeof unread_messages_count !== null && unread_messages_count !== null ){
+        unread_messages_count.innerHTML=data.unread_count;
+      }
+
+
 
       let html;
 
+      console.log(data.unread_count)
+
       if(typeof admin_element !== null && admin_element !== null ){
+      
       const admin_id = Number(admin_element.getAttribute('data-admin-id'));
         if (admin_id === data.message.user_id) {
           html = data.mine;      
@@ -55,7 +64,7 @@ document.addEventListener('turbolinks:load', () => {
           if(user_id===data.message.user_id){
             html = data.mine;
           } else {
-            html = data.theirs;
+            html = data.theirs;x
           }
           const messageContainer = document.getElementById('messages');
           messageContainer.innerHTML = messageContainer.innerHTML + html;
