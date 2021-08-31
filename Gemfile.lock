@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/wazery/ratyrate.git
-  revision: 718e4f9e340e2c7fbf76e190f3bb298ce291b711
-  specs:
-    ratyrate (1.2.2.alpha)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -249,7 +243,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.3, >= 6.1.3.2)
-  ratyrate!
   redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver

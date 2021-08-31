@@ -4,5 +4,4 @@ class UpdateCartJob < ApplicationJob
         product = ApplicationController.render(partial: 'shared/product', locals: { items: items} )
         ActionCable.server.broadcast("cart_channel", {product: product, count: count})
     end
-  end
-  
+end

@@ -6,7 +6,6 @@ import consumer from "./consumer"
 
 document.addEventListener('turbolinks:load', () => {
   
-  
   consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
   console.log("connected to cart channel")  },
@@ -19,12 +18,15 @@ document.addEventListener('turbolinks:load', () => {
       
       let html=data.product;
       const cartContainer = document.getElementById('cart-container');
-      cartContainer.innerHTML =  html;
+      if (cartContainer!==null){
+        cartContainer.innerHTML =  html;
+      }
       
       const cartIconIcounter = document.getElementById('cart-icon-counter');
-      cartIconIcounter.innerHTML =  data.count;
+      if (cartIconIcounter!==null){
+        cartIconIcounter.innerHTML =  data.count;
+      }
     
-    console.log(data)  
     }
 });
 });

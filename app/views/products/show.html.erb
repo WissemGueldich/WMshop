@@ -1,3 +1,6 @@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css" />
+
 <section class="text-gray-700 body-font overflow-hidden bg-white">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -32,16 +35,19 @@
         <p class="leading-relaxed"><%= @product.description %></p>
         <div class="flex">
           <span class="title-font font-medium text-2xl text-gray-900"><%= number_to_currency @product.price %></span>
-            <%= form_tag order_items_path do %>
-                <%= hidden_field_tag :product_id, @product.id %>
-                <%= number_field_tag :quantity, class:""%>
-                <%=  submit_tag 'Add to cart' ,class:"flex ml-auto py-1 px-2 text-black rounded-full bg-yellow-400"%>
-            <% end %>
+          <%= form_tag order_items_path, remote: true do %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 inline-block text-center bg-transparent border-2 h-9 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-show" %>
+            <%= submit_tag 'Add to cart', class:" text-black transition h-9 bg-transparent border-2 border-black rounded-full ripple hover:bg-gray-100 focus:outline-none align-top ", id: "add-to-cart-btn-show", remote: true %>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-
-
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+<script type="text/javascript">
+  Waves.attach('.ripple')
+  Waves.init()
+</script>

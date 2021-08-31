@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css" />
 <div class="rounded-full py-3 px-6 bg-gradient-to-r from-blue-200">
     <h2> 
         <%= link_to "categories", root_path %> <i class="fas fa-arrow-right"></i>
@@ -6,50 +7,54 @@
     </h2>
 </div>
 <div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
-<% @products.each do |product| %>
-    <div div class="post bg-transparent text-white relative pb-full md:mb-6 ">
-        <div class="">  
-            <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
-                <div class="overflow-hidden relative">
-                    <% if product.image.attached?%>
-                        <%= link_to product_path(product.id) do %>
-                            <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
-                        <%end%>
+    <% @products.each do |product| %>
+        <div div class="post bg-transparent text-white relative pb-full md:mb-6 ">
+            <div class="">  
+                <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
+                    <div class="overflow-hidden relative">
+                        <% if product.image.attached?%>
+                            <%= link_to product_path(product.id) do %>
+                                <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60 z-40" %>
+                            <%end%>
+                        <% end %>
+                    <div class="flex justify-center">
+                        <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 bg-white">
+                    <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= product.title %></h1></a>
+                    <div class="flex py-2">
+                        <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
+                    </div>
+                    <div>
+
+                    <%= form_tag order_items_path, remote: true do %>
+                        <%= hidden_field_tag :product_id, product.id %>
+                        <%= number_field_tag :quantity, 1, min: 1, class: "text-black mx-3 inline-block text-center bg-transparent border-2 h-9 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-index" %>
+                        <%= submit_tag "Add to cart", class:" text-black transition h-9 bg-transparent border-2 border-black rounded-full ripple hover:bg-gray-100 focus:outline-none align-top ", id: "add-to-cart-btn-index", remote: true %>
                     <% end %>
-                <div class="flex justify-center">
-                    <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
-
+                    </div>
+                    <div class="flex">
+                        <div class="">
+                            <i class="fas fa-star text-yellow-400 text-xs"></i>
+                            <i class="fas fa-star text-yellow-400 text-xs"></i>
+                            <i class="fas fa-star text-yellow-400 text-xs"></i>
+                            <i class="fas fa-star text-yellow-400 text-xs"></i>
+                            <i class="far fa-star text-gray-400 text-xs"></i>
+                        </div>
+                        <div class="ml-2">
+                            <p class="text-gray-500 font-medium text-sm">(1)</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="px-4 py-3 bg-white">
-                <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= product.title %></h1></a>
-                <div class="flex py-2">
-                    <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
-                </div>
-                <div>
-
-                <%= form_tag order_items_path do %>
-                    <%= hidden_field_tag :product_id, product.id %>
-                    <%= number_field_tag :quantity, 1, class: "text-black outline-black mr-2"%>
-                    <%= submit_tag 'Add to cart', class:"py-1 px-2 text-black rounded-full bg-yellow-400 shadow-lg block md:inline-block" %>
-                <% end %>
-                </div>
-                <div class="flex">
-                    <div class="">
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="far fa-star text-gray-400 text-xs"></i>
-                    </div>
-                    <div class="ml-2">
-                        <p class="text-gray-500 font-medium text-sm">(1)</p>
-                    </div>
                 </div>
             </div>
-            </div>
-       </div>
-   </div>
-<% end %>
+        </div>
+    <% end %>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+<script type="text/javascript">
+  Waves.attach('.ripple')
+  Waves.init()
+</script>
