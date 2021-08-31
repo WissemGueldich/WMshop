@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_231710) do
+ActiveRecord::Schema.define(version: 2021_08_30_072637) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_231710) do
     t.bigint "category_id"
     t.string "stripe_product_id"
     t.string "stripe_price_id"
+    t.string "rating"
     t.index ["title"], name: "index_products_on_title", unique: true
   end
 
@@ -125,8 +126,6 @@ ActiveRecord::Schema.define(version: 2021_08_26_231710) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
   add_foreign_key "product_variants", "products"
   add_foreign_key "rooms", "users"
 end

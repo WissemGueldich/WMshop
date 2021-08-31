@@ -1,28 +1,73 @@
-<h2> current cart </h2>
+<div class="flex justify-center my-6">
+  <div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+    <div class="flex-1">
+      <table class="w-full text-sm lg:text-base" cellspacing="0">
+        <thead>
+          <tr class="h-12 uppercase">
+            <th class="hidden md:table-cell"></th>
+            <th class="text-left">Product</th>
+            <th class="lg:text-right text-left pl-5 lg:pl-0">
+              <span class="lg:hidden" title="Quantity">Qtd</span>
+              <span class="hidden lg:inline">Quantity</span>
+            </th>
+            <th class="hidden text-right md:table-cell">Unit price</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @items.each do |item|%>
+          <tr>
+            <td class="hidden pb-4 md:table-cell">
+              <a href="#">
+                <% if item.product.image.attached?%>
+                    <%= image_tag item.product.cart_thumbnail %>
+                <% end %>
+              </a>
+            </td>
+            <td>
+              <a >
+                <p class="mb-2 md:ml-4"><%= item.product.title %></p>
+                    <small>
+                        <%= form_for item, method: :delete do |f| %>
+                            <%= f.submit "Remove",class:"text-gray-700 md:ml-4" %>
+                        <% end %>
+                    </small>                  
+              </a>
+            </td>
+            <td class="justify-center md:justify-end md:flex mt-6">
+              <div class="w-20 h-10">
+                <div class="relative flex flex-row w-full h-8">
+                    <%= item.quantity %>
+                </div>
+              </div>
+            </td>
+            <td class="hidden text-right md:table-cell">
+              <span class="text-sm lg:text-base font-medium">
+                <%= number_to_currency item.price %>
+              </span>
+            </td>
+          </tr> 
+          
+        <%end%>
+        </tbody>
+      </table>
+      <hr class="pb-6 mt-6">
+      <div class="my-4 mt-6 -mx-2 lg:flex">
+        <div class="lg:px-2 lg:w-1/2">
+          
+          <div class="p-4">             
+              <a>
+                <% if @items.present? %>
+                     <%= button_to "Checkout", checkout_create_path, remote: true, data: {disable_with: "Validating ..."}, class:"ustify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none" %>
+                <% end %> 
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <td>Product</td>
-            <td>Price</td>
-            <td>Quantity</td>
-        </tr>
-    </thead>
-    <tbody>
-        <% @items.each do |item|%>
-            <tr>
-                <td><%= item.product.title %></td>
-                <td><%= number_to_currency item.price %></td>
-                <td><%= item.quantity %></td>
-                <td>    
-                    <%= form_for item, method: :delete do |f| %>
-                        <%= f.submit "Remove" %>
-                    <% end %>
-                </td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-<% if @items.present? %>
-    <%= button_to "Checkout", checkout_create_path, remote: true, data: {disable_with: "Validating ..."} %>
-<% end %> 
+
+
+
+

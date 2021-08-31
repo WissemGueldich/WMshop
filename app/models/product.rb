@@ -10,6 +10,14 @@ class Product < ApplicationRecord
         return self.image.variant(resize: '350x350!').processed
     end
 
+    def show_thumbnail
+        return self.image.variant(resize: '550x550!').processed 
+    end
+
+    def cart_thumbnail
+        return self.image.variant(resize: '100x100!').processed   
+    end
+
     has_many_attached :images
 
     def to_s

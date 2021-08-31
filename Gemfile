@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'mini_magick'
 # Stripe for payment
 gem 'stripe'
+gem 'ratyrate', :github => 'wazery/ratyrate'
 
 
 
