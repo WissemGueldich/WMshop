@@ -12,7 +12,9 @@
             <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
                 <div class="overflow-hidden relative">
                     <% if product.image.attached?%>
-                        <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                        <%= link_to product_path(product.id) do %>
+                            <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                        <%end%>
                     <% end %>
                 <div class="flex justify-center">
                     <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
@@ -26,6 +28,7 @@
                     <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
                 </div>
                 <div>
+
                 <%= form_tag order_items_path do %>
                     <%= hidden_field_tag :product_id, product.id %>
                     <%= number_field_tag :quantity, 1, class: "text-black outline-black mr-2"%>

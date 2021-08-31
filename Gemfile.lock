@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/wazery/ratyrate.git
+  revision: 718e4f9e340e2c7fbf76e190f3bb298ce291b711
+  specs:
+    ratyrate (1.2.2.alpha)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,7 +70,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.7.7)
+    bootsnap (1.8.1)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
@@ -108,7 +114,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_magick (4.11.0)
-    mini_mime (1.1.0)
+    mini_mime (1.1.1)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.8)
@@ -146,7 +152,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.1)
+    rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     railties (6.1.4.1)
       actionpack (= 6.1.4.1)
@@ -214,7 +220,7 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
-    webpacker (5.4.1)
+    webpacker (5.4.2)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -243,6 +249,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.3, >= 6.1.3.2)
+  ratyrate!
   redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver

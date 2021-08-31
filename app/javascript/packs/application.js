@@ -16,6 +16,8 @@ ActiveStorage.start()
 require("jquery")
 
 
+
+
 $(document).on('turbolinks:load', function (){
     //code here
 })

@@ -1,16 +1,59 @@
-<div class="w-full text-gray-700 md:text-center text-2xl font-semibold">
-    Categories (<%= @categories.length %>)</h2>
-</div> 
-
- <div class="flex grid grid-cols-3 gap-4 mt-6">
-
-    <% @categories.each do |category| %>
-        <div class=" rounded-lg py-3 px-6 bg-red-300">
-            <%= link_to category_products_path(category) do %>
-                <%= category.title %>
-            <% end %>
+<div class="flex">
+    <div class="flex justify-right ">
+        <div class="bg-white shadow-xl rounded-lg w-full-1/5 ">
+            <ul class="divide-y divide-gray-300">
+                <% @categories.each do |category| %>
+                    <%= link_to category_products_path(category) do %>
+                        <li class="p-4 hover:bg-gray-50 cursor-pointer border-b border-fuchsia-600"><%= category.title %></li>
+                    <%end%>
+                <% end %>
+            </ul>
         </div>
-    <% end %>
+    </div>
+    <div class="justify-right w-full">
+        <div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+<% @products.each do |product| %>
+    <div div class="post bg-transparent text-white relative pb-full md:mb-6 ">
+        <div class="">  
+            <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
+                <div class="overflow-hidden relative">
+                    <% if product.image.attached?%>
+                        <%= link_to product_path(product.id) do %>
+                            <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                        <%end%>
+                    <% end %>
+                <div class="flex justify-center">
+                    <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
 
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-white">
+                <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= product.title %></h1></a>
+                <div class="flex py-2">
+                    <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
+                </div>
+                <div>
+                </div>
+                <div class="flex">
+                    <div class="">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <i class="far fa-star text-gray-400 text-xs"></i>
+                    </div>
+                    <div class="ml-2">
+                        <p class="text-gray-500 font-medium text-sm">(1)</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+       </div>
+   </div>
+<% end %>
+</div>
+
+    </div>
 </div>
 
