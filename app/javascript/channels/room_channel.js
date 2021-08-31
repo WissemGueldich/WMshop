@@ -19,9 +19,7 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   
-  consumer.subscriptions.subscriptions.forEach((subscription) =>{
-    consumer.subscriptions.remove(subscription);
-  });
+  
   
   
   consumer.subscriptions.create({ channel: "RoomChannel", room_id: room_id }, {
@@ -64,7 +62,7 @@ document.addEventListener('turbolinks:load', () => {
           if(user_id===data.message.user_id){
             html = data.mine;
           } else {
-            html = data.theirs;x
+            html = data.theirs;
           }
           const messageContainer = document.getElementById('messages');
           messageContainer.innerHTML = messageContainer.innerHTML + html;

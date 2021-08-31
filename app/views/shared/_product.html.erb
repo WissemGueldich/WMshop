@@ -1,7 +1,9 @@
+<% total = 0 %>
 <% items.each do |item| %>
+    <%  total = total.to_i + (item.quantity.to_i * item.price)%>
     <div class="flex justify-between mt-6">
         <div class="flex">
-            <img class="h-20 w-20 object-cover rounded" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="">
+            <img class="h-20 w-20 object-cover rounded" src="https://tn.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/53/5244/1.jpg?6048" alt="">
             <div class="mx-3">
                 <h3 class="text-sm text-gray-600">
                     <%= item.product.title %>
@@ -20,8 +22,11 @@
             </div>
         </div>
         <span class="text-gray-600">
-            <%= number_to_currency item.price %>
+            <%= number_to_currency item.price*item.quantity %>
             <%= link_to "Remove", order_item_path(item), method: :delete, class:"ml-3 flex items-center px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500" %>
         </span>
     </div>
 <% end %>
+<span class="text-gray-600">
+    <h3 class="text-sm text-gray-600 mt-5 ">Total: </h3><%= number_to_currency total %>
+</span>

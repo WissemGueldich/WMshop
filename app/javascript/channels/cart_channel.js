@@ -5,11 +5,9 @@ import consumer from "./consumer"
 
 
 document.addEventListener('turbolinks:load', () => {
-  consumer.subscriptions.subscriptions.forEach((subscription) =>{
-    consumer.subscriptions.remove(subscription);
-  });
   
-  consumer.subscriptions.create("CartChannel", {
+  
+  consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
   console.log("connected to cart channel")  },
 
