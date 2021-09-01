@@ -7,7 +7,6 @@ class OrderItemsController < ApplicationController
     def create
         if current_cart.items_count+ params[:quantity].to_i < 100
             product = Product.find( params[:product_id])
-
             @products=[]
             current_cart.order.items.each do |item|
                 @products.push(item)
@@ -36,6 +35,7 @@ class OrderItemsController < ApplicationController
         product = Product.find( order_item.product_id )
 
         current_cart.remove_item(id: params[:id])
-        redirect_to request.referrer, notice: "#{view_context.pluralize(order_item.quantity,product.title)} has been removed from your cart"
+        redirect_to request.referrer, notice: "#{view_context.pluralize(order_item.quantity,product.title)} has been removed from your cart."
     end
 end
+

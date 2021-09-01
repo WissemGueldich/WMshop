@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css" />
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
 <div class="rounded-full py-3 px-6 bg-gradient-to-r from-blue-200">
     <h2> 
         <%= link_to "categories", root_path %> <i class="fas fa-arrow-right"></i>
@@ -6,15 +8,15 @@
         Products
     </h2>
 </div>
-<div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+<div class=" flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
     <% @products.each do |product| %>
-        <div div class="post bg-transparent text-white relative pb-full md:mb-6 ">
+        <div div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
             <div class="">  
                 <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
                     <div class="overflow-hidden relative">
                         <% if product.image.attached?%>
                             <%= link_to product_path(product.id) do %>
-                                <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60 z-40" %>
+                                <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
                             <%end%>
                         <% end %>
                     <div class="flex justify-center">
@@ -32,7 +34,9 @@
                     <%= form_tag order_items_path, remote: true do %>
                         <%= hidden_field_tag :product_id, product.id %>
                         <%= number_field_tag :quantity, 1, min: 1, class: "text-black mx-3 inline-block text-center bg-transparent border-2 h-9 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-index" %>
-                        <%= submit_tag "Add to cart", class:" text-black transition h-9 bg-transparent border-2 border-black rounded-full ripple hover:bg-gray-100 focus:outline-none align-top ", id: "add-to-cart-btn-index", remote: true %>
+                        <button type="submit" class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2" @click="showModal2 = true" >
+                        Add to cart
+                        </button>
                     <% end %>
                     </div>
                     <div class="flex">
@@ -51,10 +55,54 @@
                 </div>
             </div>
         </div>
+        <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
+
+          <div
+            class="fixed inset-0 w-full h-full bg-black bg-opacity-50 duration-300 overflow-y-auto"
+            x-show="showModal2"
+            x-transition:enter="transition duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition duration-300"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+          >
+            <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+              <div
+                class="relative bg-white shadow-lg rounded-lg text-gray-900"
+                @click.away="showModal2 = false"
+                x-show="showModal2"
+                x-transition:enter="transition transform duration-300"
+                x-transition:enter-start="scale-0"
+                x-transition:enter-end="scale-100"
+                x-transition:leave="transition transform duration-300"
+                x-transition:leave-start="scale-100"
+                x-transition:leave-end="scale-0"
+              >
+                <header class="flex flex-col justify-center items-center p-3 text-green-600">
+                  <div class="flex justify-center w-28 h-28 border-4 border-green-600 rounded-full mb-4">
+                    <svg class="fill-current w-20" viewBox="0 0 20 20">
+                      <path
+                        d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <h2 class="font-semibold text-2xl">Success</h2>
+                </header>
+                <main class="p-3 text-center">
+                  <p>
+                    <strong><%= "#{product.title} "%></strong> has been added to your cart.
+                    <!--@message = "#{view_context.pluralize(order_item.quantity,product.title)} has been added to your cart."-->
+                  </p>
+                </main>
+                <footer class="flex justify-center bg-transparent">
+                  <button class="bg-green-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">
+                    Confirm
+                  </button>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </body>
     <% end %>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-<script type="text/javascript">
-  Waves.attach('.ripple')
-  Waves.init()
-</script>

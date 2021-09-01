@@ -5,7 +5,7 @@ class Product < ApplicationRecord
     validates :description, presence: true
 
     belongs_to :category
-    has_one_attached :image
+    has_one_attached :image, dependent: :destroy
 
     def thumbnail 
         return self.image.variant(resize: '350x350!').processed

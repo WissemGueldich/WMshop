@@ -8,18 +8,19 @@ document.addEventListener('turbolinks:load', () => {
   
   consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
-  console.log("connected to cart channel")  },
+      console.log("connected to cart channel")  
+    },
 
     disconnected() {
       // Called when the subscription has been terminated by the server
     },
 
     received(data) {
-      
-      let html=data.product;
+      console.log(data.product);
       const cartContainer = document.getElementById('cart-container');
       if (cartContainer!==null){
-        cartContainer.innerHTML =  html;
+        console.log("container not null");
+        cartContainer.innerHTML =  data.product;
       }
       
       const cartIconIcounter = document.getElementById('cart-icon-counter');
