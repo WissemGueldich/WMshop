@@ -14,31 +14,21 @@
 
   </head>
 
-  <body class="bg-gray-100 overflow-x-hidden ">
-    <table class="fixed overflow-y-scroll  ">
-      <tr>
-        <td>
-          <div class="fixed z-50 mb-2">
-            <%= render partial: "shared/navbar" %>   
-          </div>
-        </td>
-      </tr>
-      <tr >
-        <th  >
-          <div class=" place-items-center overflow-scroll max-h-screen h-screen">
-              <div class="content-center ">
-                <%= render partial: "shared/flash" %>
-                <%= yield%>
-                <% if user_signed_in? && !current_user.admin %>
-                  <%= render 'messages/chat', message: Message.new, room: @room %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </th>
-      </tr>
-
-    </table>
+  <body  class="bg-gray-100 overflow-x-hidden overflow-auto"> 
+    <div class="fixed z-50">
+      <%= render partial: "shared/navbar" %>   
+      <hr>
+    </div>
+    <div class=" place-items-center h-screen w-screen min-w-screen pt-1 ">
+        <div class="content-center pt-14">
+          <%= render partial: "shared/flash" %>
+          <%= yield%>
+          <% if user_signed_in? && !current_user.admin %>
+            <%= render 'messages/chat', message: Message.new, room: @room %>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% if current_user && !current_user.admin %>
       <div id="room-id-user" data-room-id-user = "<%= current_user.room.id %>" ></div>
       <div id="user-id" data-user-id = "<%= current_user.id %>" ></div>
