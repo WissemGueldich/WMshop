@@ -1,10 +1,6 @@
 import consumer from "./consumer"
 
 
-
-
-
-document.addEventListener('turbolinks:load', () => {
   
   consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
@@ -29,5 +25,4 @@ document.addEventListener('turbolinks:load', () => {
       }
     
     }
-});
 });

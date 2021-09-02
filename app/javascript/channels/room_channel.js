@@ -18,13 +18,25 @@ document.addEventListener('turbolinks:load', () => {
     var room_id = Number(room_element_user.getAttribute('data-room-id-user'));
   }
 
-  
-  
-  
+  console.log(consumer.subscriptions);
+  consumer.subscriptions.subscriptions.forEach((sub)=>{
+    if (sub.identifier!=="{\"channel\":\"CartChannel\"}" && sub.identifier!=="{\"channel\":\"UnreadChannel\"}" ){
+      console.log("unsubbing");
+      consumer.subscriptions.remove(sub);
+    };
+
+  });
+
+
   
   consumer.subscriptions.create({ channel: "RoomChannel", room_id: room_id }, {
     connected() {
-      console.log("connected to room " + room_id);
+
+      const unread_messages=document.getElementById(`unread-messages-${room_id}`);
+      if(typeof unread_messages !== null && unread_messages !== null ){
+        unread_messages.classList.add("invisible");
+      };
+      console.log("connected to room "+room_id);
     },
 
     disconnected() {
@@ -32,27 +44,25 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
+      console.log("data recieved");
       const admin_element = document.getElementById('admin-id');
       const user_element = document.getElementById('user-id');
-      const unread_messages_count=document.getElementById('unread-messages-count');
-      if(typeof unread_messages_count !== null && unread_messages_count !== null ){
-        unread_messages_count.innerHTML=data.unread_count;
-      }
-
-
+      
 
       let html;
-
-      console.log(data.unread_count)
-
+      
       if(typeof admin_element !== null && admin_element !== null ){
       
       const admin_id = Number(admin_element.getAttribute('data-admin-id'));
         if (admin_id === data.message.user_id) {
-          html = data.mine;      
+          html = data.mine;
+          const unread_messages=document.getElementById(`unread-messages-${room_id}`);
+          if(typeof unread_messages !== null && unread_messages !== null ){
+            unread_messages.classList.add("invisible");
+          }
         } else {
           html = data.theirs;
-        }
+        };
         const messageContainer = document.getElementById('msgs');
         messageContainer.innerHTML = messageContainer.innerHTML + html;
         
@@ -85,9 +95,9 @@ document.addEventListener('turbolinks:load', () => {
         
         };
     }
-
       
   });
-
+  
+ 
 });
 
