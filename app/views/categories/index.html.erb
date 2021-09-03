@@ -13,27 +13,19 @@
     <div class="justify-right w-full">
         <div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
 <% @products.each do |product| %>
-    <div div class="post bg-transparent text-white pb-full md:mb-6 ">
-        <div class="">  
-            <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
-                <div class="overflow-hidden ">
-                    <% if product.image.attached?%>
-                        <%= link_to product_path(product.id) do %>
-                            <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
-                        <%end%>
-                    <% end %>
-                <div class="flex justify-center">
-                    <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
-
-                    </div>
-                </div>
-            </div>
+    <div div class="post bg-transparent text-white pb-5 md:mb-6 ">
+        <div class=" shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
+            <%= link_to product_path(product.id) do %>
+                <% if product.image.attached?%>
+                    <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                <% end %>
+            <% end %>
             <div class="px-4 py-3 bg-white">
-                <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= product.title %></h1></a>
+                <%= link_to product_path(product.id) do %>
+                    <h1 class="overflow-hidden text-gray-800 font-semibold hover:text-blue-500 transition duration-300 ease-in-out"><%= product.title %></h1>
+                <% end %>
                 <div class="flex py-2">
                     <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
-                </div>
-                <div>
                 </div>
                 <div class="flex">
                     <div class="">
@@ -48,9 +40,8 @@
                     </div>
                 </div>
             </div>
-            </div>
-       </div>
-   </div>
+        </div>
+    </div>
 <% end %>
 </div>
 

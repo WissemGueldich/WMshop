@@ -1,47 +1,54 @@
 
 <section class="text-gray-700 body-font overflow-hidden bg-white">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+  <div class="flex justify between" >
+    <div class=" px-5 py-0 mx-0 w-2/3 items-center place-items-center">
+      <div class="items-center place-items-center">
         <% if @product.image.attached?%>
-             <%= image_tag @product.show_thumbnail %>
+            <%= image_tag @product.show_thumbnail %>
         <% end %>
-      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"><%= @product.title %>
-          <%= link_to edit_product_path(@product) do %>
-            <i class="fas fa-edit"></i>
-          <% end %></h1>
-        <div class="flex mb-4">
-          <span class="flex items-center">
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <span class="text-gray-600 ml-3">4 Reviews</span>
-          </span>
-          
+        <div class="lg:w-4/5 w-4/5 mt-0 lg:mt-0 m-0 ">
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"><%= @product.title %>
+            <%= link_to edit_product_path(@product) do %>
+              <i class="fas fa-edit"></i>
+            <% end %></h1>
+          <div class="flex mb-4">
+            <span class="flex items-center">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <span class="text-gray-600 ml-3">4 Reviews</span>
+            </span>
+            
+          </div>
+          <div class="flex">
+            <span class="title-font font-medium text-2xl text-gray-900"><%= number_to_currency @product.price %></span>
+            <%= form_tag order_items_path, remote: true do %>
+                <%= hidden_field_tag :product_id, @product.id %>
+                <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 inline-block text-center bg-transparent border-2 h-9 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-show" %>
+                <button type="submit" class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2" @click="showModal2 = true">
+                Add to cart
+                </button>
+            <% end %>
+          </div>
         </div>
-        <p class="leading-relaxed"><%= @product.description %></p>
-        <div class="flex">
-          <span class="title-font font-medium text-2xl text-gray-900"><%= number_to_currency @product.price %></span>
-          <%= form_tag order_items_path, remote: true do %>
-              <%= hidden_field_tag :product_id, @product.id %>
-              <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 inline-block text-center bg-transparent border-2 h-9 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-show" %>
-              <button type="submit" class="bg-green-600 font-semibold text-white p-2 w-32 rounded-full hover:bg-green-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2" @click="showModal2 = true">
-              Add to cart
-              </button>
-          <% end %>
-        </div>
+      </div>
+    </div>
+    <div class="w-full pt-10 px-6 flex items-center" >
+      <div>
+        <strong><h2 class=" text-center mb-3 ">Description:</h2></strong>
+        <p class="leading-relaxed text-center "><%= @product.description %></p>
       </div>
     </div>
   </div>
