@@ -4,6 +4,7 @@ class RoomsController < ApplicationController
   # GET /rooms or /rooms.json
   def index
     @rooms = Room.all
+    redirect_to @rooms.last
   end
 
   # GET /rooms/1 or /rooms/1.json
@@ -24,7 +25,6 @@ class RoomsController < ApplicationController
   # POST /rooms or /rooms.json
   def create
     @room = Room.new(room_params)
-
     respond_to do |format|
       if @room.save
         format.html { redirect_to @room, notice: "Room was successfully created." }

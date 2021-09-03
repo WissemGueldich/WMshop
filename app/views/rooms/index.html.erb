@@ -41,12 +41,21 @@
           </div>
           <div class="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
             <% @rooms.each do |room| %>
-              <% if room.user_id!=current_user.id %>
-                <%= link_to room, class:"flex flex-row items-center hover:bg-gray-100 rounded-xl p-2" do %>
-                  <div class="ml-2 text-sm font-semibold">
-                    <%= room.name %>
-                    <span id="unread-messages-<%= room.id %>" class="invisible" style=" height: 8px; width: 8px; background-color: rgb(255, 0, 0); border-radius: 50%; display: inline-block;" ></span>
-                  </div>
+              <% if room.user_id!=current_user.id && room.id!=@room.id %>
+                <%= link_to room, class:"flex flex-row items-center justify-between hover:bg-gray-100 rounded-xl py-2 px-4" do %>
+                    <div class= "ml-2 text-sm font-semibold">
+                      <%= room.name %>  
+                    </div>
+                    <span id="unread-messages-<%= room.id %>" class="invisible flex items-center justify-center" style=" height: 8px; width: 8px; background-color: rgb(255, 0, 0); border-radius: 50%; display: inline-block;" ></span>
+                <% end %>
+              <% else %>
+                <% if room.user_id!=current_user.id && room.id==@room.id %>
+                  <button disabled="true" class="flex flex-row items-center bg-gray-300 justify-between rounded-xl py-2 px-4">
+                    <div class="ml-2 text-sm font-semibold">
+                      <%= room.name %>
+                    </div>
+                    <span id="unread-messages-<%= room.id %>" class="invisible flex items-center justify-center" style=" height: 8px; width: 8px; background-color: rgb(255, 0, 0); border-radius: 50%; display: inline-block;" ></span>
+                  </button>
                 <% end %>
               <% end %>
             <% end %>
