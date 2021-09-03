@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: "Room was successfully created." }
+        format.html { redirect_to @room }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new, status: :unprocessable_entity }
