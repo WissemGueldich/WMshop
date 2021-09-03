@@ -25,7 +25,11 @@
         </div>
         <div class="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg" >
           <div class="h-20 w-20 rounded-full border overflow-hidden">
-            <img src="https://scontent.ftun15-1.fna.fbcdn.net/v/t1.18169-1/p320x320/18221763_1017115475088870_3571687332045522449_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=7206a8&_nc_ohc=dvk6ZTT-uWcAX9GXLQD&_nc_ht=scontent.ftun15-1.fna&oh=7a8c92e30003e24ad9eba258921b4503&oe=6148880D" alt="Avatar" class="h-full w-full" />
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar.variant(resize: "100x100!"), class:"h-full w-full"%>
+            <% else %>
+              <img src="https://scontent.ftun15-1.fna.fbcdn.net/v/t1.18169-1/p320x320/18221763_1017115475088870_3571687332045522449_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=7206a8&_nc_ohc=dvk6ZTT-uWcAX9GXLQD&_nc_ht=scontent.ftun15-1.fna&oh=7a8c92e30003e24ad9eba258921b4503&oe=6148880D" alt="Avatar" class="h-full w-full" />
+            <% end %>
           </div>
           <div class="text-sm font-semibold mt-2"><%= current_user.name.humanize %></div>
           <div class="text-xs text-gray-500"><%= current_user.email %></div>

@@ -5,8 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, presence: true
   has_one :room, dependent: :destroy
-  has_many :messages, dependent: :destroy
-  acts_as_reader
+  has_one_attached :avatar
 
   def to_s
     email
@@ -16,7 +15,5 @@ class User < ApplicationRecord
     customer = Stripe::Customer.create(email: email)
     update(stripe_customer_id: customer.id)
   end
-
-  
 
 end

@@ -33,9 +33,12 @@ class OrderItemsController < ApplicationController
     def destroy
         order_item = OrderItem.find(params[:id])
         product = Product.find( order_item.product_id )
-
         current_cart.remove_item(id: params[:id])
-        redirect_to request.referrer, notice: "#{view_context.pluralize(order_item.quantity,product.title)} has been removed from your cart."
+        @items = []
+        current_cart.order.items.each do |item|
+            @items.push(item)
+        end
+        UpdateCartJob.perform_later(@items,current_cart.items_count)
     end
 end
 
