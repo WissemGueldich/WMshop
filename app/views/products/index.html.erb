@@ -91,8 +91,7 @@
             </header>
             <main class="p-3 text-center">
               <p>
-                <div id="added-product-confirm-alert" ></div>
-                <!--@message = "#{view_context.pluralize(order_item.quantity,product.title)} has been added to your cart."-->
+                <div id="added-product-confirm-alert-<%= current_user.id %>" ></div>
               </p>
             </main>
             <footer class="flex justify-center bg-transparent">
