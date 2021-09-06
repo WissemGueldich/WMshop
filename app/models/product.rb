@@ -5,10 +5,10 @@ class Product < ApplicationRecord
     validates :description, presence: true
 
     belongs_to :category
-    has_one_attached :image
+    has_one_attached :image, dependent: :destroy
 
     def thumbnail 
-        return self.image.variant(resize: '350x350!').processed
+        return self.image.variant(resize: '300x300!').processed
     end
 
     def show_thumbnail
@@ -42,6 +42,14 @@ class Product < ApplicationRecord
     def create_and_assign_new_stripe_price
         price = Stripe::Price.create(product: self.strupe_product_id, unit_amount: self.price.to_i*100, currency: "usd")
         update(stripe_price_id: price.id)
+    end
+
+    def self.search(term)
+        if term
+          where('name LIKE ?', "%#{term}%")
+        else
+          nil
+        end
     end
     
 end

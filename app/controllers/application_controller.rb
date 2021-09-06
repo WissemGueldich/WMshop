@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
 
   protected
     def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-        devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :avatar])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:name, :avatar])
     end
 
     def require_admin_logged_in!
@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
             end
         end
     end
+    
     def require_user_logged_in!
         if !current_user
             redirect_to new_user_session_path, alert: "You need to be signed in to do that !" 

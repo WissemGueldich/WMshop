@@ -22,7 +22,7 @@ class ShoppingCart
         )
     
         order_item.price = product.price
-        order_item.quantity = quantity
+        order_item.quantity = order_item.quantity.to_i + quantity.to_i
     
         order_item.save
       end
