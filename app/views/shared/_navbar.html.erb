@@ -46,7 +46,7 @@
                                 <%= render partial: "shared/cart", locals: {items: @items} %>
                             </div>
                             <% else %>
-                                <div id="cart-container" class="text-center" >
+                                <div id="cart-container-<%= current_user.id %>" class="text-center" >
                                     <p>Your cart is empty</p>
                                 </div>
                             <% end %>

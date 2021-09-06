@@ -1,7 +1,6 @@
 import consumer from "./consumer"
 
 
-  
   consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
       console.log("connected to cart channel")  
@@ -23,13 +22,14 @@ import consumer from "./consumer"
       if (cartContainer!==null){
         console.log("container not null");
         cartContainer.innerHTML =  data.product;
-      };
+      }else{console.log("cart container is nul")};
       
       const cartIconIcounter = document.getElementById(`cart-icon-counter-${data.user_id}`);
       if (cartIconIcounter!==null){
         cartIconIcounter.innerHTML =  data.count;
       };
-    
+      console.log(data.count)
     
     }
-});
+  });
+
