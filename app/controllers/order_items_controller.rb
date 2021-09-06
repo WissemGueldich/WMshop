@@ -24,7 +24,7 @@ class OrderItemsController < ApplicationController
                 @items.push(item)
             end
 
-            UpdateCartJob.perform_later(@items,current_cart.items_count)
+            UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title)
 
         end
 
@@ -38,7 +38,7 @@ class OrderItemsController < ApplicationController
         current_cart.order.items.each do |item|
             @items.push(item)
         end
-        UpdateCartJob.perform_later(@items,current_cart.items_count)
+        UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title)
     end
 end
 

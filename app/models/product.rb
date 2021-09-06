@@ -6,6 +6,11 @@ class Product < ApplicationRecord
 
     belongs_to :category
     has_one_attached :image, dependent: :destroy
+    include Rails.application.routes.url_helpers
+
+    def image_url 
+        rails_blob_path(self.image, disposition: "attachment", only_path: true)
+    end
 
     def thumbnail 
         return self.image.variant(resize: '350x350!').processed
@@ -19,7 +24,6 @@ class Product < ApplicationRecord
         return self.image.variant(resize: '100x100!').processed   
     end
 
-    has_many_attached :images
 
     def to_s
         title

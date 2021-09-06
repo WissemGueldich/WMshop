@@ -12,17 +12,24 @@ import consumer from "./consumer"
     },
 
     received(data) {
-      console.log(data.product);
+
+      const addedProductConfirmCount = document.getElementById('added-product-confirm-alert');
+      if (addedProductConfirmCount!==null){
+        console.log("confirm alert is not null");
+        addedProductConfirmCount.innerHTML =  `<strong>${data.quantity} ${data.prod}</strong> has been added to your cart.` ;
+      };
+      
       const cartContainer = document.getElementById('cart-container');
       if (cartContainer!==null){
         console.log("container not null");
         cartContainer.innerHTML =  data.product;
-      }
+      };
       
       const cartIconIcounter = document.getElementById('cart-icon-counter');
       if (cartIconIcounter!==null){
         cartIconIcounter.innerHTML =  data.count;
-      }
+      };
+    
     
     }
 });
