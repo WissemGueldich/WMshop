@@ -4,12 +4,12 @@ class CheckoutController < ApplicationController
     def create
         @cart=[]
         current_cart.order.items.each do |item|
-            @cart.push(item.product)
+            @cart.push({"price"=>item.product.stripe_price_id, "quantity"=>item.quantity})
         end
         @session = Stripe::Checkout::Session.create({
             customer: current_user.stripe_customer_id,
             payment_method_types: ['card'],
-            line_items:[@cart.collect { |item| item.to_builder.attributes! }] ,
+            line_items:@cart ,
             mode: 'payment',
             success_url: success_url ,
             cancel_url: cancel_url ,
@@ -19,11 +19,9 @@ class CheckoutController < ApplicationController
         end
     end
 
-
     def success
         current_cart.remove_items
     end
-
 
     def cancel
     end
