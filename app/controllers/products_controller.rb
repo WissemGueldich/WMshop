@@ -6,8 +6,7 @@ class ProductsController < ApplicationController
         @category = Category.find(params[:category_id])
         @products = @category.products.all.order("created_at DESC")
         #@products = Product.search(params[:term])
-        
-       # respond_to :js
+        #respond_to :js
     end
 
     def show
@@ -27,7 +26,6 @@ class ProductsController < ApplicationController
         else
             redirect_to new_product_path
         end
-    
     end
 
     def destroy

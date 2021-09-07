@@ -20,6 +20,7 @@ class CheckoutController < ApplicationController
     end
 
     def success
+        current_cart.order.save
         current_cart.remove_items
     end
 

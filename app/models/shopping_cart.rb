@@ -1,35 +1,34 @@
 class ShoppingCart
 
-    def initialize(token:)
-      @token = token
-    end
-    
-    def order
-      @order ||= Order.find_or_create_by(token: @token) do |order|
-        order.sub_total = 0
-      end
-    end
+  def initialize(token:)
+    @token = token
+  end
   
-    def items_count
-      order.items.sum(:quantity)
+  def order
+    @order ||= Order.find_or_create_by(token: @token) do |order|
+      order.sub_total = 0
     end
-  
-    def add_item(product_id:, quantity: 1)
-      product = Product.find(product_id)
-  
-      order_item = order.items.find_or_initialize_by(product_id: product_id)
-  
-      order_item.price = product.price
-      order_item.quantity = order_item.quantity.to_i + quantity.to_i
-      order_item.save
-    end
-  
-    def remove_item(id:)
-      order.items.destroy(id)
-    end
+  end
 
-    def remove_items
-      order.items.destroy_all
-    end
+  def items_count
+    order.items.sum(:quantity)
+  end
+
+  def add_item(product_id:, quantity: 1)
+    product = Product.find(product_id)
+
+    order_item = order.items.find_or_initialize_by(product_id: product_id)
+    order_item.price = product.price
+    order_item.quantity = order_item.quantity.to_i + quantity.to_i
+    order_item.save
+  end
+
+  def remove_item(id:)
+    order.items.destroy(id)
+  end
+
+  def remove_items
+    order.items.destroy_all
+  end
 
 end
