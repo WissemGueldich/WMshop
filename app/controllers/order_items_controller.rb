@@ -25,7 +25,7 @@ class OrderItemsController < ApplicationController
                 @items.push(item)
             end
 
-            UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_user.id)
+            UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_cart.order.token)
 
         end
 
@@ -40,11 +40,13 @@ class OrderItemsController < ApplicationController
         current_cart.order.items.each do |item|
             @items.push(item)
         end
-        UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_user.id)
+        UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_cart.order.token)
     end
 
     def clear
         current_cart.remove_items
+        UpdateCartJob.perform_later([], current_cart.items_count, 0, "", current_cart.order.token)
+
     end
 
 end
