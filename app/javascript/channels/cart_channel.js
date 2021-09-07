@@ -1,7 +1,6 @@
 import consumer from "./consumer"
 
 
-  
   consumer.subscriptions.create({channel: "CartChannel"}, {
     connected() {
       console.log("connected to cart channel")  
@@ -12,17 +11,25 @@ import consumer from "./consumer"
     },
 
     received(data) {
-      console.log(data.product);
-      const cartContainer = document.getElementById('cart-container');
+
+      const addedProductConfirmCount = document.getElementById(`added-product-confirm-alert-${data.user_id}`);
+      if (addedProductConfirmCount!==null){
+        console.log("confirm alert is not null");
+        addedProductConfirmCount.innerHTML =  `<strong>${data.quantity} ${data.prod}</strong> has been added to your cart.` ;
+      };
+      
+      const cartContainer = document.getElementById(`cart-container-${data.user_id}`);
       if (cartContainer!==null){
         console.log("container not null");
         cartContainer.innerHTML =  data.product;
-      }
+      }else{console.log("cart container is nul")};
       
-      const cartIconIcounter = document.getElementById('cart-icon-counter');
+      const cartIconIcounter = document.getElementById(`cart-icon-counter-${data.user_id}`);
       if (cartIconIcounter!==null){
         cartIconIcounter.innerHTML =  data.count;
-      }
+      };
+      console.log(data.count)
     
     }
-});
+  });
+

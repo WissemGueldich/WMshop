@@ -6,9 +6,16 @@ class Product < ApplicationRecord
 
     belongs_to :category
     has_one_attached :image, dependent: :destroy
+    include Rails.application.routes.url_helpers
 
     def thumbnail 
         return self.image.variant(resize: '300x300!').processed
+    def image_url
+        rails_blob_path(self.image, disposition: "attachment", only_path: true)
+    end
+
+    def thumbnail
+        return self.image.variant(resize: '350x350!').processed
     end
 
     def show_thumbnail
@@ -19,19 +26,11 @@ class Product < ApplicationRecord
         return self.image.variant(resize: '100x100!').processed   
     end
 
-    has_many_attached :images
 
     def to_s
         title
     end
     
-    def to_builder
-        Jbuilder.new do |product|
-            product.price stripe_price_id
-            product.quantity OrderItem.find_by(product_id: self.id).quantity
-        end
-    end
-
     after_create do 
         product = Stripe::Product.create(name: title)
         price = Stripe::Price.create(product: product, unit_amount: self.price.to_i*100, currency: "usd")

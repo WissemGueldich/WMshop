@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
     respond_to :html, :json, :js
+
     def index
         @items = current_cart.order.items
     end
@@ -13,7 +14,7 @@ class OrderItemsController < ApplicationController
             end
 
             if @products.include? product
-                order_item=OrderItem.find_by(product_id: product.id)
+                order_item=order.items.find_by(product_id: product.id)
                 order_item.quantity = order_item.quantity + params[:quantity].to_i
                 order_item.save
             else
@@ -24,21 +25,27 @@ class OrderItemsController < ApplicationController
                 @items.push(item)
             end
 
-            UpdateCartJob.perform_later(@items,current_cart.items_count)
+            UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_user.id)
 
         end
 
     end
     
     def destroy
-        order_item = OrderItem.find(params[:id])
+        order_item = current_cart.order.items.find(params[:id])
         product = Product.find( order_item.product_id )
         current_cart.remove_item(id: params[:id])
+
         @items = []
         current_cart.order.items.each do |item|
             @items.push(item)
         end
-        UpdateCartJob.perform_later(@items,current_cart.items_count)
+        UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_user.id)
     end
+
+    def clear
+        current_cart.remove_items
+    end
+
 end
 
