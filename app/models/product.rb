@@ -8,6 +8,8 @@ class Product < ApplicationRecord
     has_one_attached :image, dependent: :destroy
     include Rails.application.routes.url_helpers
 
+    def thumbnail 
+        return self.image.variant(resize: '300x300!').processed
     def image_url
         rails_blob_path(self.image, disposition: "attachment", only_path: true)
     end
@@ -39,6 +41,14 @@ class Product < ApplicationRecord
     def create_and_assign_new_stripe_price
         price = Stripe::Price.create(product: self.strupe_product_id, unit_amount: self.price.to_i*100, currency: "usd")
         update(stripe_price_id: price.id)
+    end
+
+    def self.search(term)
+        if term
+          where('name LIKE ?', "%#{term}%")
+        else
+          nil
+        end
     end
     
 end
