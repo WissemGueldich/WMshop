@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   get 'success', to: "checkout#success"
   get 'cancel', to: "checkout#cancel"
   get '/history', to: "transactions#index"
+  get '/transaction/:id/items',to: "transaction_items#index", as: 'transaction_items'
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
+
 
     #mount ActionCable.server => '/cable'
 end

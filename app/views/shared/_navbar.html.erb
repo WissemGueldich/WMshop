@@ -2,8 +2,8 @@
     <div class="font-mono bg-gray-100 dark-mode:bg-gray-900 ">
         <div class=" min-w-screen w-screen text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
             <div x-data="{ open: true }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-                <div class="flex flex-row items-center justify-between p-4">
-                    <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">WMshop</a>
+                <div class="flex flex-row items-center justify-between px-2 py-1">
+                    <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"><%=image_tag "logo.jpg", width:"200px", class:"rounded" %></a>
                     <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                         <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -49,12 +49,10 @@
                             <div id="cart-container-<%= current_cart.order.token %>" class="w-full overflow-x-hidden m-0 h-full min-h-full" >
                                 <%= render partial: "shared/cart", locals: {items: @items} %>
                             </div>
-                            <%end%>
                             <% else %>
                                 <div id="cart-container-<%= current_cart.order.token %>" class="text-center" >
                                     <p>Your cart is empty</p>
                                 </div>
-                            <%end%>
                             <% end %>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <div class=" my-5 flex items-center justify-center">
-    <strong><h1 class="text-center text-3xl" > Your Order History </h1></strong>
+    <strong><h1 class="text-center text-3xl" > Details of your order #<%= @transaction_id %> </h1></strong>
 </div>
 <!-- component -->
 <div class="overflow-x-auto">
@@ -10,53 +10,39 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Id</th>
-                            <th class="py-3 px-6 text-left">Date and Time</th>
+                            <th class="py-3 px-6 text-left">Product Name</th>
+                            <th class="py-3 px-6 text-center">Quantity</th>
+                            <th class="py-3 px-6 text-center">Unit Price</th>
                             <th class="py-3 px-6 text-center">Total Price</th>
-                            <th class="py-3 px-6 text-center">payment Method</th>
-                            <th class="py-3 px-6 text-center">Status</th>
-                            <th class="py-3 px-6 text-center">Details</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
-                        <% @transactions.each do |transaction| %>
+                        <% @transaction_items.each do |transaction_item| %>
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="py-3 px-6 text-left whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <span class="font-medium"><%= transaction.id %></span>
+                                        <span class="font-medium"><%= transaction_item.id %></span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <span><%= transaction.created_at %></span>
+                                        <span><%= link_to Product.find(transaction_item.product_id).title, product_path(transaction_item.product_id), class: "text-lg text-blue-500" %></span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex items-center justify-center">
-                                        <%= number_to_currency transaction.sub_total %>
+                                        <span><%= transaction_item.quantity %></span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <%= transaction.method %>
-                                </td>
-                                <td class="py-3 px-6 text-center">
-                                    <div class="flex item-center justify-center">
-                                        <% if transaction.status=="Processing" %>
-                                            <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
-                                        <% elsif transaction.status=="Confirmed" %>
-                                            <span class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
-                                        <% elsif transaction.status=="Delivered" %>
-                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
-                                        <% else %>
-                                            <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
-                                        <% end %>
-
-
+                                    <div class="flex items-center justify-center">
+                                        <%= number_to_currency transaction_item.price %>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <div class="flex item-center justify-center">
-                                        <%= link_to "Details", transaction_items_path(transaction.id), class:"text-blue-500"  %>
+                                    <div class="flex items-center justify-center">
+                                        <%= number_to_currency (transaction_item.price*transaction_item.quantity) %>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">

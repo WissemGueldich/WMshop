@@ -4,7 +4,7 @@
       <div class="relative w-full">
           <%= form.hidden_field :user_id, value: current_user.id %>
           <%= form.hidden_field :room_id,value: room.id %>
-          <%= form.text_field :content,:autocomplete => :off, class: "flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10", required: 'required', placeholder:"Message here ...." %>
+          <%= form.text_field :content,:autocomplete => :off, class: "flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10", placeholder:"Message here ...." %>
       </div>
     </div>
     <div class="ml-4">

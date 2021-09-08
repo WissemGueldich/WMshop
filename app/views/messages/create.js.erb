@@ -2,7 +2,6 @@
 
 var chatBtn = document.getElementById('chat-btn');
 
-
 if(chatBtn!==null){
     chatBtn.disabled = false;
 }
@@ -12,5 +11,7 @@ if(bubChatBtn!==null){
     bubChatBtn.disabled = false;
 }
 
-
-
+var msgContent = document.getElementById('message_content');
+if(msgContent!==null){
+msgContent.value=""
+}
