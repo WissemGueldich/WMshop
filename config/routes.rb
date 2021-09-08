@@ -19,9 +19,9 @@ Rails.application.routes.draw do
   get 'categories/products/new', to: 'products#new'
   get 'success', to: "checkout#success"
   get 'cancel', to: "checkout#cancel"
+  get '/history', to: "transactions#index"
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
-  
 
     #mount ActionCable.server => '/cable'
 end
