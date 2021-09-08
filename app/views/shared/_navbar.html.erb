@@ -49,10 +49,12 @@
                             <div id="cart-container-<%= current_cart.order.token %>" class="w-full overflow-x-hidden m-0 h-full min-h-full" >
                                 <%= render partial: "shared/cart", locals: {items: @items} %>
                             </div>
+                            <%end%>
                             <% else %>
                                 <div id="cart-container-<%= current_cart.order.token %>" class="text-center" >
                                     <p>Your cart is empty</p>
                                 </div>
+                            <%end%>
                             <% end %>
                         </div>
                     </div>

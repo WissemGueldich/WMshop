@@ -4,6 +4,8 @@ class CategoriesController < ApplicationController
     def index
       @categories = Category.all
       @products = Product.all.order("created_at DESC")
+      #@products = Product.search(params[:term])
+        #respond_to :js
     end
   
     def new

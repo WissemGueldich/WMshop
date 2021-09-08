@@ -16,10 +16,6 @@ class Product < ApplicationRecord
         rails_blob_path(self.image, disposition: "attachment", only_path: true)
     end
 
-    def thumbnail
-        return self.image.variant(resize: '350x350!').processed
-    end
-
     def show_thumbnail
         return self.image.variant(resize: '550x550!').processed 
     end
@@ -47,7 +43,7 @@ class Product < ApplicationRecord
 
     def self.search(term)
         if term
-          where('name LIKE ?', "%#{term}%")
+          where('title LIKE ?', "%#{term}%")
         else
           nil
         end
