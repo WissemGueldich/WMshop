@@ -5,8 +5,7 @@ class ProductsController < ApplicationController
     def index
         @category = Category.find(params[:category_id])
         @products = @category.products.all.order("created_at DESC")
-        #@products = Product.search(params[:term])
-        #respond_to :js
+
     end
 
     def show
@@ -14,6 +13,10 @@ class ProductsController < ApplicationController
 
     def new 
         @product = Product.new
+    end
+
+    def search
+        @products = Product.ransack(title_cont: params[:q]).result(distinct: true).limit(3)
     end
 
     def edit 

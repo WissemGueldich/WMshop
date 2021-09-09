@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'cancel', to: "checkout#cancel"
   get '/history', to: "transactions#index"
   get '/transaction/:id/items',to: "transaction_items#index", as: 'transaction_items'
+  get :search, controller: :products
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
 

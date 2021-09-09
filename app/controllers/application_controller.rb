@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
         @rooms = Room.all
         @items = current_cart.order.items
     end
+
+
+
+    
     private
     def set_room
         if current_user
@@ -57,6 +61,8 @@ class ApplicationController < ActionController::Base
     def room_params
       params.require(:room).permit(:name)
     end
+
+
     
 end
 

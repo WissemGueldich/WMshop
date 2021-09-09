@@ -33,6 +33,8 @@ gem 'stripe'
 # Unread for unread messages
 gem 'unread'
 
+gem 'ransack'
+
 
 
 

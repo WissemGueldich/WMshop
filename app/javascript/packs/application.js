@@ -8,15 +8,13 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "stylesheets/application"
+import '../packs/jquery.easy-autocomplete'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
 require("jquery")
-
-
-
 
 $(document).on('turbolinks:load', function (){
     //code here
