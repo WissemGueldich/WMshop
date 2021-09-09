@@ -1,1 +1,353 @@
-<h1>SUCCESS</h1>
+<% if @transaction %>
+<div class="antialiased sans-serif min-h-screen bg-white" style="min-height: 900px">
+	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+	<style>
+        
+		[x-cloak] {
+			display: none;
+		}
+
+		@media print {
+			.no-printme  {
+				display: none;
+			}
+			.printme  {
+				display: block;
+			}
+			body {
+				line-height: 1.2;
+			}
+		}
+
+		@page {
+			size: A4 portrait;
+			counter-increment: page;
+		}
+
+		/* Datepicker */
+		.date-input {
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 0.5rem 1rem;
+			z-index: 2000;
+			margin: 3px 0 0 0;
+			border-top: 1px solid #eee;
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+				0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		}
+		.date-input.is-hidden {
+			display: none;
+		}
+		.date-input .pika-title {
+			padding: 0.5rem;
+			width: 100%;
+			text-align: center;
+		}
+		.date-input .pika-prev,
+		.date-input .pika-next {
+			margin-top: 0;
+			/* margin-top: 0.5rem; */
+			padding: 0.2rem 0;
+			cursor: pointer;
+			color: #4299e1;
+			text-transform: uppercase;
+			font-size: 0.85rem;
+		}
+		.date-input .pika-prev:hover,
+		.date-input .pika-next:hover {
+			text-decoration: underline;
+		}
+		.date-input .pika-prev {
+			float: left;
+		}
+		.date-input .pika-next {
+			float: right;
+		}
+		.date-input .pika-label {
+			display: inline-block;
+			font-size: 0;
+		}
+		.date-input .pika-select-month,
+		.date-input .pika-select-year {
+			display: inline-block;
+			border: 1px solid #ddd;
+			color: #444;
+			background-color: #fff;
+			border-radius: 10px;
+			font-size: 0.9rem;
+			padding-left: 0.5em;
+			padding-right: 0.5em;
+			padding-top: 0.25em;
+			padding-bottom: 0.25em;
+			appearance: none;
+		}
+		.date-input .pika-select-month:focus,
+		.date-input .pika-select-year:focus {
+			border-color: #cbd5e0;
+			outline: none;
+		}
+		.date-input .pika-select-month {
+			margin-right: 0.25em;
+		}
+		.date-input table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 0.2rem;
+		}
+		.date-input table th {
+			width: 2em;
+			height: 2em;
+			font-weight: normal;
+			color: #718096;
+			text-align: center;
+		}
+		.date-input table th abbr {
+			text-decoration: none;
+		}
+		.date-input table td {
+			padding: 2px;
+		}
+		.date-input table td button {
+			/* border: 1px solid #e2e8f0; */
+			width: 1.8em;
+			height: 1.8em;
+			text-align: center;
+			color: #555;
+			border-radius: 10px;
+		}
+		.date-input table td button:hover {
+			background-color: #bee3f8;
+		}
+		.date-input table td.is-today button {
+			background-color: #ebf8ff;
+		}
+		.date-input table td.is-selected button {
+			background-color: #3182ce;
+		}
+		.date-input table td.is-selected button {
+			color: white;
+		}
+		.date-input table td.is-selected button:hover {
+			color: white;
+		}
+	</style>
+
+	<div class=" border-t-8 border-gray-700 h-2"></div>
+	<div 
+		class="container mx-auto py-6 px-4"
+		x-data="invoices()"
+		x-cloak
+	>
+        
+        <div class="flex justify-between">
+            <h2 class="text-2xl font-bold mb-6 pb-2 tracking-wider uppercase"></h2>
+            <div>
+                <div class="relative mr-4 inline-block">
+                    <div class="text-gray-500 cursor-pointer w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-300 inline-flex items-center justify-center" @mouseenter="showTooltip = true" @mouseleave="showTooltip = false" @click="printInvoice()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+                            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+                            <rect x="7" y="13" width="10" height="8" rx="2" />
+                        </svg>				  
+                    </div>
+                    <div x-show.transition="showTooltip" class="z-40 shadow-lg text-center w-32 block absolute right-0 top-0 p-2 mt-12 rounded-lg bg-gray-800 text-white text-xs">
+                        Print this invoice!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+		<!-- Print Template -->
+		<div id="js-print-template" x-ref="printTemplate" class="">
+			<div class="mb-8 flex justify-between">
+				<div>
+					<h2 class="text-3xl font-bold mb-6 pb-2 tracking-wider uppercase">Invoice</h2>
+
+					<div class="mb-1 flex items-center">
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Invoice No.</label>
+						<span class="mr-4 inline-block">:</span>
+						<div >#<%= @transaction.id %></div>
+					</div>
+		
+					<div class="mb-1 flex items-center">
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Invoice Date</label>
+						<span class="mr-4 inline-block">:</span>
+						<div><%= @transaction.created_at %></div>
+					</div>
+		
+					<div class="mb-1 flex items-center">
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Due date</label>
+						<span class="mr-4 inline-block">:</span>
+						<div><%= @transaction.created_at %></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex justify-between mb-10">
+				<div class="w-1/2">
+					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide">Bill To:</label>
+					<div>
+						<div><%= current_user.name %></div>
+					</div>
+				</div>
+				<div class="w-1/2">
+					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide">From:</label>
+					<div>
+						<div>WMShop</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex flex-wrap -mx-1 border-b py-2 items-start">
+
+				<div class="flex-1 px-1">
+					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold">Product</p>
+				</div>
+	
+				<div class="px-1 w-32 text-right">
+					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold">Quantity</p>
+				</div>
+	
+				<div class="px-1 w-32 text-right">
+					<p class="leading-none">
+						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600">Unit Price</span>
+						<span class="font-medium text-xs text-gray-500">(Incl. GST)</span>
+					</p>
+				</div>
+	
+				<div class="px-1 w-32 text-right">
+					<p class="leading-none">
+						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600">Amount</span>
+						<span class="font-medium text-xs text-gray-500">(Incl. GST)</span>
+					</p>
+				</div>
+			</div>
+            <% transactionItems = TransactionItem.where(transaction_id: @transaction.id) %>
+            <% transactionItems.each do |item| %>
+                <div class="flex flex-wrap -mx-1 py-2 border-b">
+                    <div class="flex-1 px-1">
+                        <p class="text-gray-800"> <%= Product.find(item.product_id).title %></p>
+                    </div>
+
+                    <div class="px-1 w-32 text-right">
+                        <p class="text-gray-800" ><%= item.quantity %></p>
+                    </div>
+
+                    <div class="px-1 w-32 text-right">
+                        <p class="text-gray-800" > <%= number_to_currency item.price %></p>
+                    </div>
+
+                    <div class="px-1 w-32 text-right">
+                        <p class="text-gray-800" ><%= number_to_currency item.quantity*item.price %></p>
+                    </div>
+                </div>
+            <% end %>
+
+			<div class="py-2 ml-auto mt-20" style="width: 320px">
+				<div class="flex justify-between mb-3">
+					<div class="text-gray-800 text-right flex-1">Total incl. GST</div>
+					<div class="text-right w-40">
+						<div class="text-gray-800 font-medium" > <%= number_to_currency @transaction.sub_total %> </div>
+					</div>
+				</div>
+				<div class="flex justify-between mb-4">
+					<div class="text-sm text-gray-600 text-right flex-1">GST(18%) incl. in Total</div>
+					<div class="text-right w-40">
+						<div class="text-sm text-gray-600" ><%= number_to_currency @transaction.sub_total %></div>
+					</div>
+				</div>
+			
+				<div class="py-2 border-t border-b">
+					<div class="flex justify-between">
+						<div class="text-xl text-gray-600 text-right flex-1">Amount due</div>
+						<div class="text-right w-40">
+							<div class="text-xl text-gray-800 font-bold" ><%= number_to_currency @transaction.sub_total %></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Print Template -->
+
+		
+
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+	<script>
+
+		function invoices() {
+			return {
+				items: [],
+				invoiceNumber: 0,
+				invoiceDate: '',
+				invoiceDueDate: '',
+
+				totalGST: 0,
+				netTotal: 0,
+
+				item: {
+					id: '',
+					name: '',
+					qty: 0,
+					rate: 0,
+					total: 0,
+					gst: 18
+				},
+
+				billing: {
+					name: '',
+					address: '',
+					extra: ''
+				},
+				from: {
+					name: '',
+					address: '',
+					extra: ''
+				},
+
+				showTooltip: false,
+				showTooltip2: false,
+				openModal: false,
+
+				
+
+				printInvoice() {
+					var printContents = this.$refs.printTemplate.innerHTML;
+					var originalContents = document.body.innerHTML;
+
+					document.body.innerHTML = printContents;
+					window.print();
+					document.body.innerHTML = originalContents;
+				}
+			}
+		}
+	</script>
+<% else %>
+<!-- component -->
+<style>
+
+  
+  
+    .error-text {
+    font-size: 130px;
+    }
+
+    @media (min-width: 768px) {
+        .error-text {
+            font-size: 220px;
+        }
+    }
+
+  </style>
+  
+  <div class="h-screen w-screen bg-blue-600 flex justify-center content-center flex-wrap">
+    <p class="font-sans text-white error-text">404</p>
+  </div>
+  
+  <div class="absolute w-screen bottom-0 mb-6 text-white text-center font-sans text-xl">
+      <span class="opacity-50">You can find your invoices in your order history</span>
+       <a class="border-b"><%= link_to "here.", history_path %> </a>
+  </div>
+<% end %>

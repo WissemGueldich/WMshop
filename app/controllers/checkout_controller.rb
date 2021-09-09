@@ -22,10 +22,10 @@ class CheckoutController < ApplicationController
     def success
         current_cart.order.save
         if current_cart.order.items.count > 0
-            transaction = Transaction.new(user_id: current_user.id, sub_total: current_cart.order.sub_total, status: "Processing", method: "Credit Card")
-            transaction.save
+            @transaction = Transaction.new(user_id: current_user.id, sub_total: current_cart.order.sub_total, status: "Processing", method: "Credit Card")
+            @transaction.save
             current_cart.order.items.each do |item|
-                transactionItem = TransactionItem.new(transaction_id: transaction.id , product_id: item.product_id , quantity: item.quantity , price: item.price)
+                transactionItem = TransactionItem.new(transaction_id: @transaction.id , product_id: item.product_id , quantity: item.quantity , price: item.price)
                 transactionItem.save 
             end
             current_cart.order.destroy
