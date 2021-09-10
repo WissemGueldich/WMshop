@@ -16,7 +16,16 @@ class ProductsController < ApplicationController
     end
 
     def search
-        @products = Product.ransack(title_cont: params[:q]).result(distinct: true).limit(3)
+        @products = Product.ransack(title_cont: params[:q]).result(distinct: true)
+        
+        respond_to do |format|
+            format.html {}
+            format.json {
+                @products=@products.limit(5)
+                puts(@products)
+            }
+        end
+    
     end
 
     def edit 
@@ -33,7 +42,7 @@ class ProductsController < ApplicationController
 
     def destroy
         @product.destroy
-        redirect_to root_path
+        redirect_to root_path, notice: "Product has been deleted successfully!"
     end
 
     def update

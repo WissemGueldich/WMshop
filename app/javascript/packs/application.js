@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "stylesheets/application"
 import '../packs/jquery.easy-autocomplete'
+import '../packs/search'
 
 Rails.start()
 Turbolinks.start()

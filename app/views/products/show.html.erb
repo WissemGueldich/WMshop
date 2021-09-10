@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <section class="text-gray-700 body-font overflow-hidden bg-white">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -7,11 +8,16 @@
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <div class="flex flex-row justify-between">
           <h2 class="text-sm title-font text-gray-500 tracking-widest"><%= Category.find(@product.category_id).title %></h2>
-          <% if current_user && current_user.admin %>
-            <%= link_to edit_product_path(@product), class: "right-0 float-right inline" do %>
-              <i class="fas fa-edit"></i>
-            <% end %>
-          <% end %>
+          <div>
+              <% if current_user && current_user.admin %>
+                <%= link_to delete_product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "right-0 float-right inline mx-2" do %>
+                  <i style="font-size:24px" class="fa">&#xf014;</i>
+                <% end %>
+                <%= link_to edit_product_path(@product), class: "right-0 float-right inline" do %>
+                  <i class="fas fa-edit"></i>
+                <% end %>
+              <% end %>
+          </div>
         </div>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"><%= @product.title %></h1>
         <div class="flex mb-4">

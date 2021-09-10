@@ -6,6 +6,8 @@ class Product < ApplicationRecord
 
     belongs_to :category
     has_one_attached :image, dependent: :destroy
+    has_many :transaction_items, dependent: :destroy
+    has_many :order_items, dependent: :destroy
     include Rails.application.routes.url_helpers
 
     def thumbnail 

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get :search, controller: :products
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
+  delete '/products/:id', to: 'products#destroy', as: 'delete_product'
 
 
     #mount ActionCable.server => '/cable'
