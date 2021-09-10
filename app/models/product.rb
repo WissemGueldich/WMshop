@@ -32,7 +32,7 @@ class Product < ApplicationRecord
     end
     
     after_create do 
-        product = Stripe::Product.create(name: title)
+        product = Stripe::Product.create(name: title , description: description, images: ["https://tn.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/32/7041/1.jpg?0874"])
         price = Stripe::Price.create(product: product, unit_amount: self.price.to_i*100, currency: "usd")
         update(stripe_product_id: product.id, stripe_price_id: price.id)
     end
