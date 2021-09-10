@@ -1,5 +1,9 @@
 class TransactionsController < ApplicationController
     def index
-        @transactions=Transaction.where(user_id: current_user.id).order("created_at DESC")
+        @transactions = Transaction.where(user_id: current_user.id).order("created_at DESC")
+    end
+
+    def invoice 
+        @transaction = Transaction.find(params[:id])
     end
 end

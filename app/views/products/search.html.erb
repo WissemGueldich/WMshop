@@ -25,30 +25,28 @@
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-white">
-                        <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= truncate(product.title, :length => 30) %></h1></a>
-                        <div class="flex py-2">
-                            <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
-                        </div>
-                        <div>
-                        <%= form_tag order_items_path, remote: true, class:"flex justify-center " do %>
-                            <%= hidden_field_tag :product_id, product.id %>
-                            <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center bg-transparent border-1 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-index" %>
-                            <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
-                            Add to cart
-                            </button>
-                        <% end %>
+                        <a href="#" class=""><h1 class=" text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= truncate(product.title, :length => 30) %></h1></a>
+                        <div class="flex py-2 flex-col">
+                            <%= form_tag order_items_path, remote: true, class:"flex justify-center content-center " do %>
+                                <p class="text-s text-gray-600 inline-block align-top  mx-1 flex ml-auto text-bleck border-0 py-2 px-4 focus:outline-none rounded-full"><%= number_to_currency product.price %></p>
+                                <%= hidden_field_tag :product_id, product.id %>
+                                <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
+                                <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
+                                Add to cart
+                                </button>
+                            <% end %>
                         </div>
                         <div class="flex">
-                        <div class="">
-                            <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <i class="fas fa-star text-yellow-400 text-xs"></i>
-                            <i class="far fa-star text-gray-400 text-xs"></i>
-                        </div>
-                        <div class="ml-2">
-                            <p class="text-gray-500 font-medium text-sm">(1)</p>
-                        </div>
+                            <div class="">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="far fa-star text-gray-400 text-xs"></i>
+                            </div>
+                            <div class="ml-2">
+                                <p class="text-gray-500 font-medium text-sm">(1)</p>
+                            </div>
                         </div>
                     </div>
                     </div>

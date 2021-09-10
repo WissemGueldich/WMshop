@@ -51,7 +51,7 @@
           <span class="title-font font-medium text-2xl text-gray-900"><%= number_to_currency @product.price %></span>
           <%= form_tag order_items_path, remote: true, class:"flex max-h-10 h-10" do %>
             <%= hidden_field_tag :product_id, @product.id %>
-            <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 max-w-20 w-20 inline-block text-center bg-transparent border-1 hover:bg-gray-100 focus:outline-none", id: "cart-number-field-show" %>
+            <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 max-w-20 w-20 inline-block text-center bg-gray-200 hover:bg-gray-300 border-1 focus:outline-none", id: "cart-number-field-show" %>
             <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded" @click="showModal2 = true">
             Add to cart
             </button>
