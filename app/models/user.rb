@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   has_one :room, dependent: :destroy
   has_one_attached :avatar
-  validates :avatar, :presence => true
+
 
   def to_s
     email
