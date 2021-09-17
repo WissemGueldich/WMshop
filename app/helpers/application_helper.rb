@@ -11,5 +11,10 @@ module ApplicationHelper
             product.image.variant(resize: "#{size}x#{size}")
         end
     end
+    def prod_ad(product)
+        if product.ad.attached?
+            product.ad.variant(resize: "1200x235!")
+        end
+    end
 
 end

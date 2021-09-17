@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
     end
 
     def update
-        if @product.update(params.require(:product).permit(:description, :price, :title))
+        if @product.update(params.require(:product).permit(:title, :image, :ad, :description, :price, :category_id))
             redirect_to @product, notice: 'Product was successfully updated'
         else
             render "edit" 
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-        params.require(:product).permit(:title, :image, :description, :price, :category_id)
+        params.require(:product).permit(:title, :image, :ad, :description, :price, :category_id)
     end
 
     def find_product
