@@ -2,7 +2,7 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Add new product</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900"><%= type %> product</h3>
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -32,8 +32,13 @@
                         </div>
 
                         <div>
-                            <%=f.label "Ad image", class:"block text-sm font-medium text-gray-700"%>
-                            <%= f.file_field :ad %>
+                            <%=f.label "Ad image", class:"inline text-sm font-medium text-gray-700"%> <p class='inline text-xs text-gray-500'>(optional)</p>
+                            <%= f.file_field :ad, class: "block" %>
+                        </div>
+
+                        <div>
+                          Show this product in the slideshow
+                          <%= f.check_box :show_ad, {:class=>"mx-2"}, "true", "false" %>
                         </div>
 
                         <div>
@@ -45,58 +50,14 @@
 
                         <div>
                           <%= f.label :category, class:"block text-sm font-medium text-gray-700" %>  
-                          <%= f.collection_select :category_id, Category.all, :id, :title,prompt: true, selected: @product.category_id %>
+                          <%= f.collection_select :category_id, Category.all, :id, :title, prompt: true, selected: @product.category_id %>
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                      <%= f.submit "Add Product", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: {disable_with: "Validating ..."}%>
+                      <%= f.submit "Save Product", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: {disable_with: "Validating ..."}%>
                     </div>
                 </div>
             <%end%>
         </div>
     </div>
 </div>
-
-
-
-
-<!--<div class="min-h-screen min-w-screen flex items-center justify-center bg-gray-100">
-  <div class="flex flex-col shadow-xl">
-    <div class="py-6 px-14 rounded-tl-2xl rounded-tr-2xl text-center space-y-8">
-      <h2 class=" title-new text-black text-xs uppercase"> Add Product </h2>
-
-    </div>
-    <div class="flex flex-col py-6 px-8 space-y-5 bg-white">
-   <%= form_with(model: @product)  do |f|%>
-
-    <p>
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-    </p>
- 
-    <p>
-    <%= f.label :image %><br>
-    <%= f.file_field :image %>
-    </p>
-
-    <p >
-    <%=f.label :description %><br>
-    <p class="editor mx-auto w-10/12 flex flex-col text-gray-800 max-w-2xl w-full">
-    <%=f.text_area :description, class:"description bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none",  placeholder:"Describe everything about this product here"  %>
-    </p>
-    </p>
-
-    <p>
-      <%= f.label :category %><br>
-      <%= collection_select(:product_categories, :category_id, Category.all, :id, :title, {}, { :multiple => false})%>
-    </p>
-    
-    <div class="buttons flex">
-    <%= f.submit "Add", class:"btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"%><br>
-    <%= link_to "Back", :back, class:"btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto" %>
-    </div>
-    <% end %>
-   </div> 
-  </div>
-</div>
--->

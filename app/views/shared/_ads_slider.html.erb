@@ -67,7 +67,7 @@
     <div>
         <ul id="carousel" class="animate">
             <% products.each do |product| %>
-                <% if product.ad.attached?%>
+                <% if product.ad.attached? && product.show_ad=="true" %>
                     <li class="slide animate">
                         <%= link_to product_path(product.id) do %>
                             <%= image_tag prod_ad(product), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
@@ -93,17 +93,14 @@
         translationComplete = true;
     }
 
-    document.addEventListener("DOMContentLoaded", function(event) 
+    document.addEventListener("turbolinks:load", function(event) 
     {
         var carousel = document.getElementById('carousel');
 
         amount = document.getElementsByClassName("slide").length;
-        // get the width of the container
         moveOffset = parseInt(window.getComputedStyle(document.getElementById('carousel-container')).width, 10);
-        // calcuate the width of the carousel
         document.getElementById('carousel').style.width = (amount * moveOffset) + 'px';
         console.log('(amount * moveOffset) is :'+(amount * moveOffset))
-        // prevent multiple click when transition
         for(var i = 0; i < amount; i++)
         {
             currTransl[i] = -moveOffset;
@@ -112,9 +109,7 @@
             document.getElementsByClassName("slide")[i].addEventListener("oTransitionEnd", transitionCompleted, true);                    
             document.getElementsByClassName("slide")[i].addEventListener("MSTransitionEnd", transitionCompleted, true);                  
         }
-        // add the last item to the start so that translateX(-moveOffset) works (In case the first click is the previous button)
         document.getElementById('carousel').insertBefore(document.getElementById('carousel').children[amount -1], document.getElementById('carousel').children[0])
-        // add click events to control arrows
         document.getElementById('prev').addEventListener('click', prev, true);
         document.getElementById('next').addEventListener('click', next, true);
         next();
