@@ -1,15 +1,14 @@
 class CategoriesController < ApplicationController
-    before_action :set_categories, only: [:show, :update, :destroy, :edit]
+    before_action :set_categories, only: [:index, :show, :update, :destroy, :edit]
 
     def index
       @categories = Category.all
-      @products = Product.all.order("created_at DESC")
-      #@products = Product.search(params[:term])
-        #respond_to :js
+      @products = Product.where(category_id: @category.id).order("created_at DESC")
+
     end
   
     def new
-      @category = Categories.new
+      @category = Category.new
     end
   
     def edit
@@ -17,20 +16,28 @@ class CategoriesController < ApplicationController
   
     def create
       @category = Category.new(categories_params)
+      if @category.save
+        redirect_to root_path, notice: 'Category was successfully created'
+      else
+          redirect_to new_category_path
+      end
     end
-  
     def update
-      @category.update(categories_params)
+      if @category.update(categories_params)
+        redirect_to category_products_path(@category), notice: 'Category was successfully updated'
+      else
+          render "edit"
+      end
     end
   
     def show
     end
   
     def destroy
-      @category.destroy
+      if @category.destroy
+        redirect_to root_path, notice: 'Category was successfully deleted'
+      end
     end
-
-
 
     private
 
@@ -40,7 +47,7 @@ class CategoriesController < ApplicationController
 
   def categories_params
     params.require(:category).permit(
-      :title
+      :title, :category_group_id
     )
   end
 end

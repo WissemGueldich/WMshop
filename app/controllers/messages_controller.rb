@@ -21,11 +21,12 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    if message_params[:content].strip!=""
+    strippedContent=message_params[:content].strip!
+    message_params[:content]=strippedContent
+    if message_params[:content]!=""
       @message = Message.new(message_params)
       @message.user=current_user
       @message.save
-      #@unread_count = 0
       @room=Room.find(@message.room_id)
       SendMessageJob.perform_later(@message,current_user,User.find(@message.room.user_id).admin,4)
     end

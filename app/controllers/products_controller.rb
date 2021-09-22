@@ -3,9 +3,7 @@ class ProductsController < ApplicationController
     before_action :set_product, only: [:edit, :update, :show, :destroy]
         
     def index
-        @category = Category.find(params[:category_id])
-        @products = @category.products.all.order("created_at DESC")
-
+        @products = Product.all.order("created_at DESC")
     end
 
     def show
@@ -47,7 +45,6 @@ class ProductsController < ApplicationController
 
     def update
         if @product.update(params.require(:product).permit(:title, :image, :ad, :description, :price, :category_id, :show_ad))
-            puts("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaass "+@product.show_ad)
             redirect_to @product, notice: 'Product was successfully updated'
         else
             render "edit" 

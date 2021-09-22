@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_082900) do
+ActiveRecord::Schema.define(version: 2021_09_22_120438) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 2021_09_20_082900) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_group_id"
+    t.index ["category_group_id"], name: "index_categories_on_category_group_id"
+  end
+
+  create_table "category_groups", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -155,6 +163,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_082900) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "category_groups"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "order_items", "orders"

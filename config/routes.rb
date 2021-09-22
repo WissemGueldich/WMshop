@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'categories#index'
+  resources :category_groups
+  root to: 'products#index'
   
   devise_for :users
   
@@ -7,10 +8,8 @@ Rails.application.routes.draw do
   resources :messages
   resources :rooms
   resources :products 
-
-  resources :categories, only: [:index] do
-    resources :products, only: [:index]
-  end
+  resources :categories
+  resources :categories, only: [:index] 
   resources :order_items, path: '/cart/items'
 
 
@@ -21,12 +20,13 @@ Rails.application.routes.draw do
   get 'cancel', to: "checkout#cancel"
   get '/history', to: "transactions#index"
   get '/transaction/:id/items', to: "transaction_items#index", as: 'transaction_items'
-  get :search, controller: :products
   get '/invoice/:id', to: "transactions#invoice", as: "invoice"
+  get '/categories/:id/products', to: "categories#index", as: 'category_products'
+  get :search, controller: :products
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
   delete '/products/:id', to: 'products#destroy', as: 'delete_product'
+  delete '/categories/:id', to: 'categories#destroy', as: 'delete_category'
 
 
-    #mount ActionCable.server => '/cable'
 end

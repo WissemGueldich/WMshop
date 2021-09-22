@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Category Groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @category_groups.each do |category_group| %>
+      <tr>
+        <td><%= category_group.name %></td>
+        <td><%= link_to 'Show', category_group %></td>
+        <td><%= link_to 'Edit', edit_category_group_path(category_group) %></td>
+        <td><%= link_to 'Destroy', category_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category Group', new_category_group_path %>
