@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <div class="font-mono bg-gray-100 dark-mode:bg-gray-900 ">
     <div class=" min-w-screen w-screen text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
-        <div x-data="{ open: true }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div x-data="{ open: true }" class="flex flex-col max-w-screen-xl px-0 mx-auto md:items-center md:justify-between md:flex-row md:px-2 lg:px-3">
             <div class="flex flex-row items-center justify-between px-2 py-1">
                 <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"><%=image_tag "logo.jpg", width:"200px", class:"rounded" %></a>
                 <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -12,6 +12,84 @@
                 </button>
             </div>
             <nav :class="{'flex': open, 'hidden': !open}" class="flex-col  hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+                <!--categ-->
+                <div class="group inline-block ">
+                    <button
+                      class=" outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+                    >
+                      <span class="pr-1 font-semibold flex-1">Categories</span>
+                      <span>
+                        <svg
+                          class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                          transition duration-150 ease-in-out"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32" >
+                        <% over_categories.each do |oc| %>
+                            <% if oc.subcategories.length == 0 %>
+                                <li class="rounded-sm px-3 py-1 hover:bg-gray-100"><%= oc.name %></li>
+                            <% else %> 
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button class="w-full text-left flex items-center outline-none focus:outline-none" >
+                                        <span class="pr-1 flex-1"><%= oc.name %></span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-leftmin-w-32" >
+                                        <% oc.subcategories.each do |categoryGroup| %>
+                                            <% if categoryGroup.categories.length == 0 %>
+                                                <li class="px-3 py-1 hover:bg-gray-100"><%= categoryGroup.name %></li>
+                                            <% else %> 
+                                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                                    <button class="w-full text-left flex items-center outline-none focus:outline-none">
+                                                        <span class="pr-1 flex-1"><%= categoryGroup.name %></span>
+                                                        <span class="mr-auto">
+                                                            <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
+                                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                    <ul class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32" >
+                                                        <% categoryGroup.categories.each do |category| %>
+                                                            <li class="px-3 py-1 hover:bg-gray-100">
+                                                                <%= link_to category_products_path(category.id) do %>
+                                                                    <%= category.title %>
+                                                                <% end %>
+                                                            </li>
+                                                        <% end %>
+                                                    </ul>
+                                                </li>
+                                            <% end %>    
+                                        <% end %>
+                                    </ul>
+                                </li>
+                            <% end %>
+                        <% end %>
+                      
+                    </ul>
+                  </div>
+                  
+                  <style>
+                    li>ul                 { transform: translatex(100%) scale(0) }
+                    li:hover>ul           { transform: translatex(101%) scale(1) }
+                    li > button svg       { transform: rotate(-90deg) }
+                    li:hover > button svg { transform: rotate(-270deg) }
+                    .group:hover .group-hover\:scale-100 { transform: scale(1) }
+                    .group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+                    .scale-0 { transform: scale(0) }
+                    .min-w-32 { min-width: 8rem }
+                  </style>
+                <!--categ-->
                 <%= form_with url: search_path, local: true, method: :get, html: { class: " w-80 block lg:inline-block lg:mt-0 lg:ml-6 align-middle text-black px-4 py-2 mt-2 font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline text-gray-600 focus:outline-none mx-4 sm:mx-0 flex items-center relative text-gray-600 " } do |form| %>
                     <%= form.text_field :q, placeholder: "Search...", data: { behavior: "autocomplete" }, class: " bg-transparent h-10 px-5 pr-10 rounded-full hover:bg-gray-200 text-sm w-full focus:outline-none" %>
                     <%= form.button class: "hidden" %>

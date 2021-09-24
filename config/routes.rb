@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :over_categories
   resources :category_groups
   root to: 'products#index'
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_22_120438) do
+ActiveRecord::Schema.define(version: 2021_09_24_104310) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2021_09_22_120438) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "over_category_id"
+    t.index ["over_category_id"], name: "index_category_groups_on_over_category_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -80,6 +82,12 @@ ActiveRecord::Schema.define(version: 2021_09_22_120438) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+  end
+
+  create_table "over_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "product_variants", force: :cascade do |t|
@@ -164,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_120438) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "category_groups"
+  add_foreign_key "category_groups", "over_categories"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "order_items", "orders"

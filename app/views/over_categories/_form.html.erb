@@ -1,0 +1,22 @@
+<%= form_with(model: over_category) do |form| %>
+  <% if over_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(over_category.errors.count, "error") %> prohibited this over_category from being saved:</h2>
+
+      <ul>
+        <% over_category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

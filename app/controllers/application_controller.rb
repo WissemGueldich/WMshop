@@ -3,11 +3,14 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
     before_action :set_room
     before_action :current_cart
+    before_action :over_categories
 
   def current_cart
     @current_cart ||= ShoppingCart.new(token: cart_token)
   end
+
   helper_method :current_cart
+  helper_method :over_categories
 
   private
 
@@ -45,8 +48,6 @@ class ApplicationController < ActionController::Base
         @items = current_cart.order.items
     end
 
-
-
     
     private
     def set_room
@@ -56,6 +57,11 @@ class ApplicationController < ActionController::Base
         else
             @room=Room.new
         end
+    end
+
+    
+    def over_categories
+        @overCategories = OverCategory.all
     end
 
     def room_params
