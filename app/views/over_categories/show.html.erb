@@ -1,9 +1,30 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @over_category.name %>
-</p>
-
-<%= link_to 'Edit', edit_over_category_path(@over_category) %> |
-<%= link_to 'Back', over_categories_path %>
+<div class="text-gray-900 bg-gray-200">
+  <div class="p-4 flex justify-center">
+      <h1 class="text-3xl">
+        <%= @over_category.name %> Sub-Categories
+      </h1>
+  </div>
+  <div class="px-3 py-4 flex justify-center">
+      <table class="w-96 text-md bg-white shadow-md rounded mb-4">
+        <% @category_groups.each do |category_group| %>
+          <tr class="border-b hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-5">
+              <%= link_to category_group, class:"bg-transparent" do %>
+                <%= category_group.name %>
+              <% end %>
+            </td>
+            <td class="p-3 px-5 flex justify-end" >
+              <%= link_to 'Edit', edit_category_group_path(category_group), class:"mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+              <%= link_to 'Delete', category_group, method: :delete, data: { confirm: "Deleteing this sub-category will delete all it's variants, proceed anyway ?" }, class:"text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="border-b hover:bg-orange-100 bg-gray-100">
+          <td  colspan="2" class="p-3" >
+            <%= link_to 'Add Sub-Category', new_sub_category_path(@over_category), class:"w-full text-center flex justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+          </td>
+        </tr>
+      </table>
+  </div>
+  <%= link_to 'Back', over_categories_path, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+</div>

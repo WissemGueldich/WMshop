@@ -1,5 +1,6 @@
-<h1>New Category Group</h1>
 
-<%= render 'form', category_group: @category_group %>
+<h1 class="mt-4 ml-4 text-xl" >New Sub-Category </h1>
 
-<%= link_to 'Back', category_groups_path %>
+<%= render 'form', category_group: @category_group, id: params[:id] %>
+
+<%= link_to 'Back', request.referer, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>

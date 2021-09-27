@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <div class="font-mono bg-gray-100 ">
     <div class=" min-w-screen w-screen text-gray-700 bg-white">
-        <div x-data="{ open: true }" class="flex flex-col px-0 mx-auto md:items-center md:justify-between md:flex-row md:px-2 lg:px-3">
+        <div x-data="{ open: true }" class="flex flex-col px-0 mx-auto md:items-center md:flex-row md:px-2 lg:px-3">
             <div class="flex flex-row items-center justify-between px-2 py-1">
                 <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg focus:outline-none focus:shadow-outline"><%=image_tag "logo.jpg", width:"200px", class:"rounded" %></a>
                 <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -21,7 +21,7 @@
                             </svg>
                         </span>
                     </button>
-                    <ul class="font-sans rounded-md mt-4 bg-white border transform scale-0 group-hover:scale-100 absolute transition duration-500 ease-in-out origin-top min-w-32" >
+                    <ul class="z-50 font-sans rounded-md mt-4 bg-white border transform scale-0 group-hover:scale-100 absolute transition duration-500 ease-in-out origin-top min-w-32" >
                         <% over_categories.each do |oc| %>
                             <% if oc.subcategories.length == 0 %>
                                 <li class="py-3 rounded-sm px-3 hover:bg-gray-100"><%= oc.name %></li>
@@ -84,7 +84,7 @@
                 <% if current_user %>
                     <% if current_user.admin %>
                         <%= link_to "Add Product", new_product_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
-                        <%= link_to "Add Category", new_category_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
+                        <%= link_to "Manage Categories", over_categories_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
                         <%= link_to "Client Support", rooms_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
                     <% end %>
                     <div @click.away="open = false" class="z-10 relative" x-data="{ open: false }">

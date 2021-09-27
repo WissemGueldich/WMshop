@@ -8,6 +8,7 @@ class OverCategoriesController < ApplicationController
 
   # GET /over_categories/1 or /over_categories/1.json
   def show
+    @category_groups = CategoryGroup.where(over_category_id: params[:id])
   end
 
   # GET /over_categories/new
@@ -25,7 +26,7 @@ class OverCategoriesController < ApplicationController
 
     respond_to do |format|
       if @over_category.save
-        format.html { redirect_to @over_category, notice: "Over category was successfully created." }
+        format.html { redirect_to @over_category, notice: "Category was successfully created." }
         format.json { render :show, status: :created, location: @over_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class OverCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @over_category.update(over_category_params)
-        format.html { redirect_to @over_category, notice: "Over category was successfully updated." }
+        format.html { redirect_to @over_category, notice: "Category was successfully updated." }
         format.json { render :show, status: :ok, location: @over_category }
       else
         format.html { render :edit, status: :unprocessable_entity }

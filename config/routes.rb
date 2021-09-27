@@ -23,11 +23,12 @@ Rails.application.routes.draw do
   get '/transaction/:id/items', to: "transaction_items#index", as: 'transaction_items'
   get '/invoice/:id', to: "transactions#invoice", as: "invoice"
   get '/categories/:id/products', to: "categories#index", as: 'category_products'
+  get '/sub_category/new/:id', to: "category_groups#new", as: 'new_sub_category'
+  get '/variant/new/:id', to: "categories#new", as: 'new_variant'
   get :search, controller: :products
   post 'checkout/create', to: "checkout#create"
   delete '/cart/clear', to: 'order_items#clear'
   delete '/products/:id', to: 'products#destroy', as: 'delete_product'
   delete '/categories/:id', to: 'categories#destroy', as: 'delete_category'
-
 
 end

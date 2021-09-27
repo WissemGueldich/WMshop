@@ -1,6 +1,7 @@
-<h1>Editing Over Category</h1>
 
-<%= render 'form', over_category: @over_category %>
+<h1 class="mt-4 ml-4 text-xl" >Edit Category</h1>
 
-<%= link_to 'Show', @over_category %> |
-<%= link_to 'Back', over_categories_path %>
+<%= render 'form', over_category: @over_category%>
+
+<%= link_to 'Back', over_categories_path, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+

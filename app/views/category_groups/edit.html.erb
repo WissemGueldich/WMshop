@@ -1,6 +1,7 @@
-<h1>Editing Category Group</h1>
 
-<%= render 'form', category_group: @category_group %>
 
-<%= link_to 'Show', @category_group %> |
-<%= link_to 'Back', category_groups_path %>
+<h1 class="mt-4 ml-4 text-xl" >Edit Sub-Category</h1>
+
+<%= render 'form', category_group: @category_group, id: @category_group.over_category_id  %>
+
+<%= link_to 'Back', request.referer, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>

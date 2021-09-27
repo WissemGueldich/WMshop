@@ -17,14 +17,14 @@ class CategoriesController < ApplicationController
     def create
       @category = Category.new(categories_params)
       if @category.save
-        redirect_to root_path, notice: 'Category was successfully created'
+        redirect_to @category, notice: 'Variant was successfully created'
       else
           redirect_to new_category_path
       end
     end
     def update
       if @category.update(categories_params)
-        redirect_to category_products_path(@category), notice: 'Category was successfully updated'
+        redirect_to category_products_path(@category), notice: 'Variant was successfully updated'
       else
           render "edit"
       end
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
   
     def destroy
       if @category.destroy
-        redirect_to root_path, notice: 'Category was successfully deleted'
+        redirect_to root_path, notice: 'Variant was successfully deleted'
       end
     end
 

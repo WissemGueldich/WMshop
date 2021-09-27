@@ -8,6 +8,7 @@ class CategoryGroupsController < ApplicationController
 
   # GET /category_groups/1 or /category_groups/1.json
   def show
+    @categories = Category.where(category_group_id: params[:id])
   end
 
   # GET /category_groups/new
@@ -25,7 +26,7 @@ class CategoryGroupsController < ApplicationController
 
     respond_to do |format|
       if @category_group.save
-        format.html { redirect_to @category_group, notice: "Category group was successfully created." }
+        format.html { redirect_to @category_group, notice: "Sub-Category was successfully created." }
         format.json { render :show, status: :created, location: @category_group }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class CategoryGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @category_group.update(category_group_params)
-        format.html { redirect_to @category_group, notice: "Category group was successfully updated." }
+        format.html { redirect_to @category_group, notice: "Sub-Category was successfully updated." }
         format.json { render :show, status: :ok, location: @category_group }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,6 +65,6 @@ class CategoryGroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_group_params
-      params.require(:category_group).permit(:name)
+      params.require(:category_group).permit(:name, :over_category_id)
     end
 end
