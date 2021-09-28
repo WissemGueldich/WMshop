@@ -18,51 +18,55 @@
 </div>
 <div class="flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
     <% @products.each do |product| %>
-        <div div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
-            <div>
-                <%= @category.title %>
+      <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
+        <div class="">  
+          <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 group">
+            <div class="overflow-hidden relative cursor-pointer">
+              <% if product.image.attached?%>
+                  <%= link_to product_path(product.id) do %>
+                      <%= image_tag prod_image(product,550), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                  <%end%>
+              <% end %>
+              <div class="flex justify-center">
+              <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
+              </div>
+              </div>
             </div>
-            <div class="">  
-                <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
-                    <div class="overflow-hidden relative">
-                        <% if product.image.attached?%>
-                            <%= link_to product_path(product.id) do %>
-                                <%= image_tag prod_image(product,550), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
-                            <%end%>
-                        <% end %>
-                    <div class="flex justify-center">
-                        <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
-                        </div>
-                    </div>
+            <div class="px-4 py-3 bg-white">
+              <a href="#" class="">
+                <h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">
+                  <%= link_to product_path(product.id) do %>
+                    <%= truncate(product.title, :length => 32) %>
+                  <% end %>
+                </h1>
+              </a>
+              <div class="flex py-2 flex-col">
+                <%= form_tag order_items_path, remote: true, class:"flex justify-center content-center " do %>
+                  <p class="text-s text-gray-600 inline-block align-top mx-1 flex ml-auto text-bleck border-0 py-2 px-4 focus:outline-none rounded-full"><%= number_to_currency product.price %></p>
+                  <%= hidden_field_tag :product_id, product.id %>
+                  <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
+                  <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
+                    Add to cart
+                  </button>
+                <% end %>
+              </div>
+              <!--rating-->
+              <div class="flex cursor-pointer">
+                <div class="">
+                  
+                  <% (1..5).each do |i| %>
+                    <i class="far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></i>
+                  <% end %>
                 </div>
-                <div class="px-4 py-3 bg-white">
-                    <a href="#" class=""><h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out"><%= truncate(product.title, :length => 32) %></h1></a>
-                    <div class="flex py-2 flex-col">
-                    <%= form_tag order_items_path, remote: true, class:"flex justify-center content-center " do %>
-                        <p class="text-s text-gray-600 inline-block align-top  mx-1 flex ml-auto text-bleck border-0 py-2 px-4 focus:outline-none rounded-full"><%= number_to_currency product.price %></p>
-                        <%= hidden_field_tag :product_id, product.id %>
-                        <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
-                        <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
-                        Add to cart
-                        </button>
-                    <% end %>
-                    </div>
-                    <div class="flex">
-                    <div class="">
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="fas fa-star text-yellow-400 text-xs"></i>
-                        <i class="far fa-star text-gray-400 text-xs"></i>
-                    </div>
-                    <div class="ml-2">
-                        <p class="text-gray-500 font-medium text-sm">(1)</p>
-                    </div>
-                    </div>
+                <div class="ml-2">
+                  <p class="text-gray-500 font-medium text-sm">(1)</p>
                 </div>
-                </div>
+              </div>
+              <!--rating-->
             </div>
+          </div>
         </div>
+      </div>
     <% end %>
     <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
 
@@ -113,3 +117,53 @@
       </div>
     </body>
 </div>
+<script>
+  var stars = document.getElementsByClassName("fa-star");
+  var rating = 0;
+  set_star = function(data_star,data_product){
+    for (var j=1;j<=5;j++ ){
+      if(j<=data_star){
+        star = document.getElementById(`rating-star-${j}-${data_product}`);
+      star.classList.remove("text-gray-400");
+      star.classList.remove("far");
+      star.classList.add("text-yellow-400");
+      star.classList.add("fas");
+      }else{
+        star = document.getElementById(`rating-star-${j}-${data_product}`);
+        star.classList.add("text-gray-400");
+        star.classList.add("far");
+        star.classList.remove("text-yellow-400");
+        star.classList.remove("fas");
+      }
+    }
+      
+  };
+  select_star = function(){
+    var data_star=this.getAttribute("data-star");
+    var data_product=this.getAttribute("data-product");
+    set_star(data_star,data_product);
+    
+  };
+  select_rating = function(){
+    var data_star=this.getAttribute("data-star");
+    var data_product=this.getAttribute("data-product");
+    set_star(data_star,data_product);
+    rating = data_star;
+  };
+  undo_rating = function(){
+    var data_star=rating;
+    var data_product=this.getAttribute("data-product");
+    set_star(data_star,data_product);
+    rating = data_star;
+  };
+    
+
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].addEventListener('click', select_star, false);
+    stars[i].addEventListener('click', select_rating, false);
+    stars[i].addEventListener('mouseenter', select_star, false);
+    stars[i].addEventListener('mouseleave', undo_rating, false);
+
+  }
+  
+</script>
