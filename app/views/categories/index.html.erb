@@ -51,10 +51,11 @@
                 <% end %>   
               </div>
               <!--rating form-->
-
+              <% ratings = Rating.where(user_id: current_user.id,product_id: product.id) %>
+              <% score = ratings[0].score || 0 %>
               <%= form_with(model: @rating) do |form| %>  
                 <div class="hidden">
-                  <%= form.number_field :score,value:0,id:"score-#{product.id}",class:"text-gray-900" %>
+                  <%= form.number_field :score,value:score,id:"score-#{product.id}",class:"text-gray-900" %>
                 </div>
                 <div class="hidden">
                   <%= form.text_field :user_id,value:current_user.id %>
@@ -67,9 +68,18 @@
                 </div>
                 <div class="flex cursor-pointer">
                   <div class="">
-                    
-                    <% (1..5).each do |i| %>
-                        <button type="submit" class="far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
+                    <% if ratings.length == 0 %>
+                      <% (1..5).each do |i| %>
+                          <button type="submit" class="focus:outline-none	far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
+                      <% end %>
+                      <div id="<%="defalt-rating-#{product.id}" %>" data-default-rating="<%= ratings[0].score %>" ></div>
+                    <% else %>
+                      <% (1..ratings[0].score).each do |i| %>
+                          <button type="submit" class="focus:outline-none	 fas fa-star text-yellow-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
+                      <% end %>
+                      <% ((ratings[0].score+1)..5).each do |i| %>
+                          <button type="submit" class="focus:outline-none far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
+                      <% end %>
                     <% end %>
                   </div>
                   <div class="ml-2">
@@ -165,12 +175,12 @@
     rating = data_star;
     var score = document.getElementById(`score-${data_product}`);
     score.value = rating;
-    var x = score.value;
-    console.log("this is x :"+x)
   };
   undo_rating = function(){
-    var data_star=rating;
     var data_product=this.getAttribute("data-product");
+    var score = document.getElementById(`score-${data_product}`);
+    rating = score.value;
+    var data_star=rating;
     set_star(data_star,data_product);
 
   };
