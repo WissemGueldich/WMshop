@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
+  resources :ratings
   resources :over_categories
   resources :category_groups
   root to: 'products#index'
   
   devise_for :users
   
-  
   resources :messages
   resources :rooms
-  resources :products 
+  resources :products
   resources :categories
   resources :categories, only: [:index] 
   resources :order_items, path: '/cart/items'

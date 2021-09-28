@@ -48,21 +48,35 @@
                   <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
                     Add to cart
                   </button>
-                <% end %>
+                <% end %>   
               </div>
-              <!--rating-->
-              <div class="flex cursor-pointer">
-                <div class="">
-                  
-                  <% (1..5).each do |i| %>
-                    <i class="far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></i>
-                  <% end %>
+              <!--rating form-->
+
+              <%= form_with(model: @rating) do |form| %>  
+                <div class="hidden">
+                  <%= form.number_field :score,value:0,id:"score-#{product.id}",class:"text-gray-900" %>
                 </div>
-                <div class="ml-2">
-                  <p class="text-gray-500 font-medium text-sm">(1)</p>
+                <div class="hidden">
+                  <%= form.text_field :user_id,value:current_user.id %>
                 </div>
-              </div>
-              <!--rating-->
+                <div class="hidden">
+                  <%= form.text_field :product_id,value:product.id %>
+                </div>
+                <div class="hidden">
+                  <%= form.submit %>
+                </div>
+                <div class="flex cursor-pointer">
+                  <div class="">
+                    
+                    <% (1..5).each do |i| %>
+                        <button type="submit" class="far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
+                    <% end %>
+                  </div>
+                  <div class="ml-2">
+                    <p class="text-gray-500 font-medium text-sm">(1)</p>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -149,12 +163,16 @@
     var data_product=this.getAttribute("data-product");
     set_star(data_star,data_product);
     rating = data_star;
+    var score = document.getElementById(`score-${data_product}`);
+    score.value = rating;
+    var x = score.value;
+    console.log("this is x :"+x)
   };
   undo_rating = function(){
     var data_star=rating;
     var data_product=this.getAttribute("data-product");
     set_star(data_star,data_product);
-    rating = data_star;
+
   };
     
 
@@ -163,7 +181,6 @@
     stars[i].addEventListener('click', select_rating, false);
     stars[i].addEventListener('mouseenter', select_star, false);
     stars[i].addEventListener('mouseleave', undo_rating, false);
-
-  }
+  };
   
 </script>
