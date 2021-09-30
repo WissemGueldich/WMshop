@@ -10,6 +10,7 @@ class Product < ApplicationRecord
     has_many :transaction_items, dependent: :destroy
     has_many :order_items, dependent: :destroy
     has_many :ratings, dependent: :destroy
+    has_many :comments, dependent: :destroy
     include Rails.application.routes.url_helpers
 
     def thumbnail 

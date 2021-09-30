@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
     end
 
     def show
+        @comment = Comment.new
         @rating = Rating.new
         @reviews = @product.ratings
         if @reviews.length == 0
@@ -14,6 +15,7 @@ class ProductsController < ApplicationController
         else
             @avg_rating = @reviews.average(:score).round
         end
+        @comments = Comment.where(product_id: @product.id).order("created_at DESC")
     end 
 
     def new 
