@@ -1,42 +1,124 @@
-<div class="flex">
-  <div class=" w-full">
-      <%= render "shared/ads_slider", products: @products %>
-      <div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
-          <% @products.each do |product| %>
-              <div div class="post bg-transparent text-white pb-5 md:mb-6">
-                  <div class=" shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group min-h-full">
-                      <%= link_to product_path(product.id) do %>
-                          <% if product.image.attached?%>
-                              <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60 " %>
-                          <% end %>
-                      <% end %>
-                      <div class="px-4 py-3 bg-white  ">
-                          <%= link_to product_path(product.id) do %>
-                              <h1 class=" text-gray-800 font-semibold hover:text-blue-500 transition duration-300 ease-in-out"><%= truncate(product.title, :length => 29) %></h1>
-                          <% end %>
-                          <div class="flex py-2">
-                              <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
-                          </div>
-                          <span class="flex items-center">
-                            <% reviews = Rating.where(product_id: product.id) %>
-                            <%avg_rating = 0 %>
-                            <% if reviews.length > 0 %>
-                              <% avg_rating = reviews.average(:score).round %>
+
+<div class="flex flex-row">
+    <div class="w-full">
+        <%= render "shared/ads_slider", products: Product.all %>
+        <div class=" flex flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+            <% @products.each do |product| %>
+                <div div class="post bg-transparent text-white pb-5 md:mb-6">
+                    <div class=" shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group min-h-full">
+                        <%= link_to product_path(product.id) do %>
+                            <% if product.image.attached?%>
+                                <%= image_tag product.thumbnail, class:"w-full transition duration-700 ease-in-out group-hover:opacity-60 " %>
                             <% end %>
-                            <div class="flex pr-2">
-                              <% (1..avg_rating).each do |i| %>
-                                <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
-                              <% end %>
-                              <% ((avg_rating+1)..5).each do |i| %>
-                                <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
-                              <% end %>
+                        <% end %>
+                        <div class="px-4 py-3 bg-white">
+                            <%= link_to product_path(product.id) do %>
+                                <h1 class=" text-gray-800 font-semibold hover:text-blue-500 transition duration-300 ease-in-out"><%= truncate(product.title, :length => 29) %></h1>
+                            <% end %>
+                            <div class="flex py-2">
+                                <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
                             </div>
-                            <span class="pb-1 text-gray-600 ml-2"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
-                          </span>
-                      </div>
-                  </div>
-              </div>
-          <% end %>
-      </div>
-  </div>
+                            <span class="flex items-center">
+                                <% reviews = Rating.where(product_id: product.id) %>
+                                <%avg_rating = 0 %>
+                                <% if reviews.length > 0 %>
+                                <% avg_rating = reviews.average(:score).round %>
+                                <% end %>
+                                <div class="flex pr-2">
+                                <% (1..avg_rating).each do |i| %>
+                                    <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
+                                <% end %>
+                                <% ((avg_rating+1)..5).each do |i| %>
+                                    <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
+                                <% end %>
+                                </div>
+                                <span class="pb-1 text-gray-600 ml-2"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>
+<div class="flex justify-center items-center text-center pb-5"  >
+    <%== pagy_nav(@pagy) %>
+</div>
+
+<style>
+.pagy-nav {
+    display: flex;
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+    padding-right: 20px;
+    padding-top: 5px;
+}
+.pagy-nav .page a,
+.pagy-nav .page.active,
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled,
+.pagy-nav-js .page a,
+.pagy-nav-js .page.active,
+.pagy-nav-js .page.prev.disabled,
+.pagy-nav-js .page.next.disabled {
+    display: block;
+    border-radius: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: #1e78f7;
+    font-weight: 600;
+    --tw-bg-opacity: 1;
+    background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+    --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.pagy-nav .page a,
+.pagy-nav .page.active,
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled,
+.pagy-nav-js .page a,
+.pagy-nav-js .page.active,
+.pagy-nav-js .page.prev.disabled,
+.pagy-nav-js .page.next.disabled:hover{
+    --tw-bg-opacity: 1;
+    background-color: #1e78f7;
+}
+.pagy-nav .page a,
+.pagy-nav .page.active,
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled,
+.pagy-nav-js .page a,
+.pagy-nav-js .page.active,
+.pagy-nav-js .page.prev.disabled,
+.pagy-nav-js .page.next.disabled:active{
+    --tw-bg-opacity: 1;
+    background-color: #ffffff;
+}
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled,
+.pagy-nav-js .page.prev.disabled,
+.pagy-nav-js .page.next.disabled {
+    --tw-bg-opacity: 1;
+    background-color: #f7871e;
+    cursor: default;
+}
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled {
+    --tw-bg-opacity: 1;
+    background-color: #8194ff;
+    color:#ffffff;
+  }
+.pagy-nav .page.active,
+.pagy-nav-js .page.active:active {
+    --tw-bg-opacity: 1;
+    background-color: #1e3ef7;
+    --tw-text-opacity: 1;
+    color: #ffffff;
+}
+</style>

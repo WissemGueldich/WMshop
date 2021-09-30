@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
     before_action :set_product, only: [:edit, :update, :show, :destroy]
         
     def index
-        @products = Product.all.order("created_at DESC")
+        @pagy, @products = pagy(Product.all.order("created_at DESC"),items: 12)
     end
 
     def show

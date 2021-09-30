@@ -35,8 +35,7 @@ gem 'unread'
 
 gem 'ransack'
 
-
-
+gem 'pagy', '~> 4.11'
 
 
 group :development, :test do
