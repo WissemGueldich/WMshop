@@ -5,6 +5,7 @@ class CategoriesController < ApplicationController
       @categories = Category.all
       @products = Product.where(category_id: @category.id).order("created_at DESC")
       @rating = Rating.new
+     
 
     end
   

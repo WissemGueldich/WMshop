@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: %i[ show edit update destroy ]
+  before_action :require_user_logged_in!
 
   # GET /ratings or /ratings.json
   def index

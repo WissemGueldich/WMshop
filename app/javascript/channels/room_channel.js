@@ -18,10 +18,8 @@ document.addEventListener('turbolinks:load', () => {
     var room_id = Number(room_element_user.getAttribute('data-room-id-user'));
   }
 
-  console.log(consumer.subscriptions);
   consumer.subscriptions.subscriptions.forEach((sub)=>{
     if (sub.identifier!=="{\"channel\":\"CartChannel\"}" && sub.identifier!=="{\"channel\":\"UnreadChannel\"}" ){
-      console.log("unsubbing");
       consumer.subscriptions.remove(sub);
     };
 
@@ -36,7 +34,6 @@ document.addEventListener('turbolinks:load', () => {
       if(typeof unread_messages !== null && unread_messages !== null ){
         unread_messages.classList.add("invisible");
       };
-      console.log("connected to room "+room_id);
     },
 
     disconnected() {
@@ -44,7 +41,6 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      console.log("data recieved");
       const admin_element = document.getElementById('admin-id');
       const user_element = document.getElementById('user-id');
       

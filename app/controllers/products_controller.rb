@@ -7,6 +7,13 @@ class ProductsController < ApplicationController
     end
 
     def show
+        @rating = Rating.new
+        @reviews = @product.ratings
+        if @reviews.length == 0
+            @avg_rating = 0
+        else
+            @avg_rating = @reviews.average(:score).round
+        end
     end 
 
     def new 

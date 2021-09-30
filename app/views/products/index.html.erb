@@ -1,8 +1,6 @@
 <div class="flex">
   <div class=" w-full">
-      <!--ads-->
       <%= render "shared/ads_slider", products: @products %>
-      <!--end ads-->        
       <div class="h-48 flex flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
           <% @products.each do |product| %>
               <div div class="post bg-transparent text-white pb-5 md:mb-6">
@@ -19,18 +17,22 @@
                           <div class="flex py-2">
                               <p class="mr-2 text-xs text-gray-600"><%= number_to_currency product.price %></p>
                           </div>
-                          <div class="flex">
-                              <div>
-                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                  <i class="fas fa-star text-yellow-400 text-xs"></i>
-                                  <i class="far fa-star text-gray-400 text-xs"></i>
-                              </div>
-                              <div class="ml-2">
-                                  <p class="text-gray-500 font-medium text-sm">(1)</p>
-                              </div>
-                          </div>
+                          <span class="flex items-center">
+                            <% reviews = Rating.where(product_id: product.id) %>
+                            <%avg_rating = 0 %>
+                            <% if reviews.length > 0 %>
+                              <% avg_rating = reviews.average(:score).round %>
+                            <% end %>
+                            <div class="flex pr-2">
+                              <% (1..avg_rating).each do |i| %>
+                                <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
+                              <% end %>
+                              <% ((avg_rating+1)..5).each do |i| %>
+                                <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
+                              <% end %>
+                            </div>
+                            <span class="pb-1 text-gray-600 ml-2"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+                          </span>
                       </div>
                   </div>
               </div>

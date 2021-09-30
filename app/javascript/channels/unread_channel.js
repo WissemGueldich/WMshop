@@ -2,7 +2,6 @@ import consumer from "./consumer"
 
 consumer.subscriptions.create("UnreadChannel", {
   connected() {
-    console.log("connected to unread");
   },
 
   disconnected() {

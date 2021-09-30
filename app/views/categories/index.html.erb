@@ -50,43 +50,22 @@
                   </button>
                 <% end %>   
               </div>
-              <!--rating form-->
-              <% ratings = Rating.where(user_id: current_user.id,product_id: product.id) %>
-              <% score = ratings[0].score || 0 %>
-              <%= form_with(model: @rating) do |form| %>  
-                <div class="hidden">
-                  <%= form.number_field :score,value:score,id:"score-#{product.id}",class:"text-gray-900" %>
+              <span class="flex items-center">
+                <% reviews = Rating.where(product_id: product.id) %>
+                <%avg_rating = 0 %>
+                <% if reviews.length > 0 %>
+                  <% avg_rating = reviews.average(:score).round %>
+                <% end %>
+                <div class="flex pr-3">
+                  <% (1..avg_rating).each do |i| %>
+                    <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
+                  <% end %>
+                  <% ((avg_rating+1)..5).each do |i| %>
+                    <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
+                  <% end %>
                 </div>
-                <div class="hidden">
-                  <%= form.text_field :user_id,value:current_user.id %>
-                </div>
-                <div class="hidden">
-                  <%= form.text_field :product_id,value:product.id %>
-                </div>
-                <div class="hidden">
-                  <%= form.submit %>
-                </div>
-                <div class="flex cursor-pointer">
-                  <div class="">
-                    <% if ratings.length == 0 %>
-                      <% (1..5).each do |i| %>
-                          <button type="submit" class="focus:outline-none	far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
-                      <% end %>
-                      <div id="<%="defalt-rating-#{product.id}" %>" data-default-rating="<%= ratings[0].score %>" ></div>
-                    <% else %>
-                      <% (1..ratings[0].score).each do |i| %>
-                          <button type="submit" class="focus:outline-none	 fas fa-star text-yellow-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
-                      <% end %>
-                      <% ((ratings[0].score+1)..5).each do |i| %>
-                          <button type="submit" class="focus:outline-none far fa-star text-gray-400 text-xs" data-star="<%= i %>" data-product="<%= product.id %>" id="<%= "rating-star-#{i}-#{product.id}"%>" ></button>
-                      <% end %>
-                    <% end %>
-                  </div>
-                  <div class="ml-2">
-                    <p class="text-gray-500 font-medium text-sm">(1)</p>
-                  </div>
-                </div>
-              <% end %>
+                <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+              </span>
             </div>
           </div>
         </div>
