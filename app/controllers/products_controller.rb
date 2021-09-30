@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     end
 
     def search
-        @products = Product.ransack(title_cont: params[:q]).result(distinct: true)
+        @pagy, @products = pagy(Product.ransack(title_cont: params[:q]).result(distinct: true),items: 12)
         
         respond_to do |format|
             format.html {}

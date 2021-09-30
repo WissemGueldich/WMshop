@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
     def index
       @categories = Category.all
-      @products = Product.where(category_id: @category.id).order("created_at DESC")
+      @pagy, @products =  pagy(Product.where(category_id: @category.id).order("created_at DESC"),items: 12)
       @rating = Rating.new
      
 
