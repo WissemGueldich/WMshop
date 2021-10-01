@@ -2,21 +2,26 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-<div class="flex flex-row bg-blue-500 justify-center rounded-full w-screen my-4 py-3">
+<div class="flex flex-row bg-gradient-to-r from-blue-200 justify-center rounded-full w-screen my-4 py-3">
     <h1 class="text-center text-3xl"><%= @category.title %></h1>
     <% if current_user && current_user.admin %>
       <div class="mx-10 py-2">
         <%= link_to delete_category_path(@category), method: :delete, data: { confirm: "All products belonging to this category will be deleted, proceed anyway ?" }, class: "right-0 float-right inline mx-2" do %>
           <i style="font-size:24px" class="fa">&#xf014;</i>
         <% end %>
-        <%= link_to edit_category_path(@category), class: "right-0 float-right inline" do %>
+        <%= link_to edit_category_path(@category), class: "px-1 right-0 float-right inline" do %>
           <i class="fas fa-edit"></i>
         <% end %>
       </div>
     <% end %>
 </div>
+<% if current_user && current_user.admin %>
+  <div class="flex justify-center items-center" >
+    <%= link_to "Add Product to this Variant", new_category_product_path, class: "mx-10 max-w-40 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" %>
+  </div>
+<% end %>
 <div class="flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+  
   <% @products.each do |product| %>
     <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
       <div class="">  

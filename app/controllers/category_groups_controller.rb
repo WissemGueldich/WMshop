@@ -52,7 +52,7 @@ class CategoryGroupsController < ApplicationController
   def destroy
     @category_group.destroy
     respond_to do |format|
-      format.html { redirect_to category_groups_url, notice: "Category group was successfully destroyed." }
+      format.html { redirect_to request.referer , notice: "Category group was successfully deleted." }
       format.json { head :no_content }
     end
   end

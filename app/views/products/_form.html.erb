@@ -48,10 +48,11 @@
                             <%= f.text_field :price, class:'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none' %>
                         </div>
 
+
                         <div>
-                          <%= f.label :category, class:"block text-sm font-medium text-gray-700" %>  
-                          <%= f.collection_select :category_id, Category.all, :id, :title, prompt: true, selected: @product.category_id %>
+                            <%= f.text_field :category_id,value: params[:id], class:'hidden' %>
                         </div>
+
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <%= f.submit "Save Product", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: {disable_with: "Validating ..."}%>
@@ -59,5 +60,6 @@
                 </div>
             <%end%>
         </div>
+        <%= link_to 'Back', category_products_path(Category.find(params[:id])), class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
     </div>
 </div>

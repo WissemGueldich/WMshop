@@ -10,7 +10,7 @@
         <% @categories.each do |category| %>
           <tr class="border-b hover:bg-orange-100 bg-gray-100">
             <td class="p-3 px-5">
-              <%= link_to category, class:"bg-transparent" do %>
+              <%= link_to category_products_path(category), class:"bg-transparent" do %>
                 <%= category.title %>
               <% end %>
             </td>

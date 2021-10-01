@@ -5,8 +5,6 @@ class CategoriesController < ApplicationController
       @categories = Category.all
       @pagy, @products =  pagy(Product.where(category_id: @category.id).order("created_at DESC"),items: 12)
       @rating = Rating.new
-     
-
     end
   
     def new
@@ -19,7 +17,7 @@ class CategoriesController < ApplicationController
     def create
       @category = Category.new(categories_params)
       if @category.save
-        redirect_to @category, notice: 'Variant was successfully created'
+        redirect_to category_products_path(@category), notice: 'Variant was successfully created'
       else
           redirect_to new_category_path
       end
@@ -37,7 +35,7 @@ class CategoriesController < ApplicationController
   
     def destroy
       if @category.destroy
-        redirect_to root_path, notice: 'Variant was successfully deleted'
+        redirect_to categories_path, notice: 'Variant was successfully deleted'
       end
     end
 

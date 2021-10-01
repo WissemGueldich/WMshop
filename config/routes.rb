@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get '/cart', to: 'order_items#index'
   get 'rooms/:id',to: 'application#show'
-  get 'categories/products/new', to: 'products#new'
+  get 'categories/:id/products/new', to: 'products#new', as: 'new_category_product'
   get 'success', to: "checkout#success"
   get 'cancel', to: "checkout#cancel"
   get '/history', to: "transactions#index"
