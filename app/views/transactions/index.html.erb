@@ -1,21 +1,20 @@
-<div class=" my-5 flex items-center justify-center">
-    <strong><h1 class="text-center text-3xl" > Your Order History </h1></strong>
+<div class=" my-4 flex items-center justify-center">
+    <strong><h1 class="text-center text-3xl" > <%= t("Your Order History") %> </h1></strong>
 </div>
-<!-- component -->
 <div class="overflow-x-auto">
     <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
         <div class="w-full lg:w-5/6">
-            <div class="bg-white shadow-md rounded my-6">
+            <div class="bg-white shadow-md rounded mt-4 mb-4">
                 <table class="min-w-max w-full table-auto">
                     <thead>
-                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Id</th>
-                            <th class="py-3 px-6 text-left">Date and Time</th>
-                            <th class="py-3 px-6 text-center">Total Price</th>
-                            <th class="py-3 px-6 text-center">payment Method</th>
-                            <th class="py-3 px-6 text-center">Status</th>
-                            <th class="py-3 px-6 text-center">Details</th>
-                            <th class="py-3 px-6 text-center">Invoice</th>
+                        <tr class="bg-blue-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Ref.</th>
+                            <th class="py-3 px-6 text-left"><%= t("Date and Time") %></th>
+                            <th class="py-3 px-6 text-center"><%= t("Total Price") %></th>
+                            <th class="py-3 px-6 text-center"><%= t("Payment Method") %></th>
+                            <th class="py-3 px-6 text-center"><%= t("Status") %></th>
+                            <th class="py-3 px-6 text-center"><%= t("Details") %></th>
+                            <th class="py-3 px-6 text-center"><%= t("Invoices") %></th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
@@ -37,29 +36,29 @@
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <%= transaction.method %>
+                                    <%= t(transaction.method) %>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
                                         <% if transaction.status=="Processing" %>
-                                            <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
+                                            <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"><%= t(transaction.status) %></span>
                                         <% elsif transaction.status=="Confirmed" %>
-                                            <span class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
+                                            <span class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs"><%= t(transaction.status) %></span>
                                         <% elsif transaction.status=="Delivered" %>
-                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
+                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"><%= t(transaction.status) %></span>
                                         <% else %>
-                                            <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs"><%= transaction.status %></span>
+                                            <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs"><%= t(transaction.status) %></span>
                                         <% end %>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
-                                        <%= link_to "Details", transaction_items_path(transaction.id), class:"text-blue-500"  %>
+                                        <%= link_to t("Details"), transaction_items_path(transaction.id), class:"text-blue-500"  %>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
-                                        <%= link_to "invoice", invoice_path(transaction) %>
+                                        <%= link_to t("invoice"), invoice_path(transaction), class:"text-blue-500"%>
                                     </div>
                                 </td>
                             </tr>
@@ -67,6 +66,80 @@
                     </tbody>
                 </table>
             </div>
+            <div class="flex justify-center items-center text-center pb-5"  >
+                <%== pagy_nav(@pagy) %>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    .pagy-nav {
+        display: flex;
+        --tw-space-x-reverse: 0;
+        margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+        margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+        padding-right: 20px;
+        padding-top: 5px;
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled {
+        display: block;
+        border-radius: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        --tw-text-opacity: 1;
+        color: #1e78f7;
+        font-weight: 600;
+        --tw-bg-opacity: 1;
+        background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+        --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled:hover{
+        --tw-bg-opacity: 1;
+        background-color: #1e78f7;
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled:active{
+        --tw-bg-opacity: 1;
+        background-color: #ffffff;
+    }
+
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled {
+        --tw-bg-opacity: 1;
+        background-color: #8194ff;
+        color:#ffffff;
+        cursor: not-allowed;
+      }
+    .pagy-nav .page.active,
+    .pagy-nav-js .page.active:active {
+        --tw-bg-opacity: 1;
+        background-color: #1e3ef7;
+        --tw-text-opacity: 1;
+        color: #ffffff;
+    }
+    </style>

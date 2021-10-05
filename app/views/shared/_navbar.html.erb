@@ -14,7 +14,7 @@
             <nav :class="{'flex': open, 'hidden': !open}" class="flex-col px-4 hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
                 <div class="group items-center py-2 bg-transparent rounded-lg md:mt-0 md:ml-2 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                     <button class="flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" >
-                        <span class="pr-1 font-semibold flex-1">Categories</span>
+                        <span class="pr-1 font-semibold flex-1"><%= t("categories")%></span>
                         <span>
                             <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
                             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -24,11 +24,11 @@
                     <ul class="z-50 font-sans rounded-md mt-4 bg-white border transform scale-0 group-hover:scale-100 absolute transition duration-500 ease-in-out origin-top min-w-32" >
                         <% over_categories.each do |oc| %>
                             <% if oc.subcategories.length == 0 %>
-                                <li class="py-3 rounded-sm px-3 hover:bg-gray-100"><%= oc.name %></li>
+                                <li class="py-3 rounded-sm px-3 hover:bg-gray-100"><%= t(oc.name) %></li>
                             <% else %> 
                                 <li class="py-3 rounded-sm relative px-3 hover:bg-gray-100">
                                     <button class="w-full text-left flex items-center outline-none focus:outline-none" >
-                                        <span class="pr-1 flex-1"><%= oc.name %></span>
+                                        <span class="pr-1 flex-1"><%= t(oc.name) %></span>
                                         <span class="mr-auto">
                                             <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
                                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
@@ -38,11 +38,11 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32" >
                                         <% oc.subcategories.each do |categoryGroup| %>
                                             <% if categoryGroup.categories.length == 0 %>
-                                                <li class="py-3 px-3 hover:bg-gray-100"><%= categoryGroup.name %></li>
+                                                <li class="py-3 px-3 hover:bg-gray-100"><%= t(categoryGroup.name) %></li>
                                             <% else %> 
                                                 <li class="py-3 rounded-sm relative px-3 hover:bg-gray-100">
                                                     <button class="w-full text-left flex items-center outline-none focus:outline-none">
-                                                        <span class="pr-1 flex-1"><%= categoryGroup.name %></span>
+                                                        <span class="pr-1 flex-1"><%= t(categoryGroup.name) %></span>
                                                         <span class="mr-auto">
                                                             <svg class="fill-current h-4 w-4 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" >
                                                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
@@ -53,7 +53,7 @@
                                                         <% categoryGroup.categories.each do |category| %>
                                                             <%= link_to category_products_path(category.id) do %>
                                                                 <li class="py-3 px-3 hover:bg-gray-100">
-                                                                    <%= category.title %>
+                                                                    <%= t(category.title) %>
                                                                 </li>
                                                             <% end %>        
                                                         <% end %>
@@ -78,14 +78,14 @@
                   </style>
                 </div>
                 <%= form_with url: search_path, local: true, method: :get, html: { class: "w-96 min-w-96 block lg:inline-block lg:mt-0 lg:ml-4 align-middle text-black px-2 py-2 mt-2 font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline text-gray-600 focus:outline-none mx-4 sm:mx-0 flex items-center relative text-gray-600 " } do |form| %>
-                    <%= form.text_field :q, placeholder: "Search for a product ", data: { behavior: "autocomplete" }, class: " w-full bg-transparent h-10 px-5 rounded-full hover:bg-gray-200 text-sm focus:outline-none" %>
+                    <%= form.text_field :q, placeholder: t("Search for a product"), data: { behavior: "autocomplete" }, class: " w-full bg-transparent h-10 px-5 rounded-full hover:bg-gray-200 text-sm focus:outline-none" %>
                     <%= form.button class: "hidden" %>
                 <% end %>
                 <% if current_user %>
                     <% if current_user.admin %>
-                        <%= link_to "Add Product", new_product_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
-                        <%= link_to "Manage Categories", over_categories_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
-                        <%= link_to "Client Support", rooms_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                        <%= link_to t("add product"), new_product_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
+                        <%= link_to t("Manage Categories"), over_categories_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>                            
+                        <%= link_to t("Client Support"), rooms_path, class: "flex items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
                     <% end %>
                     <div @click.away="open = false" class="z-10 relative" x-data="{ open: false }">
                         <button @click="open = !open" class="h-full flex items-center flex-row text-gray-900 items-center w-full px-2 py-1 mt-2 text-sm font-semibold bg-transparent text-center rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -98,15 +98,15 @@
                         </button>
                         <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-1 origin-top-right rounded-md shadow-lg md:w-48">
                             <div class="px-2 py-2 bg-white rounded-md shadow ">
-                                <%= link_to "Edit Account" ,edit_user_registration_path, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
-                                <%= link_to "My Orders" ,history_path, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
-                                <%= link_to "Sign Out",destroy_user_session_path, method: :delete, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                                <%= link_to t("Edit Account") ,edit_user_registration_path, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                                <%= link_to t("My Orders") ,history_path, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                                <%= link_to t("Sign Out"),destroy_user_session_path, method: :delete, class: "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
                             </div>
                         </div>  
                     </div>
                 <% else %>
-                    <%= link_to "Sign In", new_user_session_path, class: "flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
-                    <%= link_to "Sign Up",new_user_registration_path, class: "flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                    <%= link_to t("Sign In"), new_user_session_path, class: "flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+                    <%= link_to t("Sign Up"),new_user_registration_path, class: "flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
                 <% end %>
                 <div x-data="{ cartOpen: false , isOpen: false }" class="bg-white">
                     <button @click="cartOpen = !cartOpen" class="block lg:inline-block lg:mt-0 lg:ml-2 align-middle text-black hover:text-gray-700 px-2 py-2 mt-1 font-semibold bg-transparent rounded-lg md:mt-0 md:ml-2 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline text-gray-600 focus:outline-none mx-2 sm:mx-0 flex items-center">
@@ -126,7 +126,7 @@
                     <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="overflow-y-auto z-20 max-h-screen fixed right-0 top-0 min-h-screen  max-w-xs w-full px-2 py-4 transition duration-300 transform bg-white border-l-2 border-gray-300">
                         <div class="flex items-center justify-between">
                             <div class="text-center w-full">
-                                <h3 class="text-2xl font-medium text-gray-700 ">Your cart</h3>
+                                <h3 class="text-2xl font-medium text-gray-700 "><%= t("Your cart") %></h3>
                             </div>
                             <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none">
                                 <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -140,7 +140,7 @@
                         </div>
                         <% else %>
                             <div id="cart-container-<%= current_cart.order.token %>" class="text-center" >
-                                <p>Your cart is empty</p>
+                                <p><%= t("Your cart is empty") %></p>
                             </div>
                         <% end %>
                     </div>

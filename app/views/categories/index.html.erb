@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="flex flex-row bg-gradient-to-r from-blue-200 justify-center rounded-full w-screen my-4 py-3">
-    <h1 class="text-center text-3xl"><%= @category.title %></h1>
+    <h1 class="text-center text-3xl"><%= t(@category.title) %></h1>
     <% if current_user && current_user.admin %>
       <div class="mx-10 py-2">
         <%= link_to delete_category_path(@category), method: :delete, data: { confirm: "All products belonging to this category will be deleted, proceed anyway ?" }, class: "right-0 float-right inline mx-2" do %>
@@ -17,11 +17,10 @@
 </div>
 <% if current_user && current_user.admin %>
   <div class="flex justify-center items-center" >
-    <%= link_to "Add Product to this Variant", new_category_product_path, class: "mx-10 max-w-40 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" %>
+    <%= link_to t("Add Product to this Variant"), new_category_product_path, class: "mx-10 max-w-40 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" %>
   </div>
 <% end %>
-<div class="flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
-  
+<div class="flex min-h-full h-full mb-10 flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
   <% @products.each do |product| %>
     <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
       <div class="">  
@@ -41,7 +40,7 @@
             <a href="#" class="">
               <h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">
                 <%= link_to product_path(product.id) do %>
-                  <%= truncate(product.title, :length => 32) %>
+                  <%= truncate(t(product.title), :length => 32) %>
                 <% end %>
               </h1>
             </a>
@@ -51,7 +50,7 @@
                 <%= hidden_field_tag :product_id, product.id %>
                 <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
                 <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
-                  Add to cart
+                  <%= t("Add to cart") %>
                 </button>
               <% end %>   
             </div>
@@ -69,14 +68,13 @@
                   <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
                 <% end %>
               </div>
-              <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+              <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, t('Reviews') ) %> </span>
             </span>
           </div>
         </div>
       </div>
     </div>
   <% end %>
-    
   <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
 
     <div
@@ -109,16 +107,20 @@
                 ></path>
               </svg>
             </div>
-            <h2 class="font-semibold text-2xl">Success</h2>
+            <h2 class="font-semibold text-2xl"><%= t("Success") %></h2>
           </header>
           <main class="p-3 text-center">
-            <p>
-              <div id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
+            <p >
+              <div>
+                <div class="inline" id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
+                <div class="inline" ><%= t("has been added to your cart") %>.</div>
+              </div>
+              
             </p>
           </main>
           <footer class="flex justify-center bg-transparent">
             <button class="bg-blue-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">
-              Confirm
+              <%= t("Confirm") %>
             </button>
           </footer>
         </div>

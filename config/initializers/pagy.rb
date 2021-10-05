@@ -183,3 +183,4 @@ Pagy::VARS[:size]       = [1,2,2,1]                       # default
 
 # Default i18n key
 # Pagy::VARS[:i18n_key] = 'pagy.item_name'   # default
+require 'pagy/extras/i18n'

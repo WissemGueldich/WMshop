@@ -7,7 +7,7 @@
       <% end %>
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <div class="flex flex-row justify-between">
-          <h2 class="text-sm title-font text-gray-500 tracking-widest"><%= Category.find(@product.category_id).title %></h2>
+          <h2 class="text-sm title-font text-gray-500 tracking-widest"><%= t(Category.find(@product.category_id).title) %></h2>
           <div>
             <% if current_user && current_user.admin %>
               <%= link_to delete_product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "right-0 float-right inline mx-2" do %>
@@ -26,7 +26,7 @@
                   <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
                 <% end %>
               </div>
-              <span class="text-gray-600 ml-1"><%= pluralize( @reviews.length, 'Review' ) %> </span>
+              <span class="text-gray-600 ml-1"><%= pluralize( @reviews.length, t('Reviews') ) %> </span>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           </div>
           <div class="flex ml-6 items-center">
             <span class="flex items-center">
-              <span class="text-gray-600 mr-2">Your Rating : </span>
+              <span class="text-gray-600 mr-2"><%= t("Your Rating") %> : </span>
               <% if current_user %>
                 <% ratings = Rating.where(user_id: current_user.id ,product_id: @product.id) %>
                 <%= form_with(model: @rating) do |form| %>  
@@ -103,7 +103,7 @@
             <%= hidden_field_tag :product_id, @product.id %>
             <%= number_field_tag :quantity, 1, min: 1, class: "mx-3 max-w-20 w-20 inline-block text-center bg-gray-200 hover:bg-gray-300 border-1 focus:outline-none", id: "cart-number-field-show" %>
             <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded" @click="showModal2 = true">
-            Add to cart
+              <%= t("Add to cart") %>
             </button>
           <% end %>
         </div>
@@ -114,10 +114,10 @@
     <div class="max-w-4xl py-1 xl:px-5 flex justify-center mb-8 mx-auto">
       <div class="w-11/12 mt-2 md:mt-0 ">
         <%= form_with(model: @comment,class: "relative h-auto py-10 overflow-hidden bg-gray-100 border-b-2 border-gray-300 rounded-lg shadow-2xl px-7") do |form| %>
-          <h3 class="mb-6 text-2xl font-medium text-center">Write a comment</h3>
+          <h3 class="mb-6 text-2xl font-medium text-center"><%= t("Write a comment") %></h3>
 
           <div class="field">
-            <%= form.text_area :content,class:"w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none",placeholder:"Write your comment", rows:"3", cols:"33" %>
+            <%= form.text_area :content,class:"w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none",placeholder:t("Your comment"), rows:"3", cols:"33" %>
           </div>
 
           <div class="hidden">
@@ -128,7 +128,7 @@
             <%= form.text_field :product_id, value: @product.id %>
           </div>
           <div class="flex float-right">
-            <input type="submit" value="Submit comment" name="submit" class="text-white px-4 py-3 bg-blue-500 rounded-lg">
+            <input type="submit" value=<%= t("Submit comment") %> name="submit" class="text-white px-4 py-3 bg-blue-500 rounded-lg">
           </div>
         <% end %>
       <% end %>
@@ -192,19 +192,21 @@
               ></path>
             </svg>
           </div>
-          <h2 class="font-semibold text-2xl">Success</h2>
+          <h2 class="font-semibold text-2xl"><%= t("Success") %></h2>
         </header>
         <main class="p-3 text-center">
           <p>
-            <div id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
-          </p>
+            <div>
+              <div class="inline" id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
+              <div class="inline" ><%= t("has been added to your cart") %>.</div>
+            </div>          </p>
         </main>
         <footer class="flex justify-center bg-transparent">
           <button
             class="bg-blue-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300"
             @click="showModal2 = false"
           >
-            Confirm
+          <%= t("Confirm") %>
           </button>
         </footer>
       </div>

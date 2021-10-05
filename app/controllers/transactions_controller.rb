@@ -1,6 +1,6 @@
 class TransactionsController < ApplicationController
     def index
-        @transactions = Transaction.where(user_id: current_user.id).order("created_at DESC")
+        @pagy, @transactions = pagy(Transaction.where(user_id: current_user.id).order("created_at DESC"),items: 10)
     end
 
     def invoice 

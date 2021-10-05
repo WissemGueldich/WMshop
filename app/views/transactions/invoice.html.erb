@@ -44,7 +44,7 @@
                         </svg>				  
                     </div>
                     <div x-show.transition="showTooltip" class="z-40 shadow-lg text-center w-32 block absolute right-0 top-0 p-2 mt-12 rounded-lg bg-gray-800 text-white text-xs">
-                        Print this invoice!
+                        <%= t("Print this invoice") %>!
                     </div>
                 </div>
             </div>
@@ -52,37 +52,37 @@
 		<div id="js-print-template" x-ref="printTemplate" class="">
 			<div class="mb-8 flex justify-between">
 				<div>
-					<h2 class="text-3xl font-bold mb-6 pb-2 tracking-wider uppercase">Invoice</h2>
+					<h2 class="text-3xl font-bold mb-6 pb-2 tracking-wider uppercase"><%= t("Invoice") %></h2>
 
 					<div class="mb-1 flex items-center">
-						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Invoice No.</label>
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide"><%= t("Invoice N°") %></label>
 						<span class="mr-4 inline-block">:</span>
 						<div >#<%= @transaction.id %></div>
 					</div>
 		
 					<div class="mb-1 flex items-center">
-						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Invoice Date</label>
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide"><%= t("Invoice Date") %></label>
 						<span class="mr-4 inline-block">:</span>
-						<div><%= @transaction.created_at %></div>
+						<div><%= @transaction.created_at.to_s.split[0] %></div>
 					</div>
 		
 					<div class="mb-1 flex items-center">
-						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide">Due date</label>
+						<label class="w-32 text-gray-800 block font-bold text-xs uppercase tracking-wide"><%= t("Due date") %></label>
 						<span class="mr-4 inline-block">:</span>
-						<div><%= @transaction.created_at %></div>
+						<div><%= @transaction.created_at.to_s.split[0] %></div>
 					</div>
 				</div>
 			</div>
 
 			<div class="flex justify-between mb-10">
 				<div class="w-1/2">
-					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide">Bill To:</label>
+					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide"><%= t("Bill To") %>:</label>
 					<div>
 						<div><%= current_user.name %></div>
 					</div>
 				</div>
 				<div class="w-1/2">
-					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide">From:</label>
+					<label class="text-gray-800 block mb-2 font-bold text-xs uppercase tracking-wide"> <%= t("From") %>:</label>
 					<div>
 						<div>WMShop</div>
 					</div>
@@ -92,23 +92,23 @@
 			<div class="flex flex-wrap -mx-1 border-b py-2 items-start">
 
 				<div class="flex-1 px-1">
-					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold">Product</p>
+					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold"><%= t("Product") %></p>
 				</div>
 	
 				<div class="px-1 w-32 text-right">
-					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold">Quantity</p>
+					<p class="text-gray-600 uppercase tracking-wide text-xs font-bold"><%= t("Quantity") %></p>
 				</div>
 	
 				<div class="px-1 w-32 text-right">
 					<p class="leading-none">
-						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600">Unit Price</span>
+						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600"><%= t("Unit Price") %></span>
 						<span class="font-medium text-xs text-gray-500">(Incl. GST)</span>
 					</p>
 				</div>
 	
 				<div class="px-1 w-32 text-right">
 					<p class="leading-none">
-						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600">Amount</span>
+						<span class="block uppercase tracking-wide text-xs font-bold text-gray-600"><%= t("Amount") %></span>
 						<span class="font-medium text-xs text-gray-500">(Incl. GST)</span>
 					</p>
 				</div>
@@ -142,7 +142,7 @@
 					</div>
 				</div>
 				<div class="flex justify-between mb-4">
-					<div class="text-sm text-gray-600 text-right flex-1">GST(18%) incl. in Total</div>
+					<div class="text-sm text-gray-600 text-right flex-1">GST(18%) incl. <%= t("in Total") %></div>
 					<div class="text-right w-40">
 						<div class="text-sm text-gray-600" ><%= number_to_currency @transaction.sub_total %></div>
 					</div>
@@ -150,7 +150,7 @@
 			
 				<div class="py-2 border-t border-b">
 					<div class="flex justify-between">
-						<div class="text-xl text-gray-600 text-right flex-1">Amount due</div>
+						<div class="text-xl text-gray-600 text-right flex-1"><%= t("Amount due") %></div>
 						<div class="text-right w-40">
 							<div class="text-xl text-gray-800 font-bold" ><%= number_to_currency @transaction.sub_total %></div>
 						</div>

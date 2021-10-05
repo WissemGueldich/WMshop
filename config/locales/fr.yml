@@ -1,0 +1,358 @@
+fr:
+  hello:
+  categories: "Catégories"
+  add product: "Ajouter Produit"
+  Manage Categories: "Gérer Catégories"
+  Client Support: "Support Client"
+  Search for a product: "Cherchez un produit"
+  Edit Account: "Éditer mon Compte"
+  My Orders: "Mes Commandes"
+  Sign Out: "Se déconnecter"
+  Your cart is empty: "Votre panier est vide"
+  Your cart: "Votre panier"
+  Home & Office: "Maison & Bureau"
+  Electronics: "Electroniques"
+  Computers & Equipments: "Ordinateurs et équipements"
+  Fashion: "Mode"
+  Garden & Outdoors: "Jardin & Extérieur"
+  Phones & Tablets: "Téléphones & Tablettes"
+  Games & Consoles: "Jeux & Consoles"
+  Sign In: "Se Connecter"
+  Sign in: "Se connecter"
+  Sign Up: "S'inscrire"
+  Small Appliances: "Petit Électroménager"
+  Home: "Maison"
+  Kitchen: "Cuisine"
+  Large Appliances: "Gros Électroménager"
+  Review: "Avi"
+  Reviews: "Avis"
+  Name: "Nom"
+  Save Variant: "Sauvgarder Variante"
+  Edit Variant: "Éditer Variante"
+  New Variant: "Nouvelle Variante"
+  Add Variant: "Ajouter Variante"
+  Back: "Retour"
+  Microwaves: "Micro-Ondes"
+  Add Product to this Variant: "Ajouter Produit à Cette Variante"
+  Add to cart: "Ajouter Au Panier"
+  Success: "Succès"
+  Confirm: "Confirmer"
+  Save Sub-Category: "Savgarder Sous-Catégorie"
+  Edit Sub-Category: "Éditer Sous-Catégorie"
+  New Sub-Category: "Nouvelle Sous-Catégorie"
+  Save Category: "Savgarder Catégorie"
+  Edit Category: "Éditer Catégorie"
+  New Category: "Nouvelle Catégorie"
+  Add Category: "Ajouter Catégorie"
+  Add Sub-Category: "Ajouter Sous-Catégorie"
+  Variants: "Variantes"
+  Edit: "Éditer"
+  Delete: "Supprimer"
+  Payment failed: "Payement Échoué"
+  you seem to be poor: "Vous avez l'air pauvre"
+  Print this invoice: "Imprimer ce reçu"
+  Invoice: "Reçu"
+  Invoice No.: "N° Reçu"
+  Due date: "Date limite"
+  Bill To: "Facture à"
+  From: "De"
+  Product: "Produit"
+  product: "produit"
+  Quantity: "Quantité"
+  Unit Price: "Prix par Unité"
+  Amount: "Montant"
+  Amount due: "Montant à payer"
+  You can find your invoices in your orders' history: "Vous pouver trouver vos reçus dans votre historique de commandes"
+  here: "ici"
+  content: "Contenu"
+  online: "en ligne"
+  Online: "En ligne"
+  Hi: "Salut"
+  How can we help you ?: "Comment peut-on vous aider ?"
+  Send: "Envoyer"
+  Message here: "Votre message içi"
+  Save Category: "Sauvgarder Catégorie"
+  Sub-Categories: "Sous-Catégories"
+  New: "Nouveau"
+  Ad image: "Image de publicité"
+  optional: "optionnelle"
+  Show this product in the slideshow: "Afficher ce produit dans le diaporama"
+  Price: "Prix"
+  Save Product: "Sauvgarder Produit"
+  Search Result: "Résultat de Recherche"
+  SSD Drives: "Disques Durs SSD"
+  No search results for: "Pas de Résultats Pour"
+  Your Rating: "Votre Avi"
+  Write a comment: "Laissez un commentaire"
+  Your comment: "Votre commentaire"
+  Submit comment: "Commenter"
+  WM Support: "Support WM"
+  Active Conversations: "Conversations Actives"
+  Clear Cart: "Vider Panier"
+  Remove: "Supprimer"
+  Checkout: "Finaliser"
+  Your Order History: "Votre Historique De Commandes"
+  Date and Time: "Date et Temps"
+  Total Price: "Prix Total"
+  Payment Method: "Méthode de Payement"
+  Status: "statut"
+  Details: "Détails"
+  details: "détails"
+  Invoice: "Reçu"
+  Invoices: "Reçus"
+  invoice: "reçu"
+  invoices: "reçus"
+  Processing: "En Cours"
+  Credit Card: "Carte De Crédit"
+  Details of your order: "Détails de votre commande"
+  Invoice Date: "Date du Reçu"
+  Invoice N°: "N° du Reçu"
+  in Total: "en Total"
+  Product Name: "Nom du Produit"
+  has been added to your cart: "ajouté à votre panier"
+  Validating: 'Validation'
+  characters: caractères
+  Create an Account: "Créer un Compte"
+  Edit Your Account: "Éditer Voter Compte"
+  Password: "Mot de passe"
+  Password Confirmation: "Confirmer mot de passe"
+  Register Account: "S'inscrire"
+  Leave this blank if you don't want to change it: "Laissez ce champ vide si vous ne voulez pas le changer"
+  Current Password: "Mot de passe Actuel"
+  we need your current password to confirm your changes: "tapez votre mot de passe actuel pour confirmer les modifications "
+  Save Changes: "Sauvgarder les modifications"
+  Cancel Your Account: "Annuler Votre Compte"
+  Cancel my account: "Annuler mon compte"
+  Unhappy: "Pas Satisfait"
+  Welcome Back: "Bienvenu"
+  Remember me: "Se rappeler de moi"
+  Already have an account? Sign In!: "Vous avez déja un compte? Connectez-vous!"
+  Forgot your password?: "Mot de passe oublié?"
+  Forgot Your Password?: "Oublié Votre Mot De Passe ?"
+  Change Your Password: "Changer Votre Mot De Passe"
+  Didn't receive unlock instructions?: "Instructions de réinstallation non reçus ?"
+  Just enter your email address below and we'll send you a link to reset your password!: "Tapez simplement votre adresse e-mail ci-dessous et nous vous enverrons un lien pour réinitialiser votre mot de passe ! "
+  Name@Example: "Nom@Exemple"
+  Send me reset password instructions: "Envoyez les instructions de réinitialisation"
+  New password: Nouveau mot de passe
+  Confirm new password: Confirmer nouveau mot de passe
+  Change my password: Chnager mot de passe
+
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'La validation a échoué : %{errors}'
+        restrict_dependent_destroy:
+          has_one: Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record}
+            dépendant(e) existe
+          has_many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
+            dépendants existent
+  date:
+    abbr_day_names:
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
+    abbr_month_names:
+    - 
+    - jan.
+    - fév.
+    - mar.
+    - avr.
+    - mai
+    - juin
+    - juil.
+    - août
+    - sept.
+    - oct.
+    - nov.
+    - déc.
+    day_names:
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
+    formats:
+      default: "%d/%m/%Y"
+      long: "%e %B %Y"
+      short: "%e %b"
+    month_names:
+    - 
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: environ une heure
+        other: environ %{count} heures
+      about_x_months:
+        one: environ un mois
+        other: environ %{count} mois
+      about_x_years:
+        one: environ un an
+        other: environ %{count} ans
+      almost_x_years:
+        one: presqu'un an
+        other: presque %{count} ans
+      half_a_minute: une demi‑minute
+      less_than_x_seconds:
+        zero: moins d'une seconde
+        one: moins d'une seconde
+        other: moins de %{count} secondes
+      less_than_x_minutes:
+        zero: moins d'une minute
+        one: moins d'une minute
+        other: moins de %{count} minutes
+      over_x_years:
+        one: plus d'un an
+        other: plus de %{count} ans
+      x_seconds:
+        one: 1 seconde
+        other: "%{count} secondes"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_days:
+        one: 1 jour
+        other: "%{count} jours"
+      x_months:
+        one: 1 mois
+        other: "%{count} mois"
+      x_years:
+        one: 1 an
+        other: "%{count} ans"
+    prompts:
+      second: Seconde
+      minute: Minute
+      hour: Heure
+      day: Jour
+      month: Mois
+      year: Année
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: doit être accepté(e)
+      blank: doit être rempli(e)
+      confirmation: ne concorde pas avec %{attribute}
+      empty: doit être rempli(e)
+      equal_to: doit être égal à %{count}
+      even: doit être pair
+      exclusion: n'est pas disponible
+      greater_than: doit être supérieur à %{count}
+      greater_than_or_equal_to: doit être supérieur ou égal à %{count}
+      inclusion: n'est pas inclus(e) dans la liste
+      invalid: n'est pas valide
+      less_than: doit être inférieur à %{count}
+      less_than_or_equal_to: doit être inférieur ou égal à %{count}
+      model_invalid: 'Validation échouée : %{errors}'
+      not_a_number: n'est pas un nombre
+      not_an_integer: doit être un nombre entier
+      odd: doit être impair
+      other_than: doit être différent de %{count}
+      present: doit être vide
+      required: doit exister
+      taken: n'est pas disponible
+      too_long:
+        one: est trop long (pas plus d'un caractère)
+        other: est trop long (pas plus de %{count} caractères)
+      too_short:
+        one: est trop court (au moins un caractère)
+        other: est trop court (au moins %{count} caractères)
+      wrong_length:
+        one: ne fait pas la bonne longueur (doit comporter un seul caractère)
+        other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+    template:
+      body: 'Veuillez vérifier les champs suivants : '
+      header:
+        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
+        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+  helpers:
+    select:
+      prompt: Veuillez sélectionner
+    submit:
+      create: Créer un(e) %{model}
+      submit: Enregistrer ce(tte) %{model}
+      update: Modifier ce(tte) %{model}
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: milliard
+          million: million
+          quadrillion: million de milliards
+          thousand: millier
+          trillion: billion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: octet
+            other: octets
+          eb: Eo
+          gb: Go
+          kb: ko
+          mb: Mo
+          pb: Po
+          tb: To
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " et "
+      two_words_connector: " et "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%d %B %Y %Hh %Mmin %Ss"
+      long: "%A %d %B %Y %Hh%M"
+      short: "%d %b %Hh%M"
+    pm: pm

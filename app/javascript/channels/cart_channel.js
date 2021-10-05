@@ -13,7 +13,7 @@ import consumer from "./consumer"
 
       const addedProductConfirmCount = document.getElementById(`added-product-confirm-alert-${data.token}`);
       if (addedProductConfirmCount!==null){
-        addedProductConfirmCount.innerHTML =  `<strong>${data.quantity} ${data.prod}</strong> has been added to your cart.` ;
+        addedProductConfirmCount.innerHTML =  `<strong>${data.quantity} ${data.prod}</strong>` ;
       };
       
       const cartContainer = document.getElementById(`cart-container-${data.token}`);

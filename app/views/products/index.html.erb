@@ -32,7 +32,7 @@
                                     <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
                                 <% end %>
                                 </div>
-                                <span class="pb-1 text-gray-600 ml-2"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+                                <span class="pb-1 text-gray-600 ml-2"><%= pluralize( product.ratings.length, t('Reviews') ) %> </span>
                             </span>
                         </div>
                     </div>
@@ -100,19 +100,13 @@
     --tw-bg-opacity: 1;
     background-color: #ffffff;
 }
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled,
-.pagy-nav-js .page.prev.disabled,
-.pagy-nav-js .page.next.disabled {
-    --tw-bg-opacity: 1;
-    background-color: #f7871e;
-    cursor: default;
-}
+
 .pagy-nav .page.prev.disabled,
 .pagy-nav .page.next.disabled {
     --tw-bg-opacity: 1;
     background-color: #8194ff;
     color:#ffffff;
+    cursor: not-allowed;
   }
 .pagy-nav .page.active,
 .pagy-nav-js .page.active:active {

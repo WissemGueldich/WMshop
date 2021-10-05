@@ -6,7 +6,7 @@
 <% if @products.length() > 0 %>
     <div class="rounded-full py-3 px-6 bg-gradient-to-r from-blue-200">
         <h2> 
-            Search Result
+          <%= t("Search Result") %>
         </h2>
     </div>
     <div class="flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
@@ -39,7 +39,7 @@
                       <%= hidden_field_tag :product_id, product.id %>
                       <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
                       <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
-                        Add to cart
+                        <%= t("Add to cart") %>
                       </button>
                     <% end %>   
                   </div>
@@ -57,7 +57,7 @@
                         <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
                       <% end %>
                     </div>
-                    <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, 'Review' ) %> </span>
+                    <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, t('Reviews') ) %> </span>
                   </span>
                 </div>
               </div>
@@ -97,16 +97,18 @@
                       ></path>
                     </svg>
                   </div>
-                  <h2 class="font-semibold text-2xl">Success</h2>
+                  <h2 class="font-semibold text-2xl"><%= t("Success") %></h2>
                 </header>
                 <main class="p-3 text-center">
                   <p>
-                    <div id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
-                  </p>
+                    <div>
+                      <div class="inline" id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
+                      <div class="inline" ><%= t("has been added to your cart") %>.</div>
+                    </div>                  </p>
                 </main>
                 <footer class="flex justify-center bg-transparent">
                   <button class="bg-blue-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">
-                    Confirm
+                    <%= t("Confirm") %>
                   </button>
                 </footer>
               </div>
@@ -249,6 +251,6 @@
         </style>
 <% else %>
     <div class="flex justify-center flex-col mt-10" >
-        <h1 class="text-lg text-center" >No search results for <strong>"<%= params[:q] %>"</strong></h1>
+        <h1 class="text-lg text-center" ><%= t("No search results for") %> <strong>"<%= params[:q] %>"</strong></h1>
     </div>
 <% end %>

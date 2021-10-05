@@ -1,7 +1,7 @@
 
-<h1 class="mt-4 ml-4 text-xl" >Edit Category</h1>
+<h1 class="mt-4 ml-4 text-xl" ><%= t("Edit Category") %></h1>
 
 <%= render 'form', over_category: @over_category%>
 
-<%= link_to 'Back', over_categories_path, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+<%= link_to t('Back'), over_categories_path, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
 
