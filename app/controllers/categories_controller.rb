@@ -4,7 +4,23 @@ class CategoriesController < ApplicationController
     def index
       @categories = Category.all
       @pagy, @products =  pagy(Product.where(category_id: @category.id).order("created_at DESC"),items: 12)
+      prices=[]
+      @products.each do |p|
+          prices.push(p.price)
+      end
+      @min_price=prices.min
+      @max_price=prices.max
+      @pagy, @products = pagy(@products.filter_by_rating(params[:rating]), items: 12) if params[:rating].present?
+      @pagy, @products = pagy(@products.filter_by_min_price(params[:min_price]), items: 12) if params[:min_price].present?
+      @pagy, @products = pagy(@products.filter_by_max_price(params[:max_price]), items: 12) if params[:max_price].present?
+      prices=[]
+      @products.each do |p|
+          prices.push(p.price)
+      end
+      @min_price_set=prices.min
+      @max_price_set=prices.max
       @rating = Rating.new
+
     end
   
     def new

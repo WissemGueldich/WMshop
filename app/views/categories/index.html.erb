@@ -20,116 +20,245 @@
     <%= link_to t("Add Product to this Variant"), new_category_product_path, class: "mx-10 max-w-40 text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" %>
   </div>
 <% end %>
-<div class="flex min-h-full h-full mb-10 flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
-  <% @products.each do |product| %>
-    <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
-      <div class="">  
-        <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 group">
-          <div class="overflow-hidden relative cursor-pointer">
-            <% if product.image.attached?%>
-                <%= link_to product_path(product.id) do %>
-                    <%= image_tag prod_image(product,550), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
-                <%end%>
-            <% end %>
-            <div class="flex justify-center">
-            <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
-            </div>
-            </div>
-          </div>
-          <div class="px-4 py-3 bg-white">
-            <a href="#" class="">
-              <h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">
-                <%= link_to product_path(product.id) do %>
-                  <%= truncate(t(product.title), :length => 32) %>
+<div class="flex flex-row">
+  <div class="border border-solid rounded border-gray-300 bg-white shadow-lg z-40 fixed min-h-max w-48 px-1 py-5 mt-10">
+    <div class="mb-2 flex flex-col">
+      <h2 class="px-3 mb-3"><strong><%= t("Client Reviews") %></strong></h2>
+      <div class="flex flex-col pl-2">
+        <% (1..5).each do |i| %>
+          <% if params[:rating].present? && params[:rating]==i.to_s %>
+            <div> 
+              <%= link_to url_for(request.params.except(:rating)),class:"rounded-lg px-2 pb-1 mb-1 hover:bg-gray-200 max-w-max bg-gray-300" do %>
+                <% (1..i).each do |j| %>
+                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
                 <% end %>
-              </h1>
-            </a>
-            <div class="flex py-2 flex-col">
-              <%= form_tag order_items_path, remote: true, class:"flex justify-center content-center " do %>
-                <p class="text-s text-gray-600 inline-block align-top mx-1 flex ml-auto text-bleck border-0 py-2 px-4 focus:outline-none rounded-full"><%= number_to_currency product.price %></p>
-                <%= hidden_field_tag :product_id, product.id %>
-                <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
-                <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
-                  <%= t("Add to cart") %>
-                </button>
-              <% end %>   
-            </div>
-            <span class="flex items-center">
-              <% reviews = Rating.where(product_id: product.id) %>
-              <%avg_rating = 0 %>
-              <% if reviews.length > 0 %>
-                <% avg_rating = reviews.average(:score).round %>
+                <% (1..(5-i)).each do %>
+                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
+                <% end %>
+                <p class="inline pl-2"> & Plus</p>
               <% end %>
-              <div class="flex pr-3">
-                <% (1..avg_rating).each do |i| %>
-                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
+            </div>
+          <% else %>
+            <div>
+              <%= link_to request.params.merge(rating: i.to_s ),class:"rounded-lg px-2 pb-1 mb-1 hover:bg-gray-200 max-w-max" do %>
+                <% (1..i).each do |j| %>
+                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
                 <% end %>
-                <% ((avg_rating+1)..5).each do |i| %>
-                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
+                <% (1..(5-i)).each do %>
+                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
                 <% end %>
-              </div>
-              <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, t('Reviews') ) %> </span>
-            </span>
+                <p class="inline pl-2"> & Plus</p>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <hr/>
+    <h2 class="px-3 my-3"><strong><%= t("Price Range") %></strong></h2>
+    <style>
+      input[type=range]::-webkit-slider-thumb {
+      pointer-events: all;
+      width: 10px;
+      height: 24px;
+      -webkit-appearance: none;
+      }
+      input[type=number]::-webkit-outer-spin-button,
+      input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style> 
+    <div class="flex justify-center items-center">
+      <div x-data="range()" x-init="mintrigger(); maxtrigger()" class="relative max-w-xl w-40">
+        <div>
+          <input type="range"
+                step="1"
+                x-bind:min="min" x-bind:max="max"
+                x-on:input="mintrigger"
+                x-model="minprice"
+                id="min-input-rng"
+                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+          <input type="range" 
+                step="1"
+                x-bind:min="min" x-bind:max="max"
+                x-on:input="maxtrigger"
+                x-model="maxprice"
+                id="max-input-rng"
+                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+          <div class="px-1 mr-2 pr-2 mt-3 relative z-10 h-2">
+            <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200"></div>
+            <div class="absolute z-20 top-0 bottom-0 rounded-md bg-blue-300" x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
+            <div class="absolute z-30 w-4 h-4 top-0 left-0 bg-blue-300 rounded-full -mt-1 -ml-1" x-bind:style="'left: '+minthumb+'%'"></div>
+            <div class="absolute z-30 w-4 h-4 top-0 right-0 bg-blue-300 rounded-full -mt-1 -mr-3" x-bind:style="'right: '+maxthumb+'%'"></div>
+          </div>
+        </div>
+        <div class="flex justify-evenly items-center py-5">
+          <div>
+            <input id="min-input-txt" type="number" x-on:input="mintrigger" x-model="minprice" class="px-3 py-2 border bg-gray-200 border-gray-200 rounded w-16 text-center">
+          </div>
+          <div>
+            <input id="max-input-txt" type="number" x-on:input="maxtrigger" x-model="maxprice" class="px-3 py-2 border bg-gray-200 border-gray-200 rounded w-16 text-center">
           </div>
         </div>
       </div>
+      <script>
+        showOkBtn=function(){
+          document.getElementById('price-range-btn').classList.remove("hidden")
+        }
+        document.getElementById('min-input-txt').addEventListener("change",showOkBtn)
+        document.getElementById('max-input-txt').addEventListener("change",showOkBtn)
+        document.getElementById('min-input-rng').addEventListener("change",showOkBtn)
+        document.getElementById('max-input-rng').addEventListener("change",showOkBtn)
+        function range() {
+          return {
+            minprice: '<%= @min_price_set %>', 
+            maxprice: '<%= @max_price_set %>',
+            min: '<%= @min_price %>', 
+            max: '<%= @max_price %>',
+            minthumb: 0,
+            maxthumb: 0, 
+            mintrigger() {   
+              this.minprice = Math.min(this.minprice, this.maxprice - 50);      
+              this.minthumb = (((this.minprice - this.min) / (this.max - this.min)) * 100);
+              document.getElementById("min-price-fld").value=this.minprice;
+            },
+            maxtrigger() {
+              this.maxprice = Math.max(this.maxprice, this.minprice + 50); 
+              if (this.maxprice > '<%= @max_price.to_i %>'){
+                this.maxprice = '<%= @max_price.to_i %>'
+              }
+              this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+              document.getElementById("max-price-fld").value=this.maxprice;
+            }, 
+          }
+        }
+      </script>
+    </div>  
+    <div class="flex justify-center">
+      <%= form_with url: category_products_path, local: true, method: :get  do |form| %>
+        <%= form.hidden_field :q,value:params[:q] %>
+        <% if request.params[:rating].present? %>
+          <%= form.hidden_field :rating, value:params[:rating] %>
+        <% end %>
+        <%= form.hidden_field :min_price,value:@min_price,id:"min-price-fld" %>
+        <%= form.hidden_field :max_price,value:@max_price,id:"max-price-fld" %>
+        <%= form.button "OK", id:"price-range-btn", class:"hidden px-3 py-1 bg-blue-200 text-lg rounded-lg mb-1 hover:bg-blue-300 max-w-max" %>
+      <% end %>
     </div>
-  <% end %>
-  <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
-
-    <div
-      class="fixed inset-0 w-full h-full bg-black bg-opacity-50 duration-300 overflow-y-auto"
-      x-show="showModal2"
-      x-transition:enter="transition duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="transition duration-300"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-    >
-      <div class="relative inset-y-40 sm:w-1/12 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
-        <div
-          class="relative bg-white shadow-lg rounded-lg text-gray-900"
-          @click.away="showModal2 = false"
-          x-show="showModal2"
-          x-transition:enter="transition transform duration-300"
-          x-transition:enter-start="scale-0"
-          x-transition:enter-end="scale-100"
-          x-transition:leave="transition transform duration-300"
-          x-transition:leave-start="scale-100"
-          x-transition:leave-end="scale-0"
-        >
-          <header class="flex flex-col justify-center items-center p-3 text-blue-600">
-            <div class="flex justify-center w-28 h-28 border-4 border-blue-600 rounded-full mb-4">
-              <svg class="fill-current w-20" viewBox="0 0 20 20">
-                <path
-                  d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
-                ></path>
-              </svg>
-            </div>
-            <h2 class="font-semibold text-2xl"><%= t("Success") %></h2>
-          </header>
-          <main class="p-3 text-center">
-            <p >
-              <div>
-                <div class="inline" id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
-                <div class="inline" ><%= t("has been added to your cart") %>.</div>
+  </div>
+  <div class="pl-36">
+    <div class="flex min-h-full h-full mb-10 flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+      <% @products.each do |product| %>
+        <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
+          <div class="">  
+            <div class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 group">
+              <div class="overflow-hidden relative cursor-pointer">
+                <% if product.image.attached?%>
+                    <%= link_to product_path(product.id) do %>
+                        <%= image_tag prod_image(product,550), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                    <%end%>
+                <% end %>
+                <div class="flex justify-center">
+                <div class="absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
+                </div>
+                </div>
               </div>
-              
-            </p>
-          </main>
-          <footer class="flex justify-center bg-transparent">
-            <button class="bg-blue-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">
-              <%= t("Confirm") %>
-            </button>
-          </footer>
+              <div class="px-4 py-3 bg-white">
+                <a href="#" class="">
+                  <h1 class="text-gray-800 font-semibold text-lg hover:text-red-500 transition duration-300 ease-in-out">
+                    <%= link_to product_path(product.id) do %>
+                      <%= truncate(product.title, :length => 32) %>
+                    <% end %>
+                  </h1>
+                </a>
+                <div class="flex py-2 flex-col">
+                  <%= form_tag order_items_path, remote: true, class:"flex justify-center content-center " do %>
+                    <p class="text-s text-gray-600 inline-block align-top mx-1 flex ml-auto text-bleck border-0 py-2 px-4 focus:outline-none rounded-full"><%= number_to_currency product.price %></p>
+                    <%= hidden_field_tag :product_id, product.id %>
+                    <%= number_field_tag :quantity, 1, min: 1, class: " text-gray-900 mx-3 max-w-20 w-20 inline-block text-center border-1 bg-gray-200 hover:bg-gray-300 outline-none", id: "cart-number-field-index" %>
+                    <button type="submit" class="mx-3 flex ml-auto text-white bg-blue-500 border-0 py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-full" @click="showModal2 = true" >
+                      <%= t("Add to cart") %>
+                    </button>
+                  <% end %>   
+                </div>
+                <span class="flex items-center">
+                  <% reviews = Rating.where(product_id: product.id) %>
+                  <%avg_rating = 0 %>
+                  <% if reviews.length > 0 %>
+                    <% avg_rating = reviews.average(:score).round %>
+                  <% end %>
+                  <div class="flex pr-3">
+                    <% (1..avg_rating).each do |i| %>
+                      <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"  ></i>
+                    <% end %>
+                    <% ((avg_rating+1)..5).each do |i| %>
+                      <i class="focus:outline-none far fa-star text-gray-400 text-xs"  ></i>
+                    <% end %>
+                  </div>
+                  <span class="text-gray-600 ml-3"><%= pluralize( product.ratings.length, t('Reviews') ) %> </span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
+      <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
+
+        <div
+          class="fixed inset-0 w-full h-full bg-black bg-opacity-50 duration-300 overflow-y-auto"
+          x-show="showModal2"
+          x-transition:enter="transition duration-300"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition duration-300"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+        >
+          <div class="relative inset-y-40 sm:w-1/12 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto my-10 opacity-100">
+            <div
+              class="relative bg-white shadow-lg rounded-lg text-gray-900"
+              @click.away="showModal2 = false"
+              x-show="showModal2"
+              x-transition:enter="transition transform duration-300"
+              x-transition:enter-start="scale-0"
+              x-transition:enter-end="scale-100"
+              x-transition:leave="transition transform duration-300"
+              x-transition:leave-start="scale-100"
+              x-transition:leave-end="scale-0"
+            >
+              <header class="flex flex-col justify-center items-center p-3 text-blue-600">
+                <div class="flex justify-center w-28 h-28 border-4 border-blue-600 rounded-full mb-4">
+                  <svg class="fill-current w-20" viewBox="0 0 20 20">
+                    <path
+                      d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                    ></path>
+                  </svg>
+                </div>
+                <h2 class="font-semibold text-2xl"><%= t("Success") %></h2>
+              </header>
+              <main class="p-3 text-center">
+                <p >
+                  <div>
+                    <div class="inline" id="added-product-confirm-alert-<%= current_cart.order.token %>" ></div>
+                    <div class="inline" ><%= t("has been added to your cart") %>.</div>
+                  </div>
+                </p>
+              </main>
+              <footer class="flex justify-center bg-transparent">
+                <button class="bg-blue-600 font-semibold text-white py-3 w-full rounded-b-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showModal2 = false">
+                  <%= t("Confirm") %>
+                </button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </body>
     </div>
-  </body>
-</div>
-<div class="flex justify-center items-center text-center pb-5"  >
-  <%== pagy_nav(@pagy) %>
+    <div class="flex justify-center items-center text-center pb-5"  >
+      <%== pagy_nav(@pagy) %>
+    </div>
+  </div>
 </div>
 <script>
   var stars = document.getElementsByClassName("fa-star");

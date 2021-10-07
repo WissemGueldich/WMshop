@@ -13,32 +13,37 @@
     <div class="border border-solid rounded border-gray-300 bg-white shadow-lg z-40 fixed min-h-max w-48 px-1 py-5 mt-10">
       <div class="mb-2 flex flex-col">
         <h2 class="px-3 mb-3"><strong><%= t("Client Reviews") %></strong></h2>
-        <div class="flex flex-col pl-7">
+        <div class="flex flex-col pl-2">
           <% (1..5).each do |i| %>
             <% if params[:rating].present? && params[:rating]==i.to_s %>
-              <%= link_to url_for(request.params.except(:rating)),class:"rounded-lg px-1 pb-1 mb-1 hover:bg-gray-200 max-w-max bg-gray-300" do %>
-                <% (1..i).each do |j| %>
-                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+              <div> 
+                <%= link_to url_for(request.params.except(:rating)),class:"rounded-lg px-2 pb-1 mb-1 hover:bg-gray-200 max-w-max bg-gray-300" do %>
+                  <% (1..i).each do |j| %>
+                    <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+                  <% end %>
+                  <% (1..(5-i)).each do %>
+                    <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
+                  <% end %>
+                  <p class="inline pl-2"> & Plus</p>
                 <% end %>
-                <% (1..(5-i)).each do %>
-                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
-                <% end %>
-              <% end %>
+              </div>
             <% else %>
-              <%= link_to request.params.merge(rating: i.to_s ),class:"rounded-lg px-1 pb-1 mb-1 hover:bg-gray-200 max-w-max" do %>
-                <% (1..i).each do |j| %>
-                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+              <div>
+                <%= link_to request.params.merge(rating: i.to_s ),class:"rounded-lg px-2 pb-1 mb-1 hover:bg-gray-200 max-w-max" do %>
+                  <% (1..i).each do |j| %>
+                    <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+                  <% end %>
+                  <% (1..(5-i)).each do %>
+                    <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
+                  <% end %>
+                  <p class="inline pl-2"> & Plus</p>
                 <% end %>
-                <% (1..(5-i)).each do %>
-                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
-                <% end %>
-              <% end %>
+              </div>
             <% end %>
           <% end %>
         </div>
       </div>
       <hr/>
-      <!--range-->
       <h2 class="px-3 my-3"><strong><%= t("Price Range") %></strong></h2>
       <style>
         input[type=range]::-webkit-slider-thumb {
@@ -96,8 +101,8 @@
           document.getElementById('max-input-rng').addEventListener("change",showOkBtn)
           function range() {
             return {
-              minprice: '<%= @min_price %>', 
-              maxprice: '<%= @max_price %>',
+              minprice: '<%= @min_price_set %>', 
+              maxprice: '<%= @max_price_set %>',
               min: '<%= @min_price %>', 
               max: '<%= @max_price %>',
               minthumb: 0,
@@ -130,7 +135,6 @@
           <%= form.button "OK", id:"price-range-btn", class:"hidden px-3 py-1 bg-blue-200 text-lg rounded-lg mb-1 hover:bg-blue-300 max-w-max" %>
         <% end %>
       </div>
-      <!--range-->
     </div>
     <div class="pl-44">
       <div class="flex min-h-full h-full mb-10 flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-6">
