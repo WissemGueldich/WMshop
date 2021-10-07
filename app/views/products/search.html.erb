@@ -4,12 +4,136 @@
 
 
 <% if @products.length() > 0 %>
-    <div class="rounded-full py-3 px-6 bg-gradient-to-r from-blue-200">
-        <h2> 
-          <%= t("Search Result") %>
-        </h2>
+  <div class="rounded-full py-3 px-6 bg-gradient-to-r from-blue-200">
+      <h2> 
+        <%= t("Search Result") %>
+      </h2>
+  </div>
+  <div class="flex flex-row">
+    <div class="border border-solid rounded border-gray-300 bg-white shadow-lg z-40 fixed min-h-max w-48 px-1 py-5 mt-10">
+      <div class="mb-2 flex flex-col">
+        <h2 class="px-3 mb-3"><strong><%= t("Client Reviews") %></strong></h2>
+        <div class="flex flex-col pl-7">
+          <% (1..5).each do |i| %>
+            <% if params[:rating].present? && params[:rating]==i.to_s %>
+              <%= link_to url_for(request.params.except(:rating)),class:"rounded-lg px-1 pb-1 mb-1 hover:bg-gray-200 max-w-max bg-gray-300" do %>
+                <% (1..i).each do |j| %>
+                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+                <% end %>
+                <% (1..(5-i)).each do %>
+                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to request.params.merge(rating: i.to_s ),class:"rounded-lg px-1 pb-1 mb-1 hover:bg-gray-200 max-w-max" do %>
+                <% (1..i).each do |j| %>
+                  <i class="focus:outline-none fas fa-star text-yellow-400 text-xs"></i>
+                <% end %>
+                <% (1..(5-i)).each do %>
+                  <i class="focus:outline-none far fa-star text-gray-400 text-xs"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <hr/>
+      <!--range-->
+      <h2 class="px-3 my-3"><strong><%= t("Price Range") %></strong></h2>
+      <style>
+        input[type=range]::-webkit-slider-thumb {
+        pointer-events: all;
+        width: 10px;
+        height: 24px;
+        -webkit-appearance: none;
+        }
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      </style> 
+      <div class="flex justify-center items-center">
+        <div x-data="range()" x-init="mintrigger(); maxtrigger()" class="relative max-w-xl w-40">
+          <div>
+            <input type="range"
+                  step="1"
+                  x-bind:min="min" x-bind:max="max"
+                  x-on:input="mintrigger"
+                  x-model="minprice"
+                  id="min-input-rng"
+                  class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+            <input type="range" 
+                  step="1"
+                  x-bind:min="min" x-bind:max="max"
+                  x-on:input="maxtrigger"
+                  x-model="maxprice"
+                  id="max-input-rng"
+                  class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+            <div class="px-1 mr-2 pr-2 mt-3 relative z-10 h-2">
+              <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200"></div>
+              <div class="absolute z-20 top-0 bottom-0 rounded-md bg-blue-300" x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
+              <div class="absolute z-30 w-4 h-4 top-0 left-0 bg-blue-300 rounded-full -mt-1 -ml-1" x-bind:style="'left: '+minthumb+'%'"></div>
+              <div class="absolute z-30 w-4 h-4 top-0 right-0 bg-blue-300 rounded-full -mt-1 -mr-3" x-bind:style="'right: '+maxthumb+'%'"></div>
+            </div>
+          </div>
+          <div class="flex justify-evenly items-center py-5">
+            <div>
+              <input id="min-input-txt" type="number" x-on:input="mintrigger" x-model="minprice" class="px-3 py-2 border bg-gray-200 border-gray-200 rounded w-16 text-center">
+            </div>
+            <div>
+              <input id="max-input-txt" type="number" x-on:input="maxtrigger" x-model="maxprice" class="px-3 py-2 border bg-gray-200 border-gray-200 rounded w-16 text-center">
+            </div>
+          </div>
+        </div>
+        <script>
+          showOkBtn=function(){
+            document.getElementById('price-range-btn').classList.remove("hidden")
+          }
+          document.getElementById('min-input-txt').addEventListener("change",showOkBtn)
+          document.getElementById('max-input-txt').addEventListener("change",showOkBtn)
+          document.getElementById('min-input-rng').addEventListener("change",showOkBtn)
+          document.getElementById('max-input-rng').addEventListener("change",showOkBtn)
+          function range() {
+            return {
+              minprice: '<%= @min_price %>', 
+              maxprice: '<%= @max_price %>',
+              min: '<%= @min_price %>', 
+              max: '<%= @max_price %>',
+              minthumb: 0,
+              maxthumb: 0, 
+              mintrigger() {   
+                this.minprice = Math.min(this.minprice, this.maxprice - 50);      
+                this.minthumb = (((this.minprice - this.min) / (this.max - this.min)) * 100);
+                document.getElementById("min-price-fld").value=this.minprice;
+              },
+              maxtrigger() {
+                this.maxprice = Math.max(this.maxprice, this.minprice + 50); 
+                if (this.maxprice > '<%= @max_price.to_i %>'){
+                  this.maxprice = '<%= @max_price.to_i %>'
+                }
+                this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+                document.getElementById("max-price-fld").value=this.maxprice;
+              }, 
+            }
+          }
+        </script>
+      </div>  
+      <div class="flex justify-center">
+        <%= form_with url: search_path, local: true, method: :get  do |form| %>
+          <%= form.hidden_field :q,value:params[:q] %>
+          <% if request.params[:rating].present? %>
+            <%= form.hidden_field :rating, value:params[:rating] %>
+          <% end %>
+          <%= form.hidden_field :min_price,value:@min_price,id:"min-price-fld" %>
+          <%= form.hidden_field :max_price,value:@max_price,id:"max-price-fld" %>
+          <%= form.button "OK", id:"price-range-btn", class:"hidden px-3 py-1 bg-blue-200 text-lg rounded-lg mb-1 hover:bg-blue-300 max-w-max" %>
+        <% end %>
+      </div>
+      <!--range-->
     </div>
-    <div class="flex min-h-full h-full mb-10 flex-wrap  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-14">
+    <div class="pl-44">
+      <div class="flex min-h-full h-full mb-10 flex-wrap grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 px-6">
         <% @products.each do |product| %>
           <div class="post bg-transparent mb-10 text-white relative pb-full md:mb-6">
             <div class="">  
@@ -63,10 +187,8 @@
               </div>
             </div>
           </div>
-        <% end %>
-          
+        <% end %> 
         <body x-data="{ showModal1: false, showModal2: false, showModal3: false }" :class="{'overflow-y-hidden': showModal1 || showModal2 || showModal3}">
-      
           <div
             class="fixed inset-0 w-full h-full bg-black bg-opacity-50 duration-300 overflow-y-auto"
             x-show="showModal2"
@@ -119,136 +241,85 @@
       <div class="flex justify-center items-center text-center pb-5"  >
         <%== pagy_nav(@pagy) %>
       </div>
-      <script>
-        var stars = document.getElementsByClassName("fa-star");
-        var rating = 0;
-        set_star = function(data_star,data_product){
-          for (var j=1;j<=5;j++ ){
-            if(j<=data_star){
-              star = document.getElementById(`rating-star-${j}-${data_product}`);
-            star.classList.remove("text-gray-400");
-            star.classList.remove("far");
-            star.classList.add("text-yellow-400");
-            star.classList.add("fas");
-            }else{
-              star = document.getElementById(`rating-star-${j}-${data_product}`);
-              star.classList.add("text-gray-400");
-              star.classList.add("far");
-              star.classList.remove("text-yellow-400");
-              star.classList.remove("fas");
-            }
-          }
-            
-        };
-        select_star = function(){
-          var data_star=this.getAttribute("data-star");
-          var data_product=this.getAttribute("data-product");
-          set_star(data_star,data_product);
-          
-        };
-        select_rating = function(){
-          var data_star=this.getAttribute("data-star");
-          var data_product=this.getAttribute("data-product");
-          set_star(data_star,data_product);
-          rating = data_star;
-          var score = document.getElementById(`score-${data_product}`);
-          score.value = rating;
-        };
-        undo_rating = function(){
-          var data_product=this.getAttribute("data-product");
-          var score = document.getElementById(`score-${data_product}`);
-          rating = score.value;
-          var data_star=rating;
-          set_star(data_star,data_product);
-      
-        };
-          
-      
-        for (var i = 0; i < stars.length; i++) {
-          stars[i].addEventListener('click', select_star, false);
-          stars[i].addEventListener('click', select_rating, false);
-          stars[i].addEventListener('mouseenter', select_star, false);
-          stars[i].addEventListener('mouseleave', undo_rating, false);
-        };
-        
-      </script>
-      <style>
-        .pagy-nav {
-            display: flex;
-            --tw-space-x-reverse: 0;
-            margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-            margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-            padding-right: 20px;
-            padding-top: 5px;
-        }
-        .pagy-nav .page a,
-        .pagy-nav .page.active,
-        .pagy-nav .page.prev.disabled,
-        .pagy-nav .page.next.disabled,
-        .pagy-nav-js .page a,
-        .pagy-nav-js .page.active,
-        .pagy-nav-js .page.prev.disabled,
-        .pagy-nav-js .page.next.disabled {
-            display: block;
-            border-radius: 0.5rem;
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            --tw-text-opacity: 1;
-            color: #1e78f7;
-            font-weight: 600;
-            --tw-bg-opacity: 1;
-            background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
-            --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-        }
-        .pagy-nav .page a,
-        .pagy-nav .page.active,
-        .pagy-nav .page.prev.disabled,
-        .pagy-nav .page.next.disabled,
-        .pagy-nav-js .page a,
-        .pagy-nav-js .page.active,
-        .pagy-nav-js .page.prev.disabled,
-        .pagy-nav-js .page.next.disabled:hover{
-            --tw-bg-opacity: 1;
-            background-color: #1e78f7;
-        }
-        .pagy-nav .page a,
-        .pagy-nav .page.active,
-        .pagy-nav .page.prev.disabled,
-        .pagy-nav .page.next.disabled,
-        .pagy-nav-js .page a,
-        .pagy-nav-js .page.active,
-        .pagy-nav-js .page.prev.disabled,
-        .pagy-nav-js .page.next.disabled:active{
-            --tw-bg-opacity: 1;
-            background-color: #ffffff;
-        }
-        .pagy-nav .page.prev.disabled,
-        .pagy-nav .page.next.disabled,
-        .pagy-nav-js .page.prev.disabled,
-        .pagy-nav-js .page.next.disabled {
-            --tw-bg-opacity: 1;
-            background-color: #f7871e;
-            cursor: default;
-        }
-        .pagy-nav .page.prev.disabled,
-        .pagy-nav .page.next.disabled {
-            --tw-bg-opacity: 1;
-            background-color: #8194ff;
-            color:#ffffff;
-          }
-        .pagy-nav .page.active,
-        .pagy-nav-js .page.active:active {
-            --tw-bg-opacity: 1;
-            background-color: #1e3ef7;
-            --tw-text-opacity: 1;
-            color: #ffffff;
-        }
-        </style>
+    </div>
+  </div>
+  <style>
+    .pagy-nav {
+        display: flex;
+        --tw-space-x-reverse: 0;
+        margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+        margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+        padding-right: 20px;
+        padding-top: 5px;
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled {
+        display: block;
+        border-radius: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        --tw-text-opacity: 1;
+        color: #1e78f7;
+        font-weight: 600;
+        --tw-bg-opacity: 1;
+        background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+        --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled:hover{
+        --tw-bg-opacity: 1;
+        background-color: #1e78f7;
+    }
+    .pagy-nav .page a,
+    .pagy-nav .page.active,
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page a,
+    .pagy-nav-js .page.active,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled:active{
+        --tw-bg-opacity: 1;
+        background-color: #ffffff;
+    }
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled,
+    .pagy-nav-js .page.prev.disabled,
+    .pagy-nav-js .page.next.disabled {
+        --tw-bg-opacity: 1;
+        background-color: #f7871e;
+        cursor: default;
+    }
+    .pagy-nav .page.prev.disabled,
+    .pagy-nav .page.next.disabled {
+        --tw-bg-opacity: 1;
+        background-color: #8194ff;
+        color:#ffffff;
+      }
+    .pagy-nav .page.active,
+    .pagy-nav-js .page.active:active {
+        --tw-bg-opacity: 1;
+        background-color: #1e3ef7;
+        --tw-text-opacity: 1;
+        color: #ffffff;
+    }
+  </style>
 <% else %>
     <div class="flex justify-center flex-col mt-10" >
         <h1 class="text-lg text-center" ><%= t("No search results for") %> <strong>"<%= params[:q] %>"</strong></h1>

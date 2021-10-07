@@ -24,12 +24,15 @@ class RatingsController < ApplicationController
   def create
     @ratings = Rating.where(user_id: params[:rating][:user_id],product_id: params[:rating][:product_id])
     if @ratings.length !=0
-      @ratings[0].update(rating_params)
-      
+      @rating = @ratings[0]
+      @rating.update(rating_params)
     else
       @rating = Rating.new(rating_params)
       @rating.save
     end
+    product = @rating.product
+    product.rating = product.ratings.average(:score).round
+    product.save
     
   end
 

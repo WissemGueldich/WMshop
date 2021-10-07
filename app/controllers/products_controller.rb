@@ -24,6 +24,16 @@ class ProductsController < ApplicationController
 
     def search
         @pagy, @products = pagy(Product.ransack(title_cont: params[:q]).result(distinct: true),items: 12)
+        prices=[]
+        @products.each do |p|
+            prices.push(p.price)
+        end
+        @min_price=prices.min
+        @max_price=prices.max
+        #@pagy, @products = pagy(@products.filter_by_category(params[:category_id]), items: 12) if params[:category_id].present?
+        @pagy, @products = pagy(@products.filter_by_rating(params[:rating]), items: 12) if params[:rating].present?
+        @pagy, @products = pagy(@products.filter_by_min_price(params[:min_price]), items: 12) if params[:min_price].present?
+        @pagy, @products = pagy(@products.filter_by_max_price(params[:max_price]), items: 12) if params[:max_price].present?
         
         respond_to do |format|
             format.html {}

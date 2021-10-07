@@ -15,20 +15,17 @@
             <div class="px-8 pt-6 pb-2 mb-4 bg-white rounded" >
               <%= render "devise/shared/error_messages", resource: resource %>
               <%= f.hidden_field :reset_password_token %>
-
               <div class="mb-4">
-                <%= f.label :password, t("New password"), class:"block mb-2 text-sm font-bold text-gray-700" %><br />
+                <%= f.label :password, t("New password"), class:"block mb-2 text-sm font-bold text-gray-700" %>
                 <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %> <%= t("characters") %> minimum)</em><br />
+                  <em>(<%= @minimum_password_length %> <%= t("characters") %> minimum)</em>
                 <% end %>
                 <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
               </div>
-
               <div class="mb-4">
-                <%= f.label :password_confirmation, t("Confirm new password"), class:"block mb-2 text-sm font-bold text-gray-700" %><br />
+                <%= f.label :password_confirmation, t("Confirm new password"), class:"block mb-2 text-sm font-bold text-gray-700" %>
                 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
               </div>
-
               <div class="mb-6">
                 <%= f.submit t("Change my password"), class: "w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline" %>
               </div>

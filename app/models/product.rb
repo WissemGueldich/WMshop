@@ -13,6 +13,11 @@ class Product < ApplicationRecord
     has_many :comments, dependent: :destroy
     include Rails.application.routes.url_helpers
 
+    scope :filter_by_category, -> (category_id) {where category_id: category_id}
+    scope :filter_by_rating, -> (rating) {where "rating >= ?",rating }
+    scope :filter_by_min_price, -> (min_price) {where "price >= ?",min_price }
+    scope :filter_by_max_price, -> (max_price) {where "price <= ?",max_price }
+
     def thumbnail 
         return self.image.variant(resize: '300x300!').processed
     end
