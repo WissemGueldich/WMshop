@@ -260,59 +260,6 @@
     </div>
   </div>
 </div>
-<script>
-  var stars = document.getElementsByClassName("fa-star");
-  var rating = 0;
-  set_star = function(data_star,data_product){
-    for (var j=1;j<=5;j++ ){
-      if(j<=data_star){
-        star = document.getElementById(`rating-star-${j}-${data_product}`);
-      star.classList.remove("text-gray-400");
-      star.classList.remove("far");
-      star.classList.add("text-yellow-400");
-      star.classList.add("fas");
-      }else{
-        star = document.getElementById(`rating-star-${j}-${data_product}`);
-        star.classList.add("text-gray-400");
-        star.classList.add("far");
-        star.classList.remove("text-yellow-400");
-        star.classList.remove("fas");
-      }
-    }
-      
-  };
-  select_star = function(){
-    var data_star=this.getAttribute("data-star");
-    var data_product=this.getAttribute("data-product");
-    set_star(data_star,data_product);
-    
-  };
-  select_rating = function(){
-    var data_star=this.getAttribute("data-star");
-    var data_product=this.getAttribute("data-product");
-    set_star(data_star,data_product);
-    rating = data_star;
-    var score = document.getElementById(`score-${data_product}`);
-    score.value = rating;
-  };
-  undo_rating = function(){
-    var data_product=this.getAttribute("data-product");
-    var score = document.getElementById(`score-${data_product}`);
-    rating = score.value;
-    var data_star=rating;
-    set_star(data_star,data_product);
-
-  };
-    
-
-  for (var i = 0; i < stars.length; i++) {
-    stars[i].addEventListener('click', select_star, false);
-    stars[i].addEventListener('click', select_rating, false);
-    stars[i].addEventListener('mouseenter', select_star, false);
-    stars[i].addEventListener('mouseleave', undo_rating, false);
-  };
-  
-</script>
 <style>
   .pagy-nav {
       display: flex;
