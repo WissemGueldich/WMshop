@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/history', to: "transactions#index"
   get '/transactions', to: "transactions#admin_index", as: 'all_transactions'
   get '/transaction/:id/items', to: "transaction_items#index", as: 'transaction_items'
+  get '/transaction/:id/details', to: "transaction_items#admin_index", as: 'admin_transaction_items'
   get '/invoice/:id', to: "transactions#invoice", as: "invoice"
   get '/categories/:id/products', to: "categories#index", as: 'category_products'
   get '/sub_category/new/:id', to: "category_groups#new", as: 'new_sub_category'

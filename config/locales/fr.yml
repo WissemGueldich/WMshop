@@ -94,7 +94,7 @@ fr:
   Your Order History: "Votre Historique De Commandes"
   Date and Time: "Date et Temps"
   Total Price: "Prix Total"
-  Payment Method: "Méthode de Payement"
+  Payment Method: "Méthode de Paiement"
   Status: "statut"
   Details: "Détails"
   details: "détails"
@@ -104,6 +104,7 @@ fr:
   invoices: "reçus"
   Processing: "En Cours"
   Credit Card: "Carte De Crédit"
+  Details of your order: "Détails de votre commande"
   Details of the order: "Détails de la commande"
   Invoice Date: "Date du Reçu"
   Invoice N°: "N° du Reçu"
@@ -153,6 +154,9 @@ fr:
   Country: Pays
   Order total: Total de la commande
   All Transactions: Toutes Transactions 
+  Client Name: Nom du client
+  Delivery Address: Adresse de livraison
+  Client Email: Email du client
 
 
   activerecord:
