@@ -30,7 +30,6 @@ class ProductsController < ApplicationController
         end
         @min_price=prices.min
         @max_price=prices.max
-        #@pagy, @products = pagy(@products.filter_by_category(params[:category_id]), items: 12) if params[:category_id].present?
         @pagy, @products = pagy(@products.filter_by_rating(params[:rating]), items: 12) if params[:rating].present?
         @pagy, @products = pagy(@products.filter_by_min_price(params[:min_price]), items: 12) if params[:min_price].present?
         @pagy, @products = pagy(@products.filter_by_max_price(params[:max_price]), items: 12) if params[:max_price].present?
@@ -71,7 +70,7 @@ class ProductsController < ApplicationController
         if @product.update(params.require(:product).permit(:title, :image, :ad, :description, :price, :category_id, :show_ad))
             redirect_to @product, notice: 'Product was successfully updated'
         else
-            render "edit" 
+            render "edit" , alert: 'Product was not updated'
         end
     end
 

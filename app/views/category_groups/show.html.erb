@@ -1,31 +1,34 @@
-
-<div class="text-gray-900 bg-gray-200">
-  <div class="p-4 flex justify-center">
-      <h1 class="text-3xl">
-        <%= t(@category_group.name) %> <%= t("Variants") %>
-      </h1>
+<div class="my-5 pb-5 w-screen flex items-center justify-center min-h-max" >
+  <div class="border rounded-lg border-gray-300 shadow-xl text-gray-900 bg-gray-200 max-w-max max-h-max">
+    <div class="text-gray-900 bg-gray-200">
+      <div class="p-4 flex justify-center">
+          <h1 class="text-3xl">
+            <%= t(@category_group.name) %> <%= t("Variants") %>
+          </h1>
+      </div>
+      <div class="px-3 py-4 flex justify-center">
+          <table class="w-96 text-md bg-white shadow-md rounded mb-4">
+            <% @categories.each do |category| %>
+              <tr class="border-b hover:bg-orange-100 bg-gray-100">
+                <td class="p-3 px-5">
+                  <%= link_to category_products_path(category), class:"bg-transparent" do %>
+                    <%= t(category.title) %>
+                  <% end %>
+                </td>
+                <td class="p-3 px-5 flex justify-end" >
+                  <%= link_to t('Edit'), edit_category_path(category), class:"mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+                  <%= link_to t('Delete'), category, method: :delete, data: { confirm: "Deleteing this sub-category will delete all it's variants, proceed anyway ?" }, class:"text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+                </td>
+              </tr>
+            <% end %>
+            <tr class="border-b hover:bg-orange-100 bg-gray-100">
+              <td  colspan="2" class="p-3" >
+                <%= link_to t('Add Variant'), new_variant_path(@category_group.id), class:"w-full text-center flex justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+              </td>
+            </tr>
+          </table>
+      </div>
+      <%= link_to t('Back'), OverCategory.find(@category_group.over_category_id), class:"mb-2 text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
   </div>
-  <div class="px-3 py-4 flex justify-center">
-      <table class="w-96 text-md bg-white shadow-md rounded mb-4">
-        <% @categories.each do |category| %>
-          <tr class="border-b hover:bg-orange-100 bg-gray-100">
-            <td class="p-3 px-5">
-              <%= link_to category_products_path(category), class:"bg-transparent" do %>
-                <%= t(category.title) %>
-              <% end %>
-            </td>
-            <td class="p-3 px-5 flex justify-end" >
-              <%= link_to t('Edit'), edit_category_path(category), class:"mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
-              <%= link_to t('Delete'), category, method: :delete, data: { confirm: "Deleteing this sub-category will delete all it's variants, proceed anyway ?" }, class:"text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
-            </td>
-          </tr>
-        <% end %>
-        <tr class="border-b hover:bg-orange-100 bg-gray-100">
-          <td  colspan="2" class="p-3" >
-            <%= link_to t('Add Variant'), new_variant_path(@category_group.id), class:"w-full text-center flex justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
-          </td>
-        </tr>
-      </table>
-  </div>
-  <%= link_to t('Back'), OverCategory.find(@category_group.over_category_id), class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
 </div>

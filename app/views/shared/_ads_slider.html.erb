@@ -100,7 +100,6 @@
         amount = document.getElementsByClassName("slide").length;
         moveOffset = parseInt(window.getComputedStyle(document.getElementById('carousel-container')).width, 10);
         document.getElementById('carousel').style.width = (amount * moveOffset) + 'px';
-        console.log('(amount * moveOffset) is :'+(amount * moveOffset))
         for(var i = 0; i < amount; i++)
         {
             currTransl[i] = -moveOffset;

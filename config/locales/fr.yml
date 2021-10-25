@@ -67,8 +67,8 @@ fr:
   content: "Contenu"
   online: "en ligne"
   Online: "En ligne"
-  Hi: "Salut"
-  How can we help you ?: "Comment peut-on vous aider ?"
+  "Hi ": "Salut "
+  "How can we help you ? ": "Comment peut-on vous aider ?"
   Send: "Envoyer"
   Message here: "Votre message içi"
   Save Category: "Sauvgarder Catégorie"
@@ -104,7 +104,7 @@ fr:
   invoices: "reçus"
   Processing: "En Cours"
   Credit Card: "Carte De Crédit"
-  Details of your order: "Détails de votre commande"
+  Details of the order: "Détails de la commande"
   Invoice Date: "Date du Reçu"
   Invoice N°: "N° du Reçu"
   in Total: "en Total"
@@ -139,6 +139,21 @@ fr:
   Change my password: Chnager mot de passe
   Client Reviews: "Évaluation Clients"
   Price Range: "Intervalle des Prix"
+  Payment: Paiement
+  Order: Commander
+  Payed: Payé
+  On Delivery: À La Livraison
+  on Delivery: à la Livraison
+  on delivery: à la livraison
+  Payment method: Méthode de paiment
+  Shipping & Billing Information: Info. pour livraison & facturation 
+  Address: Adresse
+  Street: Rue
+  City: Ville
+  Country: Pays
+  Order total: Total de la commande
+  All Transactions: Toutes Transactions 
+
 
   activerecord:
     errors:

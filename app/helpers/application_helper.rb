@@ -6,9 +6,9 @@ module ApplicationHelper
             user.avatar.variant(resize: "#{size}x#{size}")
         end
     end
-    def prod_image(product,size=40)
+    def prod_image(product)
         if product.image.attached?
-            product.image.variant(resize: "#{size}x#{size}")
+            product.image.variant(resize: "550x550!")
         end
     end
     def prod_ad(product)

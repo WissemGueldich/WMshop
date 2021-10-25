@@ -1,0 +1,192 @@
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<div class="mx-6 my-3 bg-white py-2 border border-gray-300 rounded-lg shadow">  
+    <main class="my-8">
+        <div class="container mx-auto px-6">
+            <h3 class="text-gray-700 text-2xl font-medium"><%= t("Checkout") %></h3>
+            <div class="flex flex-col lg:flex-row mt-8">
+                <div class="w-full lg:w-1/2 order-2">
+                    <div class="mt-8 lg:w-3/4">
+                        <div>
+                            <h4 class="text-sm text-gray-500 font-medium"><%= t("Payment method") %></h4>
+                            <div class="mt-6">
+                                <label for="stripe" class="flex items-center justify-between w-full bg-white rounded-md p-4 focus:outline-none border-2 border-blue-500" id="stripe-label">
+                                    <label for="stripe" class="flex items-center">
+                                        <input type="radio" id="stripe" name="payment-method" class="form-radio h-5 w-5 text-blue-600" checked><span class="ml-2 text-sm text-gray-700">Stripe</span>
+                                    </label>
+                                    <span class="text-gray-600 text-sm"><%= t("Free") %></span>
+                                </label>
+                                <label for="on-delivery" class="mt-6 flex items-center justify-between w-full bg-white rounded-md p-4 focus:outline-none border" id="on-delivery-label">
+                                    <label for="on-delivery" class="flex items-center">
+                                        <input type="radio" id="on-delivery" name="payment-method" class="form-radio h-5 w-5 text-blue-600"><span class="ml-2 text-sm text-gray-700"><%= t("On Delivery") %></span>
+                                    </label>
+                                    <span class="text-gray-600 text-sm"><%= number_to_currency 6 %></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <hr/>
+                    <div class="leading-loose my-4">
+                        <p class="text-gray-800 font-medium mb-3"><%= t("Shipping & Billing Information")%></p>
+                        <div class="">
+                            <label class="block text-sm text-gray-00" ><%= t("Name") %></label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" value='<%= current_user.name %>' aria-label="Name" disabled >
+                        </div>
+                        <div class="mt-2">
+                            <label class="block text-sm text-gray-600" ><%= t("Email") %></label>
+                            <input class="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded" type="text" required="" value='<%= current_user.email %>' aria-label="Email" disabled >
+                        </div>
+                        <div>
+                            <div id="stripe-form" >
+                                <%= form_tag checkout_create_path, remote: true do %>
+                                    <label class=" block text-sm text-gray-600" ><%= t("Address")%></label>
+                                    <div class="mt-2">
+                                        <%= text_field_tag :street, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("Street"), required: true %>
+                                    </div>
+                                    <div class="mt-2">
+                                        <%= text_field_tag :city, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("City"), required: true %>
+                                    </div>
+                                    <div class="inline-block mt-2 w-1/2 pr-1">
+                                        <%= text_field_tag :country, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("Country"), required: true %>
+                                    </div>
+                                    <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+                                        <%= text_field_tag :zip, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder:"Zip", required: true %>
+                                    </div>
+                                    <%= hidden_field_tag :p_method, "Stripe" %>
+                                    <div class="flex items-center justify-between mt-8">
+                                        <button class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none">
+                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                                            <span class="mx-2"><%= t("Back") %></span>
+                                        </button>
+                                        <div>
+                                            <%= button_to checkout_create_path, class:"flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500", data: {disable_with: t("Validating")} do %>
+                                                <span><%= t("Payment") %></span>
+                                                <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div id="delivery-form" class="hidden">
+                                <%= form_tag on_delivery_path, remote: true do %>
+                                    <label class=" block text-sm text-gray-600" ><%= t("Address")%></label>
+                                    <div class="mt-2">
+                                        <%= text_field_tag :street, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("Street"), required: true %>
+                                    </div>
+                                    <div class="mt-2">
+                                        <%= text_field_tag :city, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("City"), required: true %>
+                                    </div>
+                                    <div class="inline-block mt-2 w-1/2 pr-1">
+                                        <%= text_field_tag :country, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder: t("Country"), required: true %>
+                                    </div>
+                                    <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+                                        <%= text_field_tag :zip, nil, class:"w-full px-2 py-2 text-gray-700 bg-gray-200 rounded", placeholder:"Zip", required: true %>
+                                    </div>
+                                    <%= hidden_field_tag :p_method, "On Delivery" %>
+                                    <div class="flex items-center justify-between mt-8">
+                                        <button class="flex items-center text-gray-700 text-sm font-medium rounded hover:underline focus:outline-none">
+                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                                            <span class="mx-2"><%= t("Back") %></span>
+                                        </button>
+                                        <div>
+                                            <%= button_to on_delivery_path, class:"flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500", data: {disable_with: t("Validating")} do %>
+                                                <span><%= t("Order") %></span>
+                                                <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full mb-8 flex-shrink-0 order-1 lg:w-1/2 lg:mb-0 lg:order-2">
+                    <div class="flex justify-center lg:justify-end">
+                        <div class="border rounded-md max-w-md w-full px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-gray-700 font-medium"><%= t("Order total")%> (<%= @items.count %>)</h3>
+                            </div>
+                            <div class=" w-full mt-4">
+                                <div class="mx-2 h-full" >
+                                    <% total = 0 %>
+                                    <% @items.each do |item| %>
+                                        <%  total = total.to_i + (item.quantity.to_i * item.price)%>
+                                        <div class="flex justify-between w-full mt-4">
+                                            <div class="flex justify-between "> 
+                                                <% if item && item.product.image.attached?%>
+                                                    <%= image_tag item.product.image_url, class:"h-20 w-20 object-cover rounded" %>
+                                                <% else %>
+                                                    <img class="h-20 w-20 object-cover rounded" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="">
+                                                <% end %>
+                                                <div class="mx-3">
+                                                    <h3 class="text-sm text-gray-600">
+                                                        <%= item.product.title %>
+                                                    </h3>
+                                                    <div class="flex items-center mt-2" >
+                                                        <button class="text-gray-500 focus:outline-none focus:text-gray-600">
+                                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                        </button>
+                                                        <span class="text-gray-700 mx-2">
+                                                            <%= item.quantity %>
+                                                        </span>
+                                                        <button class="text-gray-500 focus:outline-none focus:text-gray-600">
+                                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="min-w-max inline text-gray-400">
+                                                <%= number_to_currency item.price*item.quantity %>
+                                            </span>
+                                        </div>
+                                    <% end %>
+                                    <br/>
+                                    <hr/>
+                                    <span class="flex my-5 w-full justify-between ">
+                                        <h3 class="text-xl">
+                                            Total:
+                                        </h3>
+                                        <h6 >
+                                            <%= number_to_currency total %>
+                                        </h6>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    function stripe_fn() {
+        stripe_label.classList.add("border-2");
+        stripe_label.classList.add("border-blue-500");
+        stripe_label.classList.remove("border");
+        on_delivery_label.classList.remove("border-2");
+        on_delivery_label.classList.remove("border-blue-500");
+        on_delivery_label.classList.add("border");
+        delivery_form.classList.add("hidden")
+        stripe_form.classList.remove("hidden")
+    }
+    function on_delivery_fn() {
+        on_delivery_label.classList.add("border-2");
+        on_delivery_label.classList.add("border-blue-500");
+        on_delivery_label.classList.remove("border");
+        stripe_label.classList.remove("border-2");
+        stripe_label.classList.remove("border-blue-500");
+        stripe_label.classList.add("border");
+        stripe_form.classList.add("hidden")
+        delivery_form.classList.remove("hidden")
+    }
+    var stripe_label = document.getElementById("stripe-label");
+    var on_delivery_label = document.getElementById("on-delivery-label");
+    var stripe = document.getElementById("stripe");
+    var on_delivery = document.getElementById("on-delivery");
+    var stripe_form = document.getElementById("stripe-form");
+    var delivery_form = document.getElementById("delivery-form");
+    stripe.onclick = stripe_fn;
+    on_delivery.onclick = on_delivery_fn;
+</script>

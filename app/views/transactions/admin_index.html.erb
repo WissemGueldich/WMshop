@@ -1,5 +1,5 @@
 <div class=" my-4 flex items-center justify-center">
-    <strong><h1 class="text-center text-3xl" > <%= t("Your Order History") %> </h1></strong>
+    <strong><h1 class="text-center text-3xl" > <%= t("All Transactions") %> </h1></strong>
 </div>
 <div class="overflow-x-auto">
     <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
@@ -9,6 +9,7 @@
                     <thead>
                         <tr class="bg-blue-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Ref.</th>
+                            <th class="py-3 px-6 text-left"><%= t("Client") %></th>
                             <th class="py-3 px-6 text-left"><%= t("Date and Time") %></th>
                             <th class="py-3 px-6 text-center"><%= t("Total Price") %></th>
                             <th class="py-3 px-6 text-center"><%= t("Payment Method") %></th>
@@ -23,6 +24,11 @@
                                 <td class="py-3 px-6 text-left whitespace-nowrap">
                                     <div class="flex items-center">
                                         <span class="font-medium"><%= transaction.id %></span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-left whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <span class="font-medium"><%= transaction.user.name %></span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">

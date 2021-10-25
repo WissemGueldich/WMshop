@@ -156,7 +156,7 @@
               <div class="overflow-hidden relative cursor-pointer">
                 <% if product.image.attached?%>
                     <%= link_to product_path(product.id) do %>
-                        <%= image_tag prod_image(product,550), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
+                      <%= image_tag prod_image(product), class:"w-full transition duration-700 ease-in-out group-hover:opacity-60" %>
                     <%end%>
                 <% end %>
                 <div class="flex justify-center">

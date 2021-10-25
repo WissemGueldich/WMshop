@@ -42,7 +42,7 @@
                         </div>
 
                         <div>
-                          <label for="about" class="block text-sm font-medium text-gray-700">
+                          <label class="block text-sm font-medium text-gray-700">
                             <%= t("Price") %>
                           </label>
                             <%= f.text_field :price, class:'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none' %>
@@ -60,6 +60,6 @@
                 </div>
             <%end%>
         </div>
-        <%= link_to t('Back'), category_products_path(Category.find(params[:id])), class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link_to t('Back'), request.referer, class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
     </div>
 </div>

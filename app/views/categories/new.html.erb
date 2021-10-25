@@ -1,29 +1,29 @@
-<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-    <div class="md:grid md:grid-cols-3 md:gap-6">
-        <div class="md:col-span-1">
-            <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900"><%= t("New Variant") %></h3>
-            </div>
-        </div>
-        <div class="mt-5 md:mt-0 md:col-span-2">
-            <%= form_with model: @category, html: {multipart: true}  do |f|%>
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
-                    <div class="px-4 py-5 bg-white space-y-6 swm:p-6">
-                        <div class="grid grid-cols-3 gap-6">
-                            <div class="col-span-6 sm:col-span-3">
-                                <%= f.label t("Name"), class:"block text-sm font-medium text-gray-700" %> 
-                                <%= f.text_field :title , class:"mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none " %>
+<div class="flex justify-center" >
+    <h1 class="mt-4 ml-4 text-xl" ><%= t("New Variant") %> </h1>
+</div>
+<div class="w-screen flex items-center justify-center py-8 overflow-auto" >
+    <div class="border rounded-lg border-gray-300 shadow-xl text-gray-900 bg-gray-200 w-6/12 max-h-max">
+        <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <%= form_with model: @category, html: {multipart: true}  do |f|%>
+                    <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <div class="grid grid-cols-3 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <%= f.label t("Name"), class:"block text-sm font-medium text-gray-700" %> 
+                                    <%= f.text_field :title , class:"mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100 sec p-3 h-30  border border-gray-300 outline-none " %>
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <%= f.number_field :category_group_id, value: params[:id], class:"hidden" %>
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                            <%= f.submit t("Save Variant"), class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: {disable_with: "Validating ..."}%>
+                        </div>
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <%= f.submit t("Save Variant"), class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: {disable_with: "Validating ..."}%>
-                    </div>
-                </div>
-            <%end%>
+                <%end%>
+            </div>
+            <%= link_to t('Back'), category_group_path(CategoryGroup.find(params[:id])), class:"mt-4 text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
         </div>
-        <%= link_to t('Back'), category_group_path(CategoryGroup.find(params[:id])), class:"text-center flex w-20 justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
     </div>
 </div>
+

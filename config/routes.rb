@@ -15,12 +15,13 @@ Rails.application.routes.draw do
   resources :order_items, path: '/cart/items'
 
 
-  get '/cart', to: 'order_items#index'
+  get '/cart', to: 'order_items#index', as: 'payment_method'
   get 'rooms/:id',to: 'application#show'
   get 'categories/:id/products/new', to: 'products#new', as: 'new_category_product'
   get 'success', to: "checkout#success"
   get 'cancel', to: "checkout#cancel"
   get '/history', to: "transactions#index"
+  get '/transactions', to: "transactions#admin_index", as: 'all_transactions'
   get '/transaction/:id/items', to: "transaction_items#index", as: 'transaction_items'
   get '/invoice/:id', to: "transactions#invoice", as: "invoice"
   get '/categories/:id/products', to: "categories#index", as: 'category_products'
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   get '/variant/new/:id', to: "categories#new", as: 'new_variant'
   get :search, controller: :products
   post 'checkout/create', to: "checkout#create"
+  post 'delivery/create', to: "transactions#create", as: 'on_delivery'
   delete '/cart/clear', to: 'order_items#clear'
   delete '/products/:id', to: 'products#destroy', as: 'delete_product'
   delete '/categories/:id', to: 'categories#destroy', as: 'delete_category'

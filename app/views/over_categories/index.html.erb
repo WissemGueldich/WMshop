@@ -1,30 +1,32 @@
 
-<div class="text-gray-900 bg-gray-200">
-  <div class="p-4 flex justify-center">
+<div class="mt-5 pb-5 w-screen flex items-center justify-center min-h-max" >
+  <div class="border rounded-lg border-gray-300 shadow-xl text-gray-900 bg-gray-200 max-w-max max-h-max">
+    <div class="p-4 flex justify-center">
       <h1 class="text-3xl">
         <%= t("Categories")%> 
       </h1>
-  </div>
-  <div class="px-3 py-4 flex justify-center">
-      <table class="w-96 text-md bg-white shadow-md rounded mb-4">
-        <% @over_categories.each do |over_category| %>
+    </div>
+    <div class="px-3 py-4 flex justify-center">
+        <table class="w-96 text-md bg-white shadow-md rounded mb-4">
+          <% @over_categories.each do |over_category| %>
+            <tr class="border-b hover:bg-orange-100 bg-gray-100">
+              <td class="p-3 px-5">
+                <%= link_to over_category, class:"bg-transparent" do %>
+                  <%= t(over_category.name) %>
+                <% end %>
+              </td>
+              <td class="p-3 px-5 flex justify-end" >
+                <%= link_to t('Edit'), edit_over_category_path(over_category), class:"mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+                <%= link_to t('Delete'), over_category, method: :delete, data: { confirm: "Deleteing this category will delete all it's sub-categories, proceed anyway ?" }, class:"text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+              </td>
+            </tr>
+          <% end %>
           <tr class="border-b hover:bg-orange-100 bg-gray-100">
-            <td class="p-3 px-5">
-              <%= link_to over_category, class:"bg-transparent" do %>
-                <%= t(over_category.name) %>
-              <% end %>
-            </td>
-            <td class="p-3 px-5 flex justify-end" >
-              <%= link_to t('Edit'), edit_over_category_path(over_category), class:"mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
-              <%= link_to t('Delete'), over_category, method: :delete, data: { confirm: "Deleteing this category will delete all it's sub-categories, proceed anyway ?" }, class:"text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+            <td  colspan="2" class="p-3" >
+              <%= link_to t('Add Category'), new_over_category_path, class:"w-full text-center flex justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
             </td>
           </tr>
-        <% end %>
-        <tr class="border-b hover:bg-orange-100 bg-gray-100">
-          <td  colspan="2" class="p-3" >
-            <%= link_to t('Add Category'), new_over_category_path, class:"w-full text-center flex justify-center mx-2 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
-          </td>
-        </tr>
-      </table>
+        </table>
+    </div>
   </div>
 </div>

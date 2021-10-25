@@ -29,11 +29,8 @@ class OrderItemsController < ApplicationController
                 current_cart.order.sub_total = current_cart.order.sub_total + (item.quantity*item.price)
                 current_cart.order.save
             end
-
             UpdateCartJob.perform_later(@items, current_cart.items_count, params[:quantity].to_i, product.title, current_cart.order.token)
-
         end
-
     end
     
     def destroy

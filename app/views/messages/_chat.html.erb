@@ -53,7 +53,7 @@
         </div>
         <!-- chats -->
         <div id="messages" class="flex flex-col bg-gray-200 px-2 chat-services overflow-x-hidden overflow-auto">
-          <%= render 'messages/chat_message', message: Message.new(content: t("Hi ")+current_user.name+t(",\n How can we help you ? ")) %> 
+          <%= render 'messages/chat_message', message: Message.new(content: t("Hi ")+current_user.name+",\n "+t("How can we help you ? ")) %> 
           <% @room.messages.each do |message| %>
             <%= render 'messages/chat_message', message: message %> 
           <% end %>
